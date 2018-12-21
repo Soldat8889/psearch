@@ -1,0 +1,102 @@
+/*  ==================
+    Slider
+    ================== */
+
+.slider {
+	position: relative;
+	min-height: 350px;
+	padding-top: 15px;
+
+	&_wrapper {
+		max-width: 900px;
+		padding: 0;
+
+		overflow: hidden;
+	}
+
+	&_list {
+		@include flexbox((
+			display: flex,
+			flex-direction: row
+		));
+		width: auto;
+		min-height: 30px;
+		
+		@include transition(transform $sm_tr cubic-bezier(.74,-0.01,.36,1.07) $sm_tr);
+		
+		li {
+			line-height: 1.6;
+		}
+
+		&-buttons {
+			max-width: 200px;
+			margin: auto;
+		}
+	}
+
+	&_page {
+		@include inline-block(middle);
+		margin: auto;
+		padding: 0 15px;
+
+		overflow: hidden;
+
+		> .content-wrapper {
+			max-width: 860px;
+			margin: auto;
+		}
+	}
+
+	&_items {
+		margin-left: 140px;
+
+		svg {
+			fill: #fff;
+		}
+	}
+
+	&_footer {
+		position: relative;
+		max-width: 1200px;
+		margin-top: 20px;
+	}
+
+	&_button {
+		position: absolute;
+		top: 50%;
+		@include transform(translateY(-46%));
+
+		z-index: 10;
+
+		&--direct {
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			margin: 0 10px;
+
+			fill: #fff;
+		}
+	}
+
+	@each $name in (left), (right) {
+		&_button--#{$name} {
+			#{$name}: 20%;
+
+			&::before {
+				@if $name == left {
+					content: '\f053';
+				} @else if $name == right {
+					content: '\f054';
+				}
+				display: block;
+				width: 30px;
+				height: 30px;
+
+				font: {
+					weight: 900;
+					family: "Font Awesome 5 Free";
+				}
+			}
+		}
+	}
+}

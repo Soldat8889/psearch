@@ -1,0 +1,27 @@
+	<% if(locals.flash && locals.flash.error) { %>
+		<div class="flash theme--negative">
+			<div class="content-wrapper">
+				<span class="flash_message"><%= locals.flash.error %></span>
+				<button id="flash_delete" class="flash_button">x</button>
+			</div>
+		</div>
+	<% }
+	if(locals.flash && locals.flash.success) { %>
+		<div class="flash theme--positive">
+			<div class="content-wrapper">
+				<span class="flash_message"><%= locals.flash.success %></span>
+				<button id="flash_delete" class="flash_button">x</button>
+			</div>
+		</div>
+	<% } %>
+	<div id="scrollToTop" class="scroll-to-top">
+		<i class="fa fa-2x scroll-to-top_icon"></i>
+	</div>
+	<!-- Scripts -->
+	<script type="application/javascript" src="<%= mainJS %>"></script>
+	<script type="application/javascript">
+		window.CONF = {env: "<%= env %>"}
+		document.documentElement.classList.remove("no-js");
+	</script>
+</body>
+</html>

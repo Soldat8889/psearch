@@ -1,0 +1,19 @@
+/*  ==================
+    Media Slider
+    ================== */
+    
+@media screen and (max-width: $tablet_size) {
+	.slider {
+		&_items {
+			margin-left: 100px;
+		}
+	}
+}
+
+@media screen and (max-width: $mobile_size) {
+	.slider {
+		&_items {
+			margin-left: 0;
+		}
+	}
+}

@@ -1,0 +1,23 @@
+/*  ==================
+    Media Top Bar
+    ================== */
+
+@media screen and (max-width: 590px) {
+	.topbar {
+		&--underlined.is-in-sticky {
+			display: block;
+			margin-left: 50px;
+		}
+
+		&_menu {
+			&-icon {
+				position: absolute;
+				top: 50%;
+				left: -2px;
+				margin: 0;
+
+				@include transform(translateX(50%) translateY(-50%));
+			}
+		}
+	}
+}

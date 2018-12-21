@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "$2y$10$PykdcfLWtWRLWrBayoK36OqEsvB7V8m4ymMQyxf3tBDTkYnRys372",
+    "database": "psearch_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "$2y$10$PykdcfLWtWRLWrBayoK36OqEsvB7V8m4ymMQyxf3tBDTkYnRys372",
+    "database": "psearch_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "$2y$10$PykdcfLWtWRLWrBayoK36OqEsvB7V8m4ymMQyxf3tBDTkYnRys372",
+    "database": "psearch_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,0 +1,12 @@
+/*  ==================
+    Theme
+    ================== */
+
+@each $name, $bgc, $border, $color in (negative, #F8D7DA, #F5C6CB, #721C24), (positive, #D4EDDA, #C3E6CB, #155724) {
+	.theme--#{$name} {
+		background-color: #{$bgc};
+		border: 1px solid #{$border};
+
+		color: #{$color};
+	}
+}

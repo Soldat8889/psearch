@@ -1,0 +1,54 @@
+/*  ==================
+    Flash
+    ================== */
+
+.flash {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	@include flexbox((
+		display: flex	
+	));
+	height: 50px;
+	margin: 10px;
+
+	background-color: #FEFEFE;
+	@include border-radius(4px);
+	border: 1px solid #FDFDFE;
+	@include box-shadow(1px 1px 4px rgba(0, 0 , 0, 0.2));
+
+	font-family: $text_font;
+	color: #818182;
+
+	z-index: $help_index;
+	@include transition(transform $sm_tr, opacity $sm_tr);
+
+	&.is-hidden {
+		@include transform(translateY(110%));
+		opacity: 0;
+	}
+
+	> .content-wrapper {
+		margin: auto;
+		padding: 0.75rem 1rem;
+	}
+
+	&_message {
+		margin-right: 10px;
+
+		font-size: 1.5rem;
+	}
+
+	&_button {
+		position: absolute;
+		top: 48%;
+		right: 5px;
+		display: block;
+		content: 'x';
+
+		font-size: 2rem;
+
+		@include transform(translateY(-50%));
+		cursor: pointer;
+	}
+}

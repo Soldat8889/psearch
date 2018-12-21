@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html 
+	<% if(typeof lang !== 'undefined') { %>
+		lang="<%= lang %>"
+	<% } else { %>
+		lang="en"
+	<% } %>
+	prefix="og: http://ogp.me/ns#"
+	class="no-js"
+>
+<head>
+	<title><%= title %></title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="author" content="Soldat8889|pSearch" />
+	<meta name="publisher" content="Soldat8889|pSearch" />
+	<meta name="reply-to" content="psearchfr@gmail.com" />
+	<meta name="copyright" content="Copyright © 2018 pSearch" />
+	<meta name="Identifier-URL" content="https://psearch.alwaysdata.net" />
+	<meta name="description" content="<%= description %>" />
+	<meta name="category" content="Searching Players, Playing, Chatting" />
+	<meta name="language" content="fr, en" />
+	<meta name="keywords" content="players, search, play, chat" />
+	<meta name="theme-color" content="#30AE60" />
+	<meta name="og:title" content="<%= title %>" />
+	<meta name="og:description" content="<%= description %>" />
+	<meta name="og:locale" content="fr_FR" />
+	<meta name="og:site_name" content="pSearch" />
+	<meta name="og:url" content="<%= url %>" />
+	<meta name="og:type" content="website" />
+	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="<%= mainCSS %>" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/regular.css" integrity="sha384-4e3mPOi7K1/4SAx8aMeZqaZ1Pm4l73ZnRRquHFWzPh2Pa4PMAgZm8/WNh6ydcygU" crossorigin="anonymous" />
+</head>
+<body class="has-no-scroll">
+	<div class="loader" data-state="onload">
+		<div class="loader_content">
+			<span class="loader_bubble"></span>
+			<span class="loader_bubble"></span>
+			<span class="loader_bubble"></span>
+		</div>
+	</div>

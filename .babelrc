@@ -1,0 +1,17 @@
+{
+	"presets": [
+		["@babel/preset-react", {
+			"throwIfNamespace": false
+		}],
+		["@babel/preset-env", {
+			"modules": false,
+			"targets": {
+				"browsers": ["last 2 versions", "safari >= 8", "ie >= 8"]
+			}
+		}]
+	],
+	"plugins": [
+		"syntax-dynamic-import",
+		"react-hot-loader/babel"
+	]
+}

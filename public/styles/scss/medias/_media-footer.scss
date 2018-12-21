@@ -1,0 +1,31 @@
+/*  ==================
+    Media Footer
+    ================== */
+
+@media screen and (max-width: 800px) {
+    .l-footer {
+        @include grid-template(column, 1fr);
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .l-footer {
+        &_item {
+            &:nth-child(3) {
+                @include grid-child(1, 3, unset, unset);
+            }
+
+            &[data-has-border] {
+                border-right: none;
+            }
+
+            &[data-has-border]:first-child {
+                border-right: dashed 2px #fff;
+            }
+
+            &-group {
+                @include grid-template(column, 0.75fr 1fr);
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+/*  ==================
+    Page
+    ================== */
+
+.root {
+    @include transition(opacity $lo_tr);
+}
+
+.root[data-state="onload"] {
+    opacity: 0;
+}
+
+.page-part-wrapper {
+    position: relative;
+}
+
+.page-part-content {
+    position: relative;
+    padding-bottom: 30px;
+
+    z-index: 1;
+}
+
+.container {
+    @include flexbox((
+        display: flex,
+        flex-direction: column
+    ));
+    max-width: 1300px;
+    margin: 0 auto;
+
+    padding: 25px 2.5%;
+
+    z-index: 2;
+
+    @media screen and (max-width: $tablet_size) {
+        padding: 0;
+    }
+}
+
+.all-page-size {
+    @include flexbox((
+        display: flex,
+        flex-direction: column
+    ));
+    width: 100%;
+    min-height: 100vh;
+
+    > .content-wrapper {
+        margin: auto;
+
+        text-align: center;
+
+        > * {
+            font-size: 4rem;
+        }
+    }
+}
+
+.page-part-border {
+    position: absolute;
+    bottom: 0;
+
+    fill: $primary_col;
+
+    z-index: 0;
+}

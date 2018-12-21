@@ -1,0 +1,101 @@
+{
+    "title": {
+        "index": "pSearch: Search, Chat, Play !",
+        "authentication": "pSearch: Authentication",
+        "errors": {
+            "404": "pSearch: 404 Error"
+        }
+    },
+    "description": {
+        "index": "Qu'est-ce que c'est pSearch ? pSearch est un site web qui permet de rechercher des joueurs, de discuter et de jouer avec eux, qu'ils soient des noobs ou bien des hard-players ! À vos manettes !",
+        "authentication": "Connexion et inscription au site web pSearch. Cela permet d'ouvrir une multitude d'accès: avoir un compte à votre nom, permettre d'être recherché ...",
+        "errors": {
+            "404": "Vous vous êtes perdu ; cette page n'existe pas ou plus ! Veuillez réessayer ultérieurement ou bien rendez vous sur une autre page qui est existante."
+        }
+    },
+    "widgets": {
+        "slider1": {
+            "item1": {
+                "title": "Find, meet, play !",
+                "list": {
+                    "item1": "Find players all around the world that match your criteria: <br \/>Are you looking for someone who plays rather seriously or for the fun, who plays League of Legends or Fortnite ?'",
+                    "item2": "Meet players with whom you talk strategy, roles, ... or simply discuss then, play !"
+                }
+            },
+            "item2": {
+                "title": "A rating system !",
+                "list": {
+                    "item1": "Rate the players with whom you had play with the help of meaningful icons and the help of stars:<br /><div class=\"box-wrapper\"><ul class=\"rating-icons_list box-inner\"><li class=\"rating-icons chrome-test rating-icons_list-teamplayer\" data-tooltip=\"Teamplayer\" data-tooltip-theme=\"positive\"></li><li class=\"rating-icons chrome-test rating-icons_list-friendly\" data-tooltip=\"Friendly Player\" data-tooltip-theme=\"positive\"></li><li class=\"rating-icons chrome-test rating-icons_list-leader\" data-tooltip=\"Leader player\" data-tooltip-theme=\"positive\"></li><li class=\"rating-icons chrome-test rating-icons_list-troll\" data-tooltip=\"Troll\" data-tooltip-theme=\"negative\"></li><li class=\"rating-icons chrome-test rating-icons_list-toxic\" data-tooltip=\"Toxic Player\" data-tooltip-theme=\"negative\"></li><li class=\"rating-icons chrome-test rating-icons_list-anti-playing\" data-tooltip=\"Anti-playing\" data-tooltip-theme=\"negative\"></li></ul></div><div class=\"box-wrapper\"><div class=\"box-inner\"><span class=\"rating-icons chrome-test rating-icons_list-star--full\"></span><span class=\"rating-icons chrome-test rating-icons_list-star--full\"></span><span class=\"rating-icons chrome-test rating-icons_list-star--full\"></span><span class=\"rating-icons chrome-test rating-icons_list-star--half\"></span><span class=\"rating-icons chrome-test rating-icons_list-star--empty\"></span></div></div><br />",
+                    "item2": "A bad experience with a certain player ? Was he toxic ? Report him with the \"Toxic\" icon<span class=\"rating-icons chrome-test rating-icons_list-toxic\" data-tooltip=\"Toxic Player\" data-tooltip-theme=\"negative\"></span>. Or on the contrary, he was friendly with you. Rate him with a good rating."
+                }
+            },
+            "item3": {
+                "title": "Prout va !",
+                "list": {
+                    "item1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et aperiam illum labore consectetur consequatur maiores odit magnam magni rem, molestias tempora voluptate ipsa tempore sequi, sint quae impedit cumque, aspernatur.",
+                    "item2": "Cumque enim facere sunt incidunt cupiditate minus reiciendis aliquam deserunt ipsam officia. Vel ad minima vero maiores cupiditate magni error ipsa neque asperiores reprehenderit, tenetur natus optio, mollitia labore nihil?"
+                }
+            }
+        }
+    },
+    "heading": {
+        "navigation": {
+            "linksTitles": {
+                "homepageSub": "Search, Chat, Play !",
+                "forum": "Forum",
+                "patchNotes": "Patch Notes",
+                "feedback": "Feedback",
+                "authentication": "Log In"
+            },
+            "links": {
+                "homepage": "/",
+                "forum": "#",
+                "patchNotes": "#",
+                "feedback": "#",
+                "authentication": "/authentication/#/"
+            }
+        }
+    },
+    "body": {
+        "alert": {
+            "fullscreen": {
+                "cookie": {
+                    "header": {
+
+                    },
+                    "body": {
+
+                    },
+                    "footer": {
+                        
+                    }
+                },
+                "pub": {
+                    "exit": "Don't display again for today"
+                }
+            }
+        }
+    },
+    "footer": {
+        "basics": {
+            "col1": {
+                "heading": "pSearch",
+                "subs": {
+                    "1": "© 2018 pSearch",
+                    "2": "All rights reserved"
+                }
+            },
+            "col2": {
+                "heading": "SUMMARY"
+            },
+            "col3": {
+                "list": {
+                    "1": "About"
+                }
+            },
+            "col4": {
+
+            }
+        }
+    }
+}
