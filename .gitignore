@@ -8,11 +8,7 @@
 # Production
 /build
 
-<<<<<<< HEAD
-# misc.
-=======
-# Misc
->>>>>>> exp
+# Misc.
 .DS_Store
 .env.local
 .env.development.local
