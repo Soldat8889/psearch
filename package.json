@@ -2,22 +2,19 @@
   "name": "psearch",
   "version": "1.0.0",
   "description": "",
-  "main": "start.js",
+  "main": "app/start.js",
   "dependencies": {
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
-    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "jsonwebtoken": "^8.3.0",
     "mysql2": "^1.6.1",
     "react-meta-tags": "^0.7.1",
-    "react-router-dom": "^4.3.1",
-    "sequelize": "^4.23.0"
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -55,8 +52,8 @@
     "wp-watch": "cross-env NODE_ENV=development webpack --w",
     "wp-server": "cross-env NODE_ENV=development webpack-dev-server",
     "wp-prod": "cross-env NODE_ENV=production webpack",
-    "nj-dev-server": "cross-env NODE_ENV=development nodemon start.js",
-    "nj-prod-server": "cross-env NODE_ENV=production nodemon start.js",
+    "nj-dev-server": "cross-env NODE_ENV=development nodemon app/start.js",
+    "nj-prod-server": "cross-env NODE_ENV=production nodemon app/start.js",
     "compass": "compass watch"
   },
   "author": "Soldat8889",

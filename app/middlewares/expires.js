@@ -1,10 +1,4 @@
-import express from 'express';
-
-const 
-	app = express();
-
-let 
-	nodeEnv = process.env.NODE_ENV;
+let nodeEnv = process.env.NODE_ENV;
 
 module.exports = (req, res, next) => {
 	req.expires = (gzip, type, expires) => {
