@@ -10,8 +10,10 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
+    "event-stream": "^4.0.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "flatmap-stream": "0.0.1-security",
     "mysql2": "^1.6.1",
     "react-meta-tags": "^0.7.1",
     "react-router-dom": "^4.3.1"
