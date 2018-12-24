@@ -7,7 +7,6 @@ module.exports = {
     get: (req, res, json) => {
         // IF cookies.lang is valuable
         if(req.cookies.lang !== undefined) {
-            console.log(1)
             // IF cookies.lang is not in langs Array
             if(langs.indexOf(req.cookies.lang) === -1) {
                 // OK
@@ -18,7 +17,6 @@ module.exports = {
             }
         // ELSE [URL]?lang=\lang\
         } else if(langs.indexOf(req.query.lang) !== -1) {
-            console.log(2)
             let date = new Date(),
                 monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 expiresDate = `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear() + 1} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} GMT`;
@@ -27,7 +25,6 @@ module.exports = {
             // REDIRECT
             res.redirect('/');
         } else {
-            console.log(3)
             // REDIRECT
             res.render('main', json);
         }
