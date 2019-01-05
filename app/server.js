@@ -2,54 +2,65 @@ import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import errorHandler from 'errorhandler';
 import ejs from 'ejs';
+
+// Custom Middlewares
 import flash from './middlewares/flash';
 import gzipHeaders from './middlewares/gzip_headers';
 import routes from './routes/routes';
 
+// Mongoose's promise to global promise
+mongoose.promise = global.Promise;
+
+// Initiate app
 let 
 	app = express(),
 	nodeEnv = process.env.NODE_ENV;
 
-// Define Node Environment
+// Define the HOST & PORT
 if(nodeEnv === 'development') {
 	process.env.PORT = 8000;
 	process.env.HOST = 'localhost';
 } else if(nodeEnv === 'production') {
+	// When the server is in Alwaysdata
 	process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
 	process.env.HOST = process.env.ALWAYSDATA_HTTPD_IP;
 }
 
+// Configure app
 // View Engine
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'ejs');
 
-// Enable cookieParser
-app.use(cookieParser());
-
-// Enable bodyParser
+app.use(cors());
+app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Enable expressSession
 app.use(session({
 	secret: 'secretSession',
 	resave: false,
 	saveUninitialized: true,
 	cookie: { secure: false }
 }));
+app.use(cookieParser());
 
-// Enable flash message
 app.use(flash);
-
-// Set gzip headers
 app.use(gzipHeaders);
-
 // Use STATIC files
 app.use('/assets', express.static('public'));
-
 // Mount the routes
 app.use(routes);
+
+if(nodeEnv !== 'production') {
+	app.use(errorHandler());
+}
+
+//Configure Mongoose
+mongoose.connect('mongodb://localhost/psearch', { useNewUrlParser: true });
+mongoose.set('debug', true);
 
 // Mount server
 app.listen(process.env.PORT, process.env.HOST, () => {
