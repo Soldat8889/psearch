@@ -3,7 +3,6 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import errorHandler from 'errorhandler';
 import ejs from 'ejs';
 
@@ -11,9 +10,6 @@ import ejs from 'ejs';
 import flash from './middlewares/flash';
 import gzipHeaders from './middlewares/gzip_headers';
 import routes from './routes/routes';
-
-// Mongoose's promise to global promise
-mongoose.promise = global.Promise;
 
 // Initiate app
 let 
@@ -57,10 +53,6 @@ app.use(routes);
 if(nodeEnv !== 'production') {
 	app.use(errorHandler());
 }
-
-//Configure Mongoose
-mongoose.connect('mongodb://localhost/psearch', { useNewUrlParser: true });
-mongoose.set('debug', true);
 
 // Mount server
 app.listen(process.env.PORT, process.env.HOST, () => {
