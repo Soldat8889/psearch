@@ -6,40 +6,10 @@ class Authentication extends React.Component {
 		super(props);
 
 		this.state = {
-			appJS: null,
-			contextID: null
+			appJS: null
 		}
 
-		this.renderingContext = this.renderingContext.bind(this);
-	}
-
-	componentDidMount(props) {		
-		const getHash = () => {
-			let
-				signup = window.location.hash === '#/signup',
-				login = window.location.hash === '#/login';
-
-			switch (true) {
-				case signup:
-					this.setState({
-						contextID: 'signup'
-					})
-					break;
-				case login:
-					this.setState({
-						contextID: 'login'
-					})
-					break;
-				default:
-					this.setState({
-						contextID: 'choose'
-					})
-					break;
-			}
-		}
-
-		window.addEventListener('hashchange', getHash, false);
-		getHash();
+		this.renderingContent = this.renderingContent.bind(this);
 	}
 
 	componentWillMount() {
@@ -73,16 +43,13 @@ class Authentication extends React.Component {
 		document.body.removeChild(document.querySelector(`script[src="${this.state.appJS}"]`));
 	}
 
-	renderingContext() {
-		switch (this.state.contextID) {
+	renderingContent(type) {
+		switch(type) {
 			case 'signup':
-				return (<SingUp />);
+				return <SignUp />
 				break;
 			case 'login':
-				return (<LogIn />);
-				break;
-			default:
-				return (<Choose />);
+				return <LogIn />
 				break;
 		}
 	}
@@ -93,33 +60,40 @@ class Authentication extends React.Component {
 				<div id="packed" className="packed"></div>
 				<section id="context" className="page-part-wrapper" data-context-id={this.state.contextID}>
 					<div className="background-overlay chrome-test overlay--portal"></div>
-					{this.renderingContext()}
+					{this.renderingContent(this.props.type)}
 				</section>
 			</section>
 		);
 	}
 }
 
-class Choose extends React.Component {
+class SignUp extends React.Component {
 	render() {
 		return (
 			<div className="page-part-content">
-				<a href="/authentication/#/signup" className="me-text">
-					SIGN UP
-				</a>
-				<a href="/authentication/#/login" className="me-text">
-					LOG IN
-				</a>
-			</div>
-		);
-	}
-}
-
-class SingUp extends React.Component {
-	render() {
-		return (
-			<div className="page-part-content">
-				<h1>I chose Sing Up</h1>
+				<h1>Sign up</h1>
+				<form action="/signup" method="POST">
+					<div>
+						<label>Username:</label>
+						<input type="text" name="username" />
+						<br/>
+					</div>
+					<div>
+						<label>Email:</label>
+						<input type="email" name="email" />
+					</div>
+					<div>
+						<label>Password:</label>
+						<input type="password" name="password" />
+					</div>
+					<div>
+						<label>Bio:</label>
+						<input type="text" name="bio" />
+					</div>
+					<div>
+						<input type="submit" value="Submit" />
+					</div>
+				</form>
 			</div>
 		);
 	}
@@ -130,7 +104,7 @@ class LogIn extends React.Component {
 		return (
 			<div className="page-part-content">
 				<h1>I chose Log In</h1>
-				<form action="/authentication/#/login" method="post">
+				<form action="/login" method="POST">
 					<div>
 						<label>Username:</label>
 						<input type="text" name="username" />

@@ -1,14 +1,16 @@
 {
     "title": {
         "index": "pSearch: Cherchez, Discutez, Jouez !",
-        "authentication": "pSearch: Authentification",
+        "signup": "pSearch: S'inscrire",
+        "login": "pSearch: Se connecter",
         "errors": {
             "404": "pSearch: Erreur 404"
         }
     },
     "description": {
         "index": "Qu'est-ce que c'est pSearch ? pSearch est un site web qui permet de rechercher des joueurs, de discuter et de jouer avec eux, qu'ils soient des noobs ou bien des hard-players ! À vos manettes !",
-        "authentication": "Connexion et inscription au site web pSearch. Cela permet d'ouvrir une multitude d'accès: avoir un compte à votre nom, permettre d'être recherché ...",
+        "signup": "Ayez un compte sur pSearch pour vous ouvrir à une toute nouvelle expérience utilisateur !",
+        "login": "Reconnectez vous à votre compte pour revenir à jouer !",
         "errors": {
             "404": "Vous vous êtes perdu ; cette page n'existe pas ou plus ! Veuillez réessayer ultérieurement ou bien rendez vous sur une autre page qui est existante."
         }
@@ -44,14 +46,16 @@
                 "forum": "Forum",
                 "patchNotes": "Notes de patch",
                 "feedback": "Feedback",
-                "authentication": "Se connecter"
+                "login": "Se connecter",
+                "signup": "S'inscrire"
             },
             "links": {
                 "homepage": "/",
                 "forum": "#",
                 "patchNotes": "#",
                 "feedback": "#",
-                "authentication": "/authentication/#/"
+                "login": "/login",
+                "signup": "/signup"
             }
         }
     },

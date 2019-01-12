@@ -6,7 +6,6 @@ import langSelect from './actions/lang_select';
 
 // Init
 // Init variables
-let app = express();
 let mainJS, mainCSS, appJS, 
 	nodeEnv = process.env.NODE_ENV;
 

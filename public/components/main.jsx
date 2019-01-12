@@ -140,12 +140,24 @@ class App extends React.Component {
                                     } 
                                 />
                                 <Route 
-                                    path="/authentication" 
+                                    path="/signup" 
                                     component={
                                         props => ( 
                                         <Authentication {...props} 
                                             config={this.state.config} 
                                             manifest={this.state.manifest}
+                                            type="signup"
+                                        /> )
+                                    } 
+                                />
+                                <Route 
+                                    path="/login" 
+                                    component={
+                                        props => ( 
+                                        <Authentication {...props} 
+                                            config={this.state.config} 
+                                            manifest={this.state.manifest}
+                                            type="login"
                                         /> )
                                     } 
                                 />
@@ -185,13 +197,24 @@ class App extends React.Component {
                                     } 
                                 />
                                 <Route 
-                                    path="/authentication" 
+                                    path="/signup" 
                                     component={
                                         props => ( 
                                         <Helmet {...props}
                                             manifest={this.state.manifest}
-                                            title={JSON.parse(this.state.config)['title']['authentication']}
-                                            description={JSON.parse(this.state.config)['description']['authentication']}
+                                            title={JSON.parse(this.state.config)['title']['signup']}
+                                            description={JSON.parse(this.state.config)['description']['signup']}
+                                        /> )
+                                    } 
+                                />
+                                <Route 
+                                    path="/login" 
+                                    component={
+                                        props => ( 
+                                        <Helmet {...props}
+                                            manifest={this.state.manifest}
+                                            title={JSON.parse(this.state.config)['title']['login']}
+                                            description={JSON.parse(this.state.config)['description']['login']}
                                         /> )
                                     } 
                                 />

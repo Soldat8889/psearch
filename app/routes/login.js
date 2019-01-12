@@ -2,10 +2,12 @@
 import express from 'express';
 import fs from 'fs';
 import langRedirect from './actions/lang_redirect';
+// Import spe this
+import bcryptjs from 'bcryptjs';
+import jwt      from 'jsonwebtoken';
+import models   from './../models';
 
-// Init
 // Init variables
-let app = express();
 let mainJS, mainCSS, appJS, 
 	nodeEnv = process.env.NODE_ENV;
 
@@ -28,12 +30,11 @@ module.exports = {
 			if(err) {
 				// REDIRECT
 				res.redirect('/lang-select');
-				return;
 			}
 			
 			langRedirect(req, res, {
-				title: JSON.parse(data)['title']['authentication'],
-				description: JSON.parse(data)['description']['authentication'],
+				title: JSON.parse(data)['title']['login'],
+				description: JSON.parse(data)['description']['login'],
 				lang: req.cookies.lang,
 				url: `${req.protocol}://${req.get('host')}${req.originalUrl}`,
 				env: nodeEnv,
@@ -48,6 +49,6 @@ module.exports = {
 		});
 	},
 	post: (req, res) => {
-		return;
-	}
+
+    }
 }

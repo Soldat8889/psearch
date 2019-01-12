@@ -46,8 +46,11 @@ const FooterLayout = (props) => {
 											link={props.config['heading']['navigation']['links']['feedback']} />
 										<hr />
 										<FooterLink 
-											title={props.config['heading']['navigation']['linksTitles']['authentication']} 
-											link={props.config['heading']['navigation']['links']['authentication']} />
+											title={props.config['heading']['navigation']['linksTitles']['signup']} 
+											link={props.config['heading']['navigation']['links']['signup']} />
+										<FooterLink 
+											title={props.config['heading']['navigation']['linksTitles']['login']} 
+											link={props.config['heading']['navigation']['links']['login']} />
 									</div>
 								</div>
 								<div className="l-footer_item" data-has-border>

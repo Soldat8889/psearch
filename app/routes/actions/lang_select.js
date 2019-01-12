@@ -1,7 +1,5 @@
 import express from 'express';
 
-let app = express();
-
 const langs = ['fr', 'en'];
 module.exports = {
     get: (req, res, json) => {

@@ -1,19 +1,31 @@
 import express from 'express';
-const app = module.exports = express();
+// Import routes
+import index from './index';
+import signup from './signup';
+import login from './login';
+import langSelect from './lang_select';
+
+// Router
+let apiRouter = express.Router();
 
 // Routes
-app.get('/', require('./index').get);
-app.post('/', require('./index').post);
+apiRouter.get('/', index.get);
+apiRouter.post('/', index.post);
 
-app.get('/authentication', require('./authentication').get);
-app.post('/authentication', require('./authentication').post);
+apiRouter.get('/signup', signup.get);
+apiRouter.post('/signup', signup.post);
 
-app.get('/lang-select', require('./lang_select').get);
-app.post('/lang-select', require('./lang_select').post);
+apiRouter.get('/login', login.get);
+apiRouter.post('/login', login.post);
+
+apiRouter.get('/lang-select', langSelect.get);
+apiRouter.post('/lang-select', langSelect.post);
 
 // Catch routes
-app.all('*', (req, res) => {
+apiRouter.all('*', (req, res) => {
     res.status(404).send({
         msg: 'Not found'
     })
 });
+
+module.exports = apiRouter;

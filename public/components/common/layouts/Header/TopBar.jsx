@@ -65,11 +65,11 @@ class NavigationBarHeader extends React.Component {
 					</button>
 					<Link 
 						to={
-							JSON.parse(this.props.config)['heading']['navigation']['links']['authentication']
+							JSON.parse(this.props.config)['heading']['navigation']['links']['login']
 						} 
 						className="topbar_button button"
 					>
-						<Text path={['heading', 'navigation', 'linksTitles', 'authentication']} config={this.props.config} />
+						<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 					</Link>
 					<button className="topbar_button sidebar--right--button" data-sidebar="right">
 						<i className="fa fa-3x"></i>
@@ -156,11 +156,11 @@ class NavigationBarInner extends React.Component {
 					<div className="topbar_options has-no-display">
 						<Link 
 							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['authentication']
+								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
 							} 
 							className="topbar_button button"
 						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'authentication']} config={this.props.config} />
+							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 						</Link>
 						<button className="topbar_button sidebar--right--button" data-sidebar="right">
 							<i className="fa fa-3x"></i>
