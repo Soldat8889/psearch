@@ -89,6 +89,7 @@ class NavigationBarInner extends React.Component {
 		let 
 			topbarHeader = document.querySelector('.topbar_header'),
 			topbarMenu = document.querySelector('.topbar_menu'),
+			topbarMenuHeading = document.querySelector('.topbar_menu-heading'),
 			topbarMenuWrapper = document.getElementById('topbar_menu-wrapper'),
 			topbarMenuWrapperCloned = document.getElementById('topbar_menu-wrapper--clone'),
 			topbarMenuLinksSticky = document.querySelectorAll('.topbar--underlined.stickytable'),
@@ -98,17 +99,19 @@ class NavigationBarInner extends React.Component {
 		window.addEventListener('scroll', (e) => {
 			for(let i = 0, j = topbarMenuLinksSticky.length; i < j; i++) {
 				if((topbarHeader.offsetTop + topbarHeader.offsetHeight) <= window.pageYOffset) {
+					topbarMenuHeading.classList.remove('has-no-display');
 					topbarMenuWrapper.classList.add('is-sticky');
 					topbarMenuLinksSticky[i].classList.add('is-in-sticky');
 					topbarMenuOptions.classList.remove('has-no-display');
-					topbarMenuIcon.classList.remove('has-no-display');
+					topbarMenuIcon.parentNode.classList.remove('has-no-display');
 
 					topbarMenuWrapperCloned.classList.remove('has-no-display');
 				} else {
+					topbarMenuHeading.classList.add('has-no-display');
 					topbarMenuWrapper.classList.remove('is-sticky');
 					topbarMenuLinksSticky[i].classList.remove('is-in-sticky');
 					topbarMenuOptions.classList.add('has-no-display');
-					topbarMenuIcon.classList.add('has-no-display');
+					topbarMenuIcon.parentNode.classList.add('has-no-display');
 
 					topbarMenuWrapperCloned.classList.add('has-no-display');
 				}
@@ -120,13 +123,15 @@ class NavigationBarInner extends React.Component {
 		return (
 			<div className="topbar_menu-wrapper" id="topbar_menu-wrapper">
 				<nav className="topbar_menu container">
+					<div className="topbar_menu-heading has-no-display"></div>
 					<span className="topbar_menu-links">
 						<Link 
 							to={
 								JSON.parse(this.props.config)['heading']['navigation']['links']['homepage']
 							}
+							className="has-no-display"
 						>
-							<img className="topbar_menu-icon has-no-display" alt="pSearch's Logo" src="/assets/images/favicon.png" />
+							<img className="topbar_menu-icon" alt="pSearch's Logo" src="/assets/images/favicon.png" />
 						</Link>
 						<Link 
 							to={

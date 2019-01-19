@@ -474,20 +474,18 @@ p, .paragraph {
         *display: inline; }
   .topbar_menu {
     height: 98px; }
+    .topbar_menu-heading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #27ae60; }
     .topbar_menu-wrapper {
       width: 100%;
       z-index: 90; }
       .topbar_menu-wrapper.is-sticky {
         background-color: rgba(0, 0, 0, 0.8); }
-        .topbar_menu-wrapper.is-sticky::before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          content: '';
-          display: block;
-          width: 100%;
-          height: 5px;
-          background: #27ae60; }
     .topbar_menu-links {
       -webkit-flex: 1 1 auto;
       flex: 1 1 auto;
@@ -1216,58 +1214,6 @@ p, .paragraph {
         background-image: url("https://pbs.twimg.com/media/C8zf8-oXUAAojvD.jpg"); }
 
 /*  ==================
-    Page
-    ================== */
-.root {
-  -moz-transition: opacity 1s;
-  -o-transition: opacity 1s;
-  -webkit-transition: opacity 1s;
-  transition: opacity 1s; }
-
-.root[data-state="onload"] {
-  opacity: 0; }
-
-.page-part-wrapper {
-  position: relative; }
-
-.page-part-content {
-  position: relative;
-  padding-bottom: 30px;
-  z-index: 1; }
-
-.container {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  display: flex;
-  flex-direction: column;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 25px 2.5%;
-  z-index: 2; }
-  @media screen and (max-width: 1024px) {
-    .container {
-      padding: 0; } }
-
-.all-page-size {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh; }
-  .all-page-size > .content-wrapper {
-    margin: auto;
-    text-align: center; }
-    .all-page-size > .content-wrapper > * {
-      font-size: 4rem; }
-
-.page-part-border {
-  position: absolute;
-  bottom: 0;
-  fill: #050608;
-  z-index: 0; }
-
-/*  ==================
     Loader
     ================== */
 @-moz-keyframes loader_bubble-GROUP--1 {
@@ -1499,22 +1445,130 @@ p, .paragraph {
     background-color: #2980b9; }
 
 /*  ==================
-    Progress Page Bar
+    NProgress.js
+
+    /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
+     * @license MIT
     ================== */
-.progress-page-bar {
-  position: fixed;
-  display: block;
-  width: 100%;
-  height: 5px;
-  z-index: 90; }
-  .progress-page-bar_inner {
-    width: 0;
+#nprogress {
+  pointer-events: none;
+  z-index: 115; }
+  #nprogress .bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #099042;
+    z-index: 115; }
+  #nprogress .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
     height: 100%;
-    background-color: #179E50;
-    -moz-transition: width 0.2s ease;
-    -o-transition: width 0.2s ease;
-    -webkit-transition: width 0.2s ease;
-    transition: width 0.2s ease; }
+    -moz-box-shadow: 0 0 10px #099042, 0 0 5px #099042;
+    -webkit-box-shadow: 0 0 10px #099042, 0 0 5px #099042;
+    box-shadow: 0 0 10px #099042, 0 0 5px #099042;
+    -moz-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+    opacity: 1.0; }
+  #nprogress .spinner {
+    display: block;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 115; }
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      border: solid 2px transparent;
+      border-top-color: #099042;
+      border-left-color: #099042;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -moz-animation: nprogress-spinner 400ms linear infinite;
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+      animation: nprogress-spinner 400ms linear infinite; }
+  #nprogress-custom-parent {
+    position: relative;
+    overflow: hidden; }
+    #nprogress-custom-parent #nprogress .spinner,
+    #nprogress-custom-parent #nprogress .bar {
+      position: absolute; }
+
+@-moz-keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+@-webkit-keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+@keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+/*  ==================
+    Page
+    ================== */
+.root {
+  -moz-transition: opacity 1s;
+  -o-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s; }
+
+.root[data-state="onload"] {
+  opacity: 0; }
+
+.page-part-wrapper {
+  position: relative; }
+
+.page-part-content {
+  position: relative;
+  padding-bottom: 30px;
+  z-index: 1; }
+
+.container {
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 25px 2.5%;
+  z-index: 2; }
+  @media screen and (max-width: 1024px) {
+    .container {
+      padding: 0; } }
+
+.all-page-size {
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh; }
+  .all-page-size > .content-wrapper {
+    margin: auto;
+    text-align: center; }
+    .all-page-size > .content-wrapper > * {
+      font-size: 4rem; }
+
+.page-part-border {
+  position: absolute;
+  bottom: 0;
+  fill: #050608;
+  z-index: 0; }
 
 /*  ==================
     Pub Display

@@ -126,119 +126,113 @@ class App extends React.Component {
                     <Router component={AppContainer}>
                         {/* Routing */}
                         <div className="rooting">
-                            {/* Main[id="app"] */}
                             <Switch>
                                 <Route 
                                     exact 
                                     path="/" 
                                     component={
                                         props => ( 
-                                        <Homepage {...props} 
-                                            config={this.state.config} 
-                                            manifest={this.state.manifest}
-                                        /> )
+                                        <div>
+                                            <Init {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['index']}
+                                                description={JSON.parse(this.state.config)['description']['index']}
+                                            />
+                                            <Homepage {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                        </div> )
                                     } 
                                 />
                                 <Route 
                                     path="/signup" 
                                     component={
                                         props => ( 
-                                        <Authentication {...props} 
-                                            config={this.state.config} 
-                                            manifest={this.state.manifest}
-                                            type="signup"
-                                        /> )
+                                        <div>
+                                            <Init {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['signup']}
+                                                description={JSON.parse(this.state.config)['description']['signup']}
+                                            />
+                                            <Authentication {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                                type="signup"
+                                            /> 
+                                        </div> )
                                     } 
                                 />
                                 <Route 
                                     path="/login" 
                                     component={
                                         props => ( 
-                                        <Authentication {...props} 
-                                            config={this.state.config} 
-                                            manifest={this.state.manifest}
-                                            type="login"
-                                        /> )
+                                        <div>
+                                            <Init {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['login']}
+                                                description={JSON.parse(this.state.config)['description']['login']}
+                                            />
+                                            <Authentication {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                                type="login"
+                                            />
+                                        </div> )
                                     } 
                                 />
                                 <Route 
                                     path="/lang-select" 
                                     component={
                                         props => ( 
-                                        <LangSelect {...props} 
-                                            config={this.state.config} 
-                                            manifest={this.state.manifest}
-                                        /> )
+                                        <div>
+                                            <Init {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title="pSearch: Select your language"
+                                                description="Select the default language beetween the french and the english."
+                                            />
+                                            <LangSelect {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                        </div> )
                                     } 
                                 />
                                 <Route 
                                     component={
                                         props => ( 
-                                        <Error {...props} 
-                                            typeError={404} 
-                                            config={this.state.config} 
-                                            manifest={this.state.manifest}
-                                        /> )
-                                    } 
-                                />
-                            </Switch>
-                            {/* HeadTag */}
-                            <Switch>
-                                <Route 
-                                    exact 
-                                    path="/" 
-                                    component={
-                                        props => ( 
-                                        <Helmet {...props}
-                                            manifest={this.state.manifest}
-                                            title={JSON.parse(this.state.config)['title']['index']}
-                                            description={JSON.parse(this.state.config)['description']['index']}
-                                        /> )
-                                    } 
-                                />
-                                <Route 
-                                    path="/signup" 
-                                    component={
-                                        props => ( 
-                                        <Helmet {...props}
-                                            manifest={this.state.manifest}
-                                            title={JSON.parse(this.state.config)['title']['signup']}
-                                            description={JSON.parse(this.state.config)['description']['signup']}
-                                        /> )
-                                    } 
-                                />
-                                <Route 
-                                    path="/login" 
-                                    component={
-                                        props => ( 
-                                        <Helmet {...props}
-                                            manifest={this.state.manifest}
-                                            title={JSON.parse(this.state.config)['title']['login']}
-                                            description={JSON.parse(this.state.config)['description']['login']}
-                                        /> )
-                                    } 
-                                />
-                                <Route 
-                                    path="/lang-select" 
-                                    component={
-                                        props => ( 
-                                        <Helmet {...props}
-                                            manifest={this.state.manifest}
-                                            title="pSearch: Select your language"
-                                            description="Select the default language beetween the french and the english."
-                                        >
-                                            <meta name="robots" content="noindex, follow" />
-                                        </Helmet> )
-                                    } 
-                                />
-                                <Route 
-                                    component={
-                                        props => ( 
-                                        <Helmet {...props}
-                                            manifest={this.state.manifest}
-                                            title={JSON.parse(this.state.config)['title']['errors']['404']}
-                                            description={JSON.parse(this.state.config)['description']['errors']['404']}
-                                        /> )
+                                        <div>
+                                            <Init {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['errors']['404']}
+                                                description={JSON.parse(this.state.config)['description']['errors']['404']}
+                                            />
+                                            <Error {...props} 
+                                                typeError={404} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                            />
+                                        </div> )
                                     } 
                                 />
                             </Switch>
@@ -249,6 +243,57 @@ class App extends React.Component {
         } else {
             return null;
         }
+    }
+}
+
+class Init extends React.Component {
+    constructor(props) {
+		super(props);
+
+		this.state = {
+			appJS: null
+		}
+	}
+
+	componentWillMount() {
+        NProgress.start();
+
+		new Promise((res, rej) => {
+			if(window.CONF.env === 'development') {
+				this.setState({
+					appJS: '/assets/dist/app.js'
+				});
+
+				res('/assets/dist/app.js');
+			} else {
+				this.setState({
+					appJS: JSON.parse(this.props.manifest)['app.js']
+				});
+
+				res(JSON.parse(this.props.manifest)['app.js']);
+			}
+		})
+		.then((val) => {
+			let
+				script = document.createElement('script');
+				
+			script.setAttribute('type', 'application/javascript');
+			script.setAttribute('src', val);
+
+			document.body.appendChild(script);
+		});
+    }
+    
+    componentDidMount() {
+        NProgress.done();
+    }
+
+	componentWillUnmount() {
+		document.body.removeChild(document.querySelector(`script[src="${this.state.appJS}"]`));
+    }
+    
+    render() {
+        return true;
     }
 }
 
