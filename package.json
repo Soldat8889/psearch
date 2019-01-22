@@ -21,7 +21,9 @@
     "sequelize": "^4.42.0"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "build": "node ./app/start.js"
+  },
   "author": "",
   "license": "ISC"
 }
