@@ -18,7 +18,7 @@ let
                     }
     
                     let 
-                        current = e.target,
+                        current = tooltips[i],
                         posY = current.offsetTop,
                         posX = current.offsetLeft,
                         targWi = current.offsetWidth,

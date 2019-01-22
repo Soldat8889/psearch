@@ -142,24 +142,24 @@
             height: 230px;
             margin: 8px;
 
-            background: {
-                // image: url('/assets/images/games-presentation-sprite.png');
-                // size: 180px 230px;
-                size: cover;
-                repeat: no-repeat;
-                color: #050608;
-                
-                position: center;
-            }
+            background-color: #050608;
 
+            overflow: hidden;
             cursor: pointer;
 
-            &.league-of-legends {
-                background-image: url('https://vignette.wikia.nocookie.net/leagueoflegends/images/7/76/LoL_Icon.png/revision/latest?cb=20170427054945');
+            &_wrapper {
+                position: relative;
+                width: 100%;
+                height: 100%;
             }
 
-            &.overwatch {
-                background-image: url('https://pbs.twimg.com/media/C8zf8-oXUAAojvD.jpg');
+            &_img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                display: block;
+
+                @include transform(translateX(-50%) translateY(-50%));
             }
         }
     }

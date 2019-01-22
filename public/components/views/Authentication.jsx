@@ -24,7 +24,7 @@ class Authentication extends React.Component {
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
 				<section id="context" className="page-part-wrapper">
-					<div className="background-overlay chrome-test overlay--portal"></div>
+					<div className="background-overlay webp-test overlay--portal"></div>
 					{this.renderingContent(this.props.type)}
 				</section>
 			</section>

@@ -597,6 +597,7 @@ p, .paragraph {
     -webkit-transform: rotateZ(45deg) translateX(40px) translateY(40px);
     transform: rotateZ(45deg) translateX(40px) translateY(40px); } }
 .l-footer {
+  position: relative;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1.5fr 2.75fr;
@@ -608,10 +609,10 @@ p, .paragraph {
     top: 0;
     left: 50%;
     margin-top: 50px;
-    -moz-transform: translateX(-45%);
-    -ms-transform: translateX(-45%);
-    -webkit-transform: translateX(-45%);
-    transform: translateX(-45%); }
+    -moz-transform: translateX(-45%) translateY(-200%);
+    -ms-transform: translateX(-45%) translateY(-200%);
+    -webkit-transform: translateX(-45%) translateY(-200%);
+    transform: translateX(-45%) translateY(-200%); }
     .l-footer_top-delimitation::after {
       content: ". . .";
       letter-spacing: 12px; }
@@ -619,10 +620,10 @@ p, .paragraph {
     position: absolute;
     top: -25px;
     left: 50%;
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%); }
+    -moz-transform: translateX(-50%) translateY(-200%);
+    -ms-transform: translateX(-50%) translateY(-200%);
+    -webkit-transform: translateX(-50%) translateY(-200%);
+    transform: translateX(-50%) translateY(-200%); }
     .l-footer_top-arrow span {
       content: "";
       display: block;
@@ -660,8 +661,8 @@ p, .paragraph {
     .l-footer_item-group {
       display: -ms-grid;
       display: grid;
-      -ms-grid-columns: 0.75fr 1fr 1fr;
-      grid-template-columns: 0.75fr 1fr 1fr; }
+      -ms-grid-columns: 0.75fr 2fr;
+      grid-template-columns: 0.75fr 2fr; }
     .l-footer_item-link {
       display: block;
       margin-bottom: 7px; }
@@ -764,15 +765,15 @@ p, .paragraph {
   .background-overlay.overlay--lol {
     background-position: center 12%;
     background-attachment: fixed; }
-    .background-overlay.overlay--lol.is-chrome {
+    .background-overlay.overlay--lol.is-webp {
       background-image: url("/assets/images/overlay--league-of-legends.webp"); }
-    .background-overlay.overlay--lol.no-chrome {
+    .background-overlay.overlay--lol.no-webp {
       background-image: url("/assets/images/overlay--league-of-legends.jpg"); }
   .background-overlay.overlay--overwatch {
     background-position: center 12%; }
-    .background-overlay.overlay--overwatch.is-chrome {
+    .background-overlay.overlay--overwatch.is-webp {
       background-image: url("/assets/images/overlay--overwatch.webp"); }
-    .background-overlay.overlay--overwatch.no-chrome {
+    .background-overlay.overlay--overwatch.no-webp {
       background-image: url("/assets/images/overlay--overwatch.jpg"); }
     .background-overlay.overlay--overwatch::after {
       content: '';
@@ -782,15 +783,15 @@ p, .paragraph {
       background: rgba(0, 0, 0, 0.025); }
   .background-overlay.overlay--portal::before {
     background-position: center 20%; }
-  .background-overlay.overlay--portal.is-chrome::before {
+  .background-overlay.overlay--portal.is-webp::before {
     background-image: url("/assets/images/overlay--portal.webp"); }
-  .background-overlay.overlay--portal.no-chrome::before {
+  .background-overlay.overlay--portal.no-webp::before {
     background-image: url("/assets/images/overlay--portal.jpg"); }
   .background-overlay.overlay--horizon-zero-dawn {
     background-position: center; }
-    .background-overlay.overlay--horizon-zero-dawn.is-chrome {
+    .background-overlay.overlay--horizon-zero-dawn.is-webp {
       background-image: url("/assets/images/overlay--horizon-zero-dawn.webp"); }
-    .background-overlay.overlay--horizon-zero-dawn.no-chrome {
+    .background-overlay.overlay--horizon-zero-dawn.no-webp {
       background-image: url("/assets/images/overlay--horizon-zero-dawn.jpg"); }
   .background-overlay.overlay--neutral {
     background-color: #050608; }
@@ -1203,15 +1204,22 @@ p, .paragraph {
       width: 180px;
       height: 230px;
       margin: 8px;
-      background-size: cover;
-      background-repeat: no-repeat;
       background-color: #050608;
-      background-position: center;
+      overflow: hidden;
       cursor: pointer; }
-      .hero_footer-item.league-of-legends {
-        background-image: url("https://vignette.wikia.nocookie.net/leagueoflegends/images/7/76/LoL_Icon.png/revision/latest?cb=20170427054945"); }
-      .hero_footer-item.overwatch {
-        background-image: url("https://pbs.twimg.com/media/C8zf8-oXUAAojvD.jpg"); }
+      .hero_footer-item_wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%; }
+      .hero_footer-item_img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%); }
 
 /*  ==================
     Loader
@@ -1484,7 +1492,7 @@ p, .paragraph {
     #nprogress .spinner-icon {
       width: 18px;
       height: 18px;
-      border: solid 2px transparent;
+      border: solid 4px transparent;
       border-top-color: #099042;
       border-left-color: #099042;
       -moz-border-radius: 50%;
@@ -1657,21 +1665,21 @@ span.rating-icons {
   grid-template-rows: 1fr 4px 1fr; }
   .rating-icons_list-teamplayer {
     background-position: 0 0; }
-    .rating-icons_list-teamplayer.is-chrome {
+    .rating-icons_list-teamplayer.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-teamplayer.no-chrome {
+    .rating-icons_list-teamplayer.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-friendly {
     background-position: -20px 0; }
-    .rating-icons_list-friendly.is-chrome {
+    .rating-icons_list-friendly.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-friendly.no-chrome {
+    .rating-icons_list-friendly.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-leader {
     background-position: -40px 0; }
-    .rating-icons_list-leader.is-chrome {
+    .rating-icons_list-leader.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-leader.no-chrome {
+    .rating-icons_list-leader.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-troll {
     -ms-grid-column: unset;
@@ -1681,9 +1689,9 @@ span.rating-icons {
     grid-column: unset/unset;
     grid-row: 3/auto;
     background-position: 0px -20px; }
-    .rating-icons_list-troll.is-chrome {
+    .rating-icons_list-troll.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-troll.no-chrome {
+    .rating-icons_list-troll.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-toxic {
     -ms-grid-column: unset;
@@ -1693,9 +1701,9 @@ span.rating-icons {
     grid-column: unset/unset;
     grid-row: 3/auto;
     background-position: -20px -20px; }
-    .rating-icons_list-toxic.is-chrome {
+    .rating-icons_list-toxic.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-toxic.no-chrome {
+    .rating-icons_list-toxic.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-anti-playing {
     -ms-grid-column: unset;
@@ -1705,9 +1713,9 @@ span.rating-icons {
     grid-column: unset/unset;
     grid-row: 3/auto;
     background-position: -40px -20px; }
-    .rating-icons_list-anti-playing.is-chrome {
+    .rating-icons_list-anti-playing.is-webp {
       background-image: url("/assets/images/rating-icons-sprite.webp"); }
-    .rating-icons_list-anti-playing.no-chrome {
+    .rating-icons_list-anti-playing.no-webp {
       background-image: url("/assets/images/rating-icons-sprite.jpg"); }
   .rating-icons_list-star--empty::after {
     content: "\f005";
@@ -1871,13 +1879,6 @@ span.rating-icons {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr; } }
 @media screen and (max-width: 520px) {
-  .l-footer_item:nth-child(3) {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
-    -ms-grid-row: unset;
-    -ms-grid-row-span: unset-unset;
-    grid-column: 0.33333;
-    grid-row: unset/unset; }
   .l-footer_item[data-has-border] {
     border-right: none; }
   .l-footer_item[data-has-border]:first-child {

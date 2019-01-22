@@ -285,7 +285,9 @@ class Init extends React.Component {
     }
     
     componentDidMount() {
-        NProgress.done();
+        setTimeout(() => {
+            NProgress.done();
+        }, 1000);
     }
 
 	componentWillUnmount() {

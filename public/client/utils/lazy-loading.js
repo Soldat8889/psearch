@@ -4,19 +4,55 @@
 
 let
     lazyLoading = () => {
-        try {
+        // Get lazy load img
+        const
+            lazyImgs = document.getElementsByClassName('lazy-loading');
+
+        Array.prototype.forEach.call(lazyImgs, (lazyImg) => {
             const
-                lazyLoader = document.querySelectorAll('[data-lazy-loading]');
-    
-            for(let i = 0, j = lazyLoader.length; i < j; i++) {
+                lazyImgClassNames = lazyImg.className.split(' ');
+
+            new Promise((res, rej) => {
+                for(let i = 0, j = lazyImgClassNames.length; i < j; i++) {
+                    // Look if there's .is-webp className
+                    if(lazyImgClassNames[i] === 'is-webp') {
+                        res(true);
+                    } else {
+                        res(false);
+                    }
+                }
+            })
+            .then((isWebp) => {
+                const
+                    lazyImgProperties  = lazyImg.getAttribute('data-lazy-loading').split(' '),
+                    lazyImgObjectProps = {};
+
+                let lazyImgReturn;
+
+                /**
+                 * [0]: Img SRC
+                 * [1]: Img no .webp format, alternative format
+                 **/
+
+                // Stock in lazyImgObjectProps
+                lazyImgObjectProps.src = lazyImgProperties[0];
+                lazyImgObjectProps.ext = lazyImgProperties[1];
+
+                // Look if it's compatible with .webp format
+                if(isWebp) {
+                    lazyImgReturn = lazyImgObjectProps.src.concat('.webp');
+                } else {
+                    lazyImgReturn = lazyImgObjectProps.src.concat(lazyImgObjectProps.ext);
+                }
+
+                // OK !
                 window.addEventListener('scroll', (e) => {
-                    if(e.pageY >= lazyLoader[i].offsetTop - lazyLoader[i].height * 2) {
-                        lazyLoader[i].setAttribute('src', lazyLoader[i].getAttribute('data-lazy-loading'));
-                        lazyLoader[i].setAttribute('data-spawned', 'true');
+                    if(e.pageY >= lazyImg.offsetTop - 200) {
+                        lazyImg.src = lazyImgReturn;
                     }
                 }, false);
-            }
-        } catch(e) {}
+            });
+        });
     }
 
 export default lazyLoading;

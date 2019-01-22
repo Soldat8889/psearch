@@ -53,18 +53,14 @@ const FooterLayout = (props) => {
 											link={props.config['heading']['navigation']['links']['login']} />
 									</div>
 								</div>
-								<div className="l-footer_item" data-has-border>
+								<div className="l-footer_item">
 									<div className="content-wrapper">
 										<FooterLink 
 											title={props.config['footer']['basics']['col3']['list']['1']} 
 											link="#" />
-									</div>
-								</div>
-								<div className="l-footer_item">
-									<div className="content-wrapper">
-										<h3 className="l-footer_item-title">
-											Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-										</h3>
+										<div className="text" style={{position: 'absolute', bottom: '10px'}}>
+											Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto consectetur aliquid eaque numquam. Reiciendis aliquid maiores saepe laborum rem enim placeat omnis deserunt, sint, recusandae dignissimos nobis distinctio natus tenetur?
+										</div>
 									</div>
 								</div>
 							</div>

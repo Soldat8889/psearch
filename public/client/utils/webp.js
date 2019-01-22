@@ -5,18 +5,18 @@
 let 
     webp = () => {
         const
-            isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
-            webpEl = document.getElementsByClassName('chrome-test');
+            isWebp = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
+            webpEl = document.getElementsByClassName('webp-test');
 
-        if(isChrome) {
-            document.documentElement.classList.add('is-chrome');
+        if(isWebp) {
+            document.documentElement.classList.add('is-webp');
 
             for(let i = 0, j = webpEl.length; i < j; i++) {
-                webpEl[i].classList.add('is-chrome');
+                webpEl[i].classList.add('is-webp');
             }
         } else {
             for(let i = 0, j = webpEl.length; i < j; i++) {
-                webpEl[i].classList.add('no-chrome');
+                webpEl[i].classList.add('no-webp');
             }
         }
     }

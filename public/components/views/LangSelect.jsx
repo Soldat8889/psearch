@@ -13,7 +13,7 @@ class LangSelect extends React.Component {
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
 				<div className="page-part-wrapper">
-					<div className="background-overlay chrome-test overlay--horizon-zero-dawn"></div>
+					<div className="background-overlay webp-test overlay--horizon-zero-dawn"></div>
 					<div className="page-part-content all-page-size">
 						<div className="content-wrapper">
 							<h1><i className="fa"></i> Language</h1>

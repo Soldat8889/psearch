@@ -32,22 +32,22 @@
             attachment: fixed;
         }
 
-        &.is-chrome {
+        &.is-webp {
             background-image: url("/assets/images/overlay--league-of-legends.webp");
         }
 
-        &.no-chrome {
+        &.no-webp {
             background-image: url("/assets/images/overlay--league-of-legends.jpg");
         }
     }
     &.overlay--overwatch {
         background-position: center 12%;
 
-        &.is-chrome {
+        &.is-webp {
             background-image: url("/assets/images/overlay--overwatch.webp");
         }
 
-        &.no-chrome {
+        &.no-webp {
             background-image: url("/assets/images/overlay--overwatch.jpg");
         }
 
@@ -68,13 +68,13 @@
             }
         }
 
-        &.is-chrome {
+        &.is-webp {
             &::before {
                 background-image: url("/assets/images/overlay--portal.webp");
             }
         }
 
-        &.no-chrome {
+        &.no-webp {
             &::before {
                 background-image: url("/assets/images/overlay--portal.jpg");
             }
@@ -83,11 +83,11 @@
     &.overlay--horizon-zero-dawn {
         background-position: center;
 
-        &.is-chrome {
+        &.is-webp {
             background-image: url("/assets/images/overlay--horizon-zero-dawn.webp");
         }
 
-        &.no-chrome {
+        &.no-webp {
             background-image: url("/assets/images/overlay--horizon-zero-dawn.jpg");
         }
     }

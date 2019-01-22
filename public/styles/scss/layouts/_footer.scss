@@ -17,6 +17,7 @@
 }
 
 .l-footer {
+	position: relative;
 	@include display-grid;
 	@include grid-template(column, 1.5fr 2.75fr);
 	width: 100%;
@@ -29,7 +30,7 @@
 			left: 50%;
 			margin-top: 50px;
 
-			@include transform(translateX(-45%));
+			@include transform(translateX(-45%) translateY(-200%));
 			
 			&::after {
 				content: ". . .";
@@ -42,7 +43,7 @@
 			top: -25px;
 			left: 50%;
 
-			@include transform(translateX(-50%));
+			@include transform(translateX(-50%) translateY(-200%));
 
 			span {
 				content: "";
@@ -86,7 +87,7 @@
 
 		&-group {
 			@include display-grid;
-			@include grid-template(column, 0.75fr 1fr 1fr);
+			@include grid-template(column, 0.75fr 2fr);
 		}
 
 		&-link {

@@ -29,7 +29,7 @@ import Slider from '../common/widgets/Slider';
 const Header = (props) => {
 	return (
 		<header className="page-part-wrapper">
-			<div className="background-overlay chrome-test overlay--lol"></div>
+			<div className="background-overlay webp-test overlay--lol"></div>
 			<TopBar config={props.config} />
 			<div className="page-part-content">
 				<Slider 
@@ -118,9 +118,12 @@ class HeroFooter extends React.Component {
 		Array.prototype.forEach.call(heroItems, (heroItem) => {
 			heroItem.addEventListener('click', (e) => {
 				const
-					dataId = e.target.getAttribute('data-id');
+					dataId = heroItem.getAttribute('data-id');
 
 				if(dataId === this.state.currentItem) {
+					const
+						resume = document.getElementById('hero_footer-resume');
+						
 					resume.style.display = "block";
 					return;
 				}
@@ -180,10 +183,8 @@ class HeroFooter extends React.Component {
 				}
 
 				hideResumeBtn.addEventListener('click', () => {
-					const 
-						resume = document.getElementById('hero_footer-resume');
-		
 					resume.style.display = 'none';
+
 					this.setState({
 						state: "hidden",
 						currentItem: 0
@@ -199,16 +200,20 @@ class HeroFooter extends React.Component {
 				<h1 className="hero_title">Jeux concernés:</h1>
 				<HeroFooterFoldingContent state={this.state.state} contain={this.state.contain} />
 				<div className="hero_footer" data-current-item={this.state.currentItem}>
-					<button className="hero_footer-item league-of-legends" data-id="1" data-tooltip="League of Legends"></button>
-					<button className="hero_footer-item overwatch" data-id="2" data-tooltip="Overwatch"></button>
-					<button className="hero_footer-item" data-id="3"></button>
-					<button className="hero_footer-item" data-id="4"></button>
-					<button className="hero_footer-item" data-id="5"></button>
-					<button className="hero_footer-item" data-id="6"></button>
-					<button className="hero_footer-item" data-id="7"></button>
-					<button className="hero_footer-item" data-id="8"></button>
-					<button className="hero_footer-item" data-id="9"></button>
-					<button className="hero_footer-item" data-id="10"></button>
+					<div className="hero_footer-item" data-id="1" data-tooltip="League of Legends">
+						<div className="hero_footer-item_wrapper">						
+							<img src="https://via.placeholder.com/380x225" alt="League of Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--league-of-legends .jpg" />
+						</div>
+					</div>
+					<div className="hero_footer-item" data-id="2" data-tooltip="Overwatch">
+						<div className="hero_footer-item_wrapper">
+							<img src="https://via.placeholder.com/380x225" alt="Overwatch" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--overwatch .jpg" />
+						</div>
+					</div>
+					<div className="hero_footer-item" data-id="3"></div>
+					<div className="hero_footer-item" data-id="4"></div>
+					<div className="hero_footer-item" data-id="5"></div>
+					<div className="hero_footer-item" data-id="6"></div>
 				</div>
 			</div>
 		);
@@ -251,7 +256,7 @@ const Footer = (props) => {
 	return (
 		<footer>
 			<div className="page-part-wrapper">
-			<div className="background-overlay chrome-test overlay--overwatch"></div>
+			<div className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
 				<div className="page-part-content">
 					<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
 					<div className="container">

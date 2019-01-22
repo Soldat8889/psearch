@@ -1,12 +1,12 @@
-import flash from './utils/flash';
-import init from './utils/init';
+import init        from './utils/init';
+import webp        from './utils/webp';
 import lazyLoading from './utils/lazy-loading';
-import tooltip from './utils/tooltip';
-import webp from './utils/webp';
+import flash       from './utils/flash';
+import tooltip     from './utils/tooltip';
 
 // Apply
 init();
-flash();
-lazyLoading();
-tooltip();
 webp();
+lazyLoading();
+flash();
+tooltip();
