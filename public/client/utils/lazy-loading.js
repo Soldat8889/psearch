@@ -11,17 +11,12 @@ let
                 lazyImgs = document.getElementsByClassName('lazy-loading');
 
             Array.prototype.forEach.call(lazyImgs, (lazyImg) => {
-                const
-                    lazyImgClassNames = lazyImg.className.split(' ');
-
                 new Promise((res, rej) => {
-                    for(let i = 0, j = lazyImgClassNames.length; i < j; i++) {
-                        // Look if there's .is-webp className
-                        if(lazyImgClassNames[i] === 'is-webp') {
-                            res(true);
-                        } else {
-                            res(false);
-                        }
+                    // Search is-webp classname
+                    if(/(is-webp)\w*/.test(lazyImg.className)) {
+                        res(true);
+                    } else {
+                        res(false);
                     }
                 })
                 .then((isWebp) => {
