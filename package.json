@@ -22,7 +22,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node app/start.js"
+    "start": "node app/start.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "",
   "license": "ISC"
