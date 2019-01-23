@@ -1,8 +1,8 @@
 {
-  "name": "app",
+  "name": "psearch",
   "version": "1.0.0",
   "description": "",
-  "main": "start.js",
+  "main": "app/start.js",
   "dependencies": {
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node ./app/start.js"
+    "start": "node app/start.js"
   },
   "author": "",
   "license": "ISC"
