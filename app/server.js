@@ -22,8 +22,11 @@ if(nodeEnv === 'development') {
 	process.env.HOST = 'localhost';
 } else if(nodeEnv === 'production') {
 	// When the server is in Alwaysdata
-	process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
-	process.env.HOST = process.env.ALWAYSDATA_HTTPD_IP;
+	// process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
+	// process.env.HOST = process.env.ALWAYSDATA_HTTPD_IP;
+	
+	process.env.PORT = 1337;
+	process.env.HOST = 'localhost';
 }
 
 // Configure app
