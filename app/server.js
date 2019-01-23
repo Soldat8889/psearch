@@ -55,6 +55,6 @@ if(nodeEnv !== 'production') {
 }
 
 // Mount server
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, process.env.HOST, () => {
 	console.log(`App has been started on PORT: ${process.env.PORT}`);
 });
