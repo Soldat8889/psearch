@@ -21,7 +21,9 @@
 	<script type="application/javascript" src="<%= mainJS %>"></script>
 	<script type="application/javascript" src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
 	<script type="application/javascript">
+		// JS File can access window.CONF Object
 		window.CONF = {env: "<%= env %>"}
+		// JS Control
 		document.documentElement.classList.remove("no-js");
 	</script>
 </body>
