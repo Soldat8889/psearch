@@ -79,3 +79,9 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# # # #
+
+# dist folder
+public/dist/app.js
+public/dist/main-js.js

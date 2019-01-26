@@ -147,6 +147,15 @@ class HeroFooter extends React.Component {
 							}
 						});
 						break;
+					case '3':
+						this.setState({
+							contain: {
+								title: 'Super Smash Bros: Ultimate',
+								resume: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt earum sequi dolorem, non amet odit error ipsam cumque, dolores optio dolore aliquam sit dolor repellat explicabo consequuntur ex est ipsum!',
+								src: 'https://cdn.wccftech.com/wp-content/uploads/2018/07/Super-Smash-Bros-Ultimate.jpg'
+							}
+						})
+						break;
 					default:
 						this.setState({
 							contain: {
@@ -210,7 +219,11 @@ class HeroFooter extends React.Component {
 							<img src="https://via.placeholder.com/380x225" alt="Overwatch" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--overwatch .jpg" />
 						</div>
 					</div>
-					<div className="hero_footer-item" data-id="3"></div>
+					<div className="hero_footer-item" data-id="3" data-tooltip="Super Smash Bros: Ultimate">
+						<div className="hero_footer-item_wrapper">
+							<img src="https://via.placeholder.com/380x225" alt="Super Smash Bros: Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
+						</div>
+					</div>
 					<div className="hero_footer-item" data-id="4"></div>
 					<div className="hero_footer-item" data-id="5"></div>
 					<div className="hero_footer-item" data-id="6"></div>
