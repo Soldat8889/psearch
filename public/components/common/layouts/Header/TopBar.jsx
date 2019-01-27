@@ -1,5 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+
 // Utils
 import Text from '../../../utils/Text';
 
@@ -149,14 +151,15 @@ class NavigationBarInner extends React.Component {
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'patchNotes']} config={this.props.config} />
 						</Link>
-						<Link 
+						<HashLink 
+							smooth
 							to={
 								JSON.parse(this.props.config)['heading']['navigation']['links']['feedback']
 							} 
 							className="text topbar--underlined stickytable"
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} config={this.props.config} />
-						</Link>
+						</HashLink>
 					</span>
 					<div className="topbar_options has-no-display">
 						<Link 

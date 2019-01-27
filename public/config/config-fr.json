@@ -53,7 +53,7 @@
                 "homepage": "/",
                 "forum": "#",
                 "patchNotes": "#",
-                "feedback": "#",
+                "feedback": "/#feedback",
                 "login": "/login",
                 "signup": "/signup"
             }

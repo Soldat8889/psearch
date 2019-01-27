@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const FooterLayout = (props) => {
 	return (
 		<div className="page-part-wrapper">
-		<div className="background-overlay overlay--neutral"></div>
+			<div className="background-overlay overlay--neutral"></div>
 			<div className="page-part-content">
 				<div className="container">
 					<div className="content-wrapper">

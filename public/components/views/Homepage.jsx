@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // Components
 import Sidebar from '../common/layouts/Header/SidebarLayout';
+import FooterLayout from '../common/layouts/Footer/FooterLayout';
 // Utils
 import Border from '../utils/Border';
 
@@ -16,7 +17,10 @@ class Homepage extends React.Component {
 				<Header config={this.props.config} />
 				<Sidebar config={this.props.config} />
 				<Body config={this.props.config} />
-				<Footer config={this.props.config} />
+				<FeedbackLayout config={this.props.config} />
+				<footer>
+					<FooterLayout config={JSON.parse(this.props.config)} />
+				</footer>
 			</section>
 		);
 	}
@@ -262,26 +266,20 @@ const HeroFooterFoldingContent = (props) => {
 	}
 }
 
-// Components
-import FooterLayout from '../common/layouts/Footer/FooterLayout';
-
-const Footer = (props) => {
+const FeedbackLayout = (props) => {
 	return (
-		<footer>
-			<div className="page-part-wrapper">
+		<section className="page-part-wrapper">
 			<div className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
-				<div className="page-part-content">
-					<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
-					<div className="container">
-						<div className="page-part-content" style={ { margin: "auto", padding: '100px 0' } }>
-							<h1 style={ {color: "#2d3436 !important", textAlign: "center"} }>Des idées ? Aidez-nous !</h1>
-						</div>
+			<div className="page-part-content">
+				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
+				<div className="container">
+					<div id="feedback" className="feedback page-part-content">
+						<h1 className="">Des idées ? Aidez-nous !</h1>
 					</div>
-					<Border type="basic" style={{ bottom: "-1px", transform: "rotateY(-180deg)" }} />
 				</div>
+				<Border type="basic" style={{ bottom: "-1px", transform: "rotateY(-180deg)" }} />
 			</div>
-			<FooterLayout config={JSON.parse(props.config)} />
-		</footer>
+		</section>
 	);
 }
 
