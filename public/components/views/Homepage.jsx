@@ -137,7 +137,7 @@ class HeroFooter extends React.Component {
 						this.setState({
 							contain: {
 								title: 'League of Legends',
-								resume: 'League of Legends est un MOBA. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt earum sequi dolorem, non amet odit error ipsam cumque, dolores optio dolore aliquam sit dolor repellat explicabo consequuntur ex est ipsum!',
+								resume: 'League of Legends est un MOBA développé et édité par Riot Games. Sorti en octobre 2009, il se voit placé dans le monde de l\'e-sport. Rendez-vous sur la faille de l\'invocateur !',
 								src: 'https://img.gaming.gentside.com/article/480/league-of-legends/26724_33cd5e8e1d4810da98262f9392ee7e735d9ada97.jpg'
 							}
 						});
@@ -146,7 +146,7 @@ class HeroFooter extends React.Component {
 						this.setState({
 							contain: {
 								title: 'Overwatch',
-								resume: 'Overwatch est un FPS en multijoueur 6 VS. 6. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt earum sequi dolorem, non amet odit error ipsam cumque, dolores optio dolore aliquam sit dolor repellat explicabo consequuntur ex est ipsum!',
+								resume: 'Overwatch est un FPS en multijoueur 6 VS 6 sorti en mai 2016. Il se voit accompagné d\'une multitude de héros. Incarnez le héros que vous voulez !',
 								src: 'https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/5b7ec29325465562a8000001.jpeg'
 							}
 						});
@@ -154,9 +154,18 @@ class HeroFooter extends React.Component {
 					case '3':
 						this.setState({
 							contain: {
-								title: 'Super Smash Bros: Ultimate',
-								resume: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt earum sequi dolorem, non amet odit error ipsam cumque, dolores optio dolore aliquam sit dolor repellat explicabo consequuntur ex est ipsum!',
+								title: 'Super Smash Bros. Ultimate',
+								resume: 'Super Smash Bros. Ultimate, sorti récemment en décembre 2018, est un jeu de combat allant de 1 à 8 joueurs: parfait pour jouer à plusieurs ! Éliminez les tous avec votre Super Smash !',
 								src: 'https://cdn.wccftech.com/wp-content/uploads/2018/07/Super-Smash-Bros-Ultimate.jpg'
+							}
+						})
+						break;
+					case '4':
+						this.setState({
+							contain: {
+								title: 'Rocket League',
+								resume: 'Rocket League est un jeu basé sur le football mais en contrôlant un véhicule. Customisez le et faites un but !',
+								src: 'https://i.ytimg.com/vi/hbkSUl4gX5E/maxresdefault.jpg'
 							}
 						})
 						break;
@@ -223,14 +232,16 @@ class HeroFooter extends React.Component {
 							<img src="https://via.placeholder.com/380x225" alt="Overwatch" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--overwatch .jpg" />
 						</div>
 					</div>
-					<div className="hero_footer-item" data-id="3" data-tooltip="Super Smash Bros: Ultimate">
+					<div className="hero_footer-item" data-id="3" data-tooltip="Super Smash Bros. Ultimate">
 						<div className="hero_footer-item_wrapper">
-							<img src="https://via.placeholder.com/380x225" alt="Super Smash Bros: Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
+							<img src="https://via.placeholder.com/380x225" alt="Super Smash Bros. Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
 						</div>
 					</div>
-					<div className="hero_footer-item" data-id="4"></div>
-					<div className="hero_footer-item" data-id="5"></div>
-					<div className="hero_footer-item" data-id="6"></div>
+					<div className="hero_footer-item" data-id="4" data-tooltip="Rocket League">
+						<div className="hero_footer-item_wrapper">
+							<img src="https://via.placeholder.com/380x225" alt="Rocket League" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--rocket-league .jpg" />
+						</div>
+					</div>
 				</div>
 			</div>
 		);
@@ -266,6 +277,9 @@ const HeroFooterFoldingContent = (props) => {
 	}
 }
 
+// Utils
+import CustomFieldSelect from './../utils/CustomFieldSelect';
+
 const FeedbackLayout = (props) => {
 	return (
 		<section className="page-part-wrapper">
@@ -274,7 +288,7 @@ const FeedbackLayout = (props) => {
 				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
 				<div className="container">
 					<div id="feedback" className="feedback page-part-content">
-						<h1 className="">Des idées ? Aidez-nous !</h1>
+						<h1>Des idées ? Aidez-nous !</h1>
 					</div>
 				</div>
 				<Border type="basic" style={{ bottom: "-1px", transform: "rotateY(-180deg)" }} />
