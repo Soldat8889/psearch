@@ -83,5 +83,4 @@ typings/
 # # # #
 
 # dist files
-/public/dist/app.js
-/public/dist/main-js.js
+public/dist/
