@@ -1,3 +1,5 @@
+import { debug } from "util";
+
 /*  ==================
     Tooltip
     ================== */
@@ -37,6 +39,7 @@ let
                     current.appendChild(tooltipBubbleWrapper);
                     tooltipBubbleWrapper.appendChild(tooltipBubbleInner);
                 }, false);
+
                 tooltips[i].addEventListener('mouseleave', (e) => {
                     let
                         tooltipsBubble = document.getElementsByClassName('tooltip');

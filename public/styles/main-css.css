@@ -1590,49 +1590,32 @@ p, .paragraph {
     ================== */
 .pub-display {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 110; }
+  height: 90px;
+  margin-bottom: 10px;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 115; }
   .pub-display-wrapper {
-    position: relative;
-    display: flex;
-    width: 90vw;
-    height: 100vh;
-    margin: auto;
-    padding: 10px 0; }
-  .pub-display-pub {
-    display: -webkit-flex;
-    display: flex;
-    margin: auto;
-    width: 100%;
-    height: 100%; }
-  .pub-display-footer {
+    position: relative; }
+  .pub-display-overlay {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 10vh;
-    margin-bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0.4;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity 0.3s ease-in-out;
-    -webkit-transition: opacity 0.3s ease-in-out;
-    transition: opacity 0.3s ease-in-out; }
-    .pub-display-footer:hover {
-      opacity: 1;
-      -moz-transition: opacity 0.3s ease-in-out;
-      -o-transition: opacity 0.3s ease-in-out;
-      -webkit-transition: opacity 0.3s ease-in-out;
-      transition: opacity 0.3s ease-in-out; }
-  .pub-display-button {
-    margin-left: 10px; }
+    background-color: rgba(0, 0, 0, 0.2); }
+  .pub-display-wrapper_remove {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+    .pub-display-wrapper_remove-remove {
+      color: #27ae60;
+      cursor: pointer; }
+      .pub-display-wrapper_remove-remove:hover {
+        color: #c0392b; }
 
 /*  ==================
     Rating Icons
