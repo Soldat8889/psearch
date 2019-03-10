@@ -2,10 +2,27 @@
     Form
     ================== */
 
-fieldset {
-    padding: 60px 90px;
+form {
+	padding: 25px;
 
-    border: 2px rgba(255, 255, 255, .8) solid;
+	background-color: $gray_col;
+}
+
+.form-inner {
+	position: relative;
+	margin: 25px 0 10px 8px;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: -10px;
+		content: '';
+		display: block;
+		width: 2px;
+		height: 100%;
+
+		background-color: #fff;
+	}
 }
 
 input {
@@ -19,17 +36,12 @@ input {
 	padding: 2px 2px 0 2px;
 	
 	outline: none;
-	border-bottom: #fff solid 1px;
+	border: none;
 	background-color: transparent;
 
-	@include fonts(1.65, 400, $text_font, #fff);
+	@include fonts(1.45, 400, $text_font, #fff);
 
 	@include transition(border-bottom $sm_tr);
-
-	&:focus {
-		border-bottom: #3c40c6 solid 1px;
-		@include transition(border-bottom $sm_tr);
-	}
 }
 
 input[type="email"]:invalid {
@@ -38,21 +50,21 @@ input[type="email"]:invalid {
 
 input[type="submit"] {
 	border: none;
-	background-color: $secondary_col;
+	background-color: $green_col;
 
-	color: #000;
+	color: #fff;
 
 	@include transition(background-color $sm_tr);
 	cursor: pointer;
 
 	&:hover {
-		background-color: $secondary_col_hover;
+		background-color: $green_col_hover;
 
 		@include transition(background-color $sm_tr);
 	}
 
 	&:focus {
-		background-color: $secondary_col_focus;
+		background-color: $green_col_focus;
 
 		@include transition(background-color $sm_tr);
 		outline: none;
@@ -60,11 +72,8 @@ input[type="submit"] {
 }
 
 label {
-	display: inline-block;
+	display: block;
+	margin-bottom: 8px;
 
-	font: {
-		size: 1.8rem;
-		family: $text_font;
-		weight: 400;
-	}
+	@include fonts(1.8, 400, $text_font, #fff);
 }

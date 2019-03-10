@@ -2,7 +2,7 @@
     Custom Select
     ================== */
 
-@each $name, $active, $bgc, $hov, $foc in (normal, $secondary_col_focus, $secondary_col, $secondary_col_hover, $secondary_col_focus), (dark, #000, $dark_col, $dark_col_hover, $dark_col_focus) {
+@each $name, $active, $bgc, $hov, $foc in (normal, $green_col_focus, $green_col, $green_col_hover, $green_col_focus), (dark, #000, $dark_col, $dark_col_hover, $dark_col_focus) {
 	.bar.#{$name} {
 		.select-selected {
 			display: block;

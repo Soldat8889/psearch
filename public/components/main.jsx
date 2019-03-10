@@ -11,7 +11,7 @@ import Authentication from "./views/Authentication";
 import Error from "./views/Error";
 
 // Common
-import PubDisplay from "./common/layouts/Body/PubDisplay";
+import PubDisplay from "./common/layouts/Footer/PubDisplay";
 
 class App extends React.Component {
     constructor(props) {

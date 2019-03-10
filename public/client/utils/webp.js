@@ -44,7 +44,7 @@ let
                     if(encodeURIComponent(await getCookie('userAgent')) != userAgentEncode) {
                         return createImageBitmap(await fetch(webpData).then(r => r.blob())).then(() => true, () => false);
                     } else {
-                        return false;
+                        return true;
                     }
                 } else {
                     return createImageBitmap(await fetch(webpData).then(r => r.blob())).then(() => true, () => false);
@@ -68,7 +68,7 @@ let
                     webpEl.classList.add('is-webp');
 
                     // Add cookie to remember the decision
-                    if(!await getCookie('webpSupport') && !await getCookie('userAgent')) {
+                    if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(true);
                     }
                 } else {
@@ -77,7 +77,7 @@ let
                     webpEl.classList.add('no-webp');
 
                     // Add cookie to remember the decision
-                    if(!await getCookie('webpSupport') && !await getCookie('userAgent')) {
+                    if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(false);
                     }
                 }

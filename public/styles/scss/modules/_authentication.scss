@@ -2,3 +2,43 @@
     Authentication
     ================== */
 
+.auth {
+    &-header {
+        @include flexbox((
+            display: flex,
+            justify-content: space-between
+        ));
+        align-items: center;
+    }
+
+    &-title {
+        margin-bottom: 8px;
+    }
+
+    &-form {
+        width: 600px;
+
+        @include box-shadow(0 0 22px -6px rgba(0,0,0,0.75));
+    }
+
+    &-input {
+        padding: 2px 2px 0px 10px;
+
+        border: solid 1px $gray_col;
+        background-color: #0D0D0D;
+        @include box-shadow(inset 0px 0px 4px 1px rgba(0,0,0,0.75));
+        @include border-radius(4px);
+
+        @include transition(border $vsm_tr);
+
+        &:focus {
+            border: solid 1px $green_col;
+
+            @include transition(border $vsm_tr);
+        }
+    }
+
+    &-submit {
+        margin-bottom: 4px !important;
+    }
+}

@@ -4,57 +4,44 @@
 
 .pub-display {
 	position: fixed;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	height: 90px;
+	margin-bottom: 10px;
+	@include flexbox((
+		display: flex
+	));
+	align-items: center;
+	justify-content: center;
 
-	background-color: rgba(0,0,0,.3);
-
-	z-index: $all-width_index;
+	z-index: $very-important_index;
 
 	&-wrapper {
 		position: relative;
-		display: flex;
-		width: 90vw;
-		height: 100vh;
-		margin: auto;
-		padding: 10px 0;
 	}
 
-	&-pub {
-		@include flexbox((
-			display: flex
-		));
-		margin: auto;
-		width: 100%;
-		height: 100%;
-	}
-
-	&-footer {
+	&-overlay {
 		position: absolute;
-		bottom: 0;
+		top: 0;
 		left: 0;
-		@include flexbox((
-			display: flex
-		));
-		align-items: center;
-		width: 100%;
-		height: 10vh;
-		margin-bottom: 10px;
 
-		background-color: rgba(0,0,0,.5);
-
-		opacity: 0.4;
-		@include transition($sm_tr opacity ease-in-out);
-
-		&:hover {
-			opacity: 1;
-			@include transition($sm_tr opacity ease-in-out);
-		}
+		background-color: rgba(0, 0, 0, .2);
 	}
 
-	&-button {
-		margin-left: 10px;
+	&-wrapper_remove {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		
+		&-remove {
+			color: $green_col;
+	
+			cursor: pointer;
+	
+			&:hover {
+				color: $red_col;
+			}
+		}
 	}
 }
