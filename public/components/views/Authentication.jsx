@@ -25,7 +25,11 @@ class Authentication extends React.Component {
 				<div id="packed" className="packed"></div>
 				<section id="context" className="page-part-wrapper">
 					<div className="background-overlay webp-test overlay--portal"></div>
-					{this.renderingContent(this.props.type)}
+					<div className="page-part-content">
+						<div className="container all-page-size inline-vh">
+							{this.renderingContent(this.props.type)}
+						</div>
+					</div>
 				</section>
 			</section>
 		);
@@ -35,31 +39,41 @@ class Authentication extends React.Component {
 class SignUp extends React.Component {
 	render() {
 		return (
-			<div className="page-part-content">
-				<h1>Sign up</h1>
-				<form action="/signup" method="POST">
+			<form action="/signup" method="POST" className="auth-form">
+				<div className="auth-header">
+					<h1 className="auth-title">Sign up</h1>
+					<Link to="/">
+						<i className="fa fa-3x"></i>
+					</Link>
+				</div>
+				<fieldset className="form-inner">
 					<div>
 						<label>Username:</label>
-						<input type="text" name="username" />
-						<br/>
+						<input type="text" name="username" className="auth-input" />
 					</div>
 					<div>
 						<label>Email:</label>
-						<input type="email" name="email" />
+						<input type="email" name="email" className="auth-input" />
 					</div>
 					<div>
 						<label>Password:</label>
-						<input type="password" name="password" />
+						<input type="password" name="password" className="auth-input" />
 					</div>
 					<div>
 						<label>Bio:</label>
-						<input type="text" name="bio" />
+						<input type="text" name="bio" className="auth-input" />
 					</div>
 					<div>
 						<input type="submit" value="Submit" />
 					</div>
-				</form>
-			</div>
+				</fieldset>
+				<div className="inline-vh" style={{flexDirection: "row"}}>
+					<i className="fa fa-3x" style={{marginRight: "10px"}}></i>
+					<Link to="/login" className="button auth-submit">
+						I've already an account
+					</Link>
+				</div>
+			</form>
 		);
 	}
 }
@@ -67,23 +81,33 @@ class SignUp extends React.Component {
 class LogIn extends React.Component {
 	render() {
 		return (
-			<div className="page-part-content">
-				<h1>I chose Log In</h1>
-				<form action="/login" method="POST">
+			<form action="/login" method="POST" className="auth-form">
+				<div className="auth-header">
+					<h1 className="auth-title">Login</h1>
+					<Link to="/">
+						<i className="fa fa-3x"></i>
+					</Link>
+				</div>
+				<fieldset className="form-inner">
 					<div>
 						<label>Username:</label>
-						<input type="text" name="username" />
-						<br/>
+						<input type="text" name="username" className="auth-input" />
 					</div>
 					<div>
 						<label>Password:</label>
-						<input type="password" name="password" />
+						<input type="password" name="password" className="auth-input" />
 					</div>
 					<div>
 						<input type="submit" value="Submit" />
 					</div>
-				</form>
-			</div>
+				</fieldset>
+				<div className="inline-vh" style={{flexDirection: "row"}}>
+					<i className="fa fa-3x" style={{marginRight: "10px"}}></i>
+					<Link to="/signup" className="button auth-submit">
+						I don't have account
+					</Link>
+				</div>
+			</form>
 		);
 	}
 }

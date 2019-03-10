@@ -2,7 +2,7 @@
     Button
     ================== */
 
-@each $name, $bgc, $hov, $foc in (normal, $secondary_col, $secondary_col_hover, $secondary_col_focus), (dark, $dark_col, $dark_col_hover, $dark_col_focus) {
+@each $name, $bgc, $hov, $foc in (normal, $green_col, $green_col_hover, $green_col_focus), (dark, $dark_col, $dark_col_hover, $dark_col_focus) {
 	.button--icon.button--#{$name}[type="submit"] {
 		@include flexbox((
 			display: inline-flex

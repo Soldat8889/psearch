@@ -75,6 +75,12 @@ ul, ol {
 
 svg {
     @include inline-block(baseline);
+
+    fill: #fff;
+}
+
+path {
+    fill: #fff;
 }
 
 .content-wrapper {
