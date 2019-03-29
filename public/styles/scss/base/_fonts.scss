@@ -9,7 +9,7 @@ h4, .me-text { @include fonts(1.9, 400, $text_font); }
 p, .text { @include fonts(1.65, 300, $text_font); }
 .sm-text { @include fonts(1.4, 300, $text_font); }
 
-@media screen and (max-width: $mobile_size) {
+@media screen and (max-width: $portrait_tablet_size) {
     h1 { font-size: 2.9rem; }
     h2 { font-size: 2.4rem; }
     h3 { font-size: 2rem; }

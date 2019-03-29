@@ -6,7 +6,7 @@ body {
     min-width: 280px;
     min-height: 100%;
 
-    background-color: #111111;
+    background-color: #303030;
 
     font-size: 62.5%;
     line-height: 1.4;
@@ -33,6 +33,12 @@ body {
 
 a {
     display: inline-block;
+
+    font: {
+        family: inherit;
+        size: inherit;
+        weight: inherit;
+    }
     text-decoration: none;
 }
 

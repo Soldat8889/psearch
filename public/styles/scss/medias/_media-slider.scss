@@ -2,7 +2,7 @@
     Media Slider
     ================== */
     
-@media screen and (max-width: $tablet_size) {
+@media screen and (max-width: $desktop_size) {
 	.slider {
 		&_items {
 			margin-left: 100px;
@@ -10,7 +10,7 @@
 	}
 }
 
-@media screen and (max-width: $mobile_size) {
+@media screen and (max-width: 650px) {
 	.slider {
 		&_items {
 			margin-left: 0;

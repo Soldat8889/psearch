@@ -68,3 +68,7 @@
 
 	@include transition(background-color $vsm_tr ease-in-out);
 }
+
+.material-button {
+	@include border-radius(0px);
+}

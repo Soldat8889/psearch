@@ -6,39 +6,134 @@
     &-header {
         @include flexbox((
             display: flex,
-            justify-content: space-between
+            justify-content: center
         ));
         align-items: center;
+        padding: 20px;
+
+        &_title {
+            text-align: center;
+        }
     }
 
-    &-title {
-        margin-bottom: 8px;
+    &-inner {
+       margin: 25px 12px 10px 12px;
     }
 
     &-form {
-        width: 600px;
+        width: 500px;
 
-        @include box-shadow(0 0 22px -6px rgba(0,0,0,0.75));
+        @include box-shadow(0px 0px 7px 1px rgba(0, 0, 0, 0.14));
+    }
+
+    &-group {
+        position: relative;
+
+        margin-bottom: 22px;
+    }
+
+    &-label {
+        position: absolute;
+        top: 12.5px;
+        left: 10px;
+
+        @include fonts(1.8, 400, $text_font, #8A8A8C);
+
+        @include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
+        pointer-events: none;
     }
 
     &-input {
         padding: 2px 2px 0px 10px;
 
-        border: solid 1px $gray_col;
-        background-color: #0D0D0D;
-        @include box-shadow(inset 0px 0px 4px 1px rgba(0,0,0,0.75));
-        @include border-radius(4px);
-
-        @include transition(border $vsm_tr);
+        border-bottom: solid 1px $light_gray_col;
 
         &:focus {
-            border: solid 1px $green_col;
+            border-bottom: solid 1px $green_col;
 
-            @include transition(border $vsm_tr);
+            @include transition(border-bottom $vsm_tr);
         }
     }
 
     &-submit {
-        margin-bottom: 4px !important;
+        min-width: 300px;
+        width: 85%;
+    }
+    
+    &-hr {
+        margin: 0 0 25px 0;
+    }
+
+    &-footer {
+        margin-bottom: 25px;
+    
+        &_external-account {
+            width: 100%;
+            margin-bottom: 24px;
+
+            &_buttons {
+                min-width: 280px;
+                width: 75%; 
+                margin-bottom: 8px;
+            }
+
+            &_icon {
+                width: 30px;
+                height: 30px;
+                @include inline-block(middle);
+                margin-right: 8px;
+
+                background: {
+                    repeat: no-repeat;
+                    size: 25px;
+                    position: center;
+                }
+                border: none;
+
+                color: none;
+
+                &.account_google {
+                    background-image: url("https://pbs.twimg.com/profile_images/927446347879292930/Fi0D7FGJ_400x400.jpg");
+                }
+
+                &.account_discord {
+                    background-image: url("https://pmcvariety.files.wordpress.com/2018/05/discord-logo.jpg?w=1000&h=563&crop=1");
+                }
+            }
+
+            &_label {
+                @include inline-block(middle);
+
+                border: none;
+                background-color: none;
+
+                @include fonts(1.5, 500, $text_font);
+            }
+        }
+
+        &_account {
+            @include fonts(1.5, 400, $text_font);
+
+            &-link {
+                color: $light_green_col;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.account {
+    &_google {
+        border: 2px solid #fff;
+        background-color: #fff;
+        
+        color: #000;
+    }
+
+    &_discord {
+        border: 2px solid #738ADB;
+        background-color: #738ADB;
+        
+        color: #fff;
     }
 }

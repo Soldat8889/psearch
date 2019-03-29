@@ -36,11 +36,13 @@
 @import "layouts/_sidebar--right";
 @import "layouts/_footer";
 
+/* Utils Modules */
+@import "modules/utils/_button";
+
 /* Modules */
 @import "modules/_authentication";
 @import "modules/_background";
 @import "modules/_box";
-@import "modules/_button";
 @import "modules/_cookie";
 @import "modules/_custom-select";
 @import "modules/_fa";
@@ -58,8 +60,8 @@
 @import "modules/_tooltip";
 
 /* Media */
+@import "medias/_media-authentication";
 @import "medias/_media-footer";
-@import "medias/_media-form";
 @import "medias/_media-hero";
 @import "medias/_media-sidebar--right";
 @import "medias/_media-slider";

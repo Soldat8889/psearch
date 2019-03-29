@@ -1,0 +1,11 @@
+/*  ==================
+    Media Authentication
+    ================== */
+
+@media screen and (max-width: $portrait_tablet_size) {
+    .auth {
+        &-form {
+            width: 100%;
+        }
+    }
+}

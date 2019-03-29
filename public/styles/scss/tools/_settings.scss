@@ -8,7 +8,10 @@ $dark_col: #111111;
 $dark_col_hover: #0D0D0D;
 $dark_col_focus: #080808;
 $gray_col: #121212;
+$blue_gray_col: #202123;
+$light_gray_col: #464648;
 $gold_col: #A17836;
+$light_green_col: #7ABA59;
 $green_col: #27ae60;
 $green_col_hover: #26a75d;
 $green_col_focus: #219552;
@@ -26,10 +29,13 @@ $title_font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Ox
 $text_font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Variables of sizes
-$computer_size: 1600px;
-$tablet_size: 1024px;
-$mobile_size: 650px;
-$small_mobile_size: 480px;
+$big_desktop_size: 1281px; // High res laptops / desktop
+$desktop_size: 1025px; // Big landscape tablets, desktops and laptops
+$landscape_tablet_size: 801px; // Landscape tablet, low res desktops and laptops
+$portrait_tablet_size: 600px; // Portrait tablet
+$landscape_smartphone_size: 480px; // Landscape smartphones
+$big_portrait_smartphone_size: 400px; // Big portrait smartphones
+$smartphone_size: 340px; // Smartphone
 
 // Variables of Z-index
 $very-important_index: 115;

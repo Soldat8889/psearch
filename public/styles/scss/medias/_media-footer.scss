@@ -2,7 +2,7 @@
     Media Footer
     ================== */
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: $landscape_tablet_size) {
     .l-footer {
         @include grid-template(column, 1fr);
     }

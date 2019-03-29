@@ -19,7 +19,7 @@
     }
 }
 
-@media screen and (max-width: $small_mobile_size) {
+@media screen and (max-width: $landscape_smartphone_size) {
     .hero {
         &_footer {    
             &-resume {
@@ -40,7 +40,7 @@
     }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: $smartphone_size) {
     .hero {
         &_footer {    
             &-resume {

@@ -2,7 +2,7 @@
     Media Sidebar
     ================== */
 
-@media screen and (max-width: $mobile_size) {
+@media screen and (max-width: $portrait_tablet_size) {
 	.sidebar--right {
 		right: -100%;
 		width: 100%;
