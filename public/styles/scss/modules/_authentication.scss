@@ -3,13 +3,22 @@
     ================== */
 
 .auth {
+    &-wrapper {
+        margin-top: 20px;
+    }
+    
     &-header {
-        @include flexbox((
-            display: flex,
-            justify-content: center
-        ));
-        align-items: center;
+        position: relative;
         padding: 20px;
+
+        &_banner {
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            height: 20px;
+
+            background-color: $green_col;
+        }
 
         &_title {
             text-align: center;
@@ -117,6 +126,10 @@
             &-link {
                 color: $light_green_col;
                 font-weight: 500;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }

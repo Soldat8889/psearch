@@ -163,9 +163,9 @@ class HeroFooter extends React.Component {
 					case '4':
 						this.setState({
 							contain: {
-								title: 'Rocket League',
-								resume: 'Rocket League est un jeu basé sur le football mais en contrôlant un véhicule. Customisez le et faites un but !',
-								src: 'https://i.ytimg.com/vi/hbkSUl4gX5E/maxresdefault.jpg'
+								title: 'Apex Legends',
+								resume: 'Anéantissez vos ennemis dans le sang ! Incarnez plusieurs personnages, tous aux allures différentes.',
+								src: 'https://res.cloudinary.com/lmn/image/upload/c_limit,h_360,w_640/e_sharpen:100/f_auto,fl_lossy,q_auto/v1/gameskinnyc/a/p/e/apex-legends-cross-platform-gameplay-b1210.jpg'
 							}
 						})
 						break;
@@ -237,9 +237,9 @@ class HeroFooter extends React.Component {
 							<img src="https://via.placeholder.com/380x225" alt="Super Smash Bros. Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
 						</div>
 					</div>
-					<div className="hero_footer-item" data-id="4" data-tooltip="Rocket League">
+					<div className="hero_footer-item" data-id="4" data-tooltip="Apex Legends">
 						<div className="hero_footer-item_wrapper">
-							<img src="https://via.placeholder.com/380x225" alt="Rocket League" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--rocket-league .jpg" />
+							<img src="https://via.placeholder.com/380x225" alt="Apex Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--apex-legends .jpg" />
 						</div>
 					</div>
 				</div>

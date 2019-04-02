@@ -65,7 +65,7 @@ class Authentication extends React.Component {
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
 				<section id="context" className="page-part-wrapper">
-					<div className="page-part-content">
+					<div className="page-part-content" style={{paddingTop: '30px'}}>
 						<div className="container all-page-size inline-vh">
 							<form action={`/${this.props.type}`} method="POST" className="auth-form">
 								{this.renderAdaptativeTab(this.props.type)}
@@ -83,8 +83,9 @@ class Authentication extends React.Component {
 class SignUp extends React.Component {
 	render() {
 		return (
-			<div>
-				<header className="auth-header">
+			<div className="auth-wrapper">
+				<header className="auth-header inline-vh">
+					<div className="auth-header_banner"></div>
 					<h1 className="auth-header_title">
 						SIGN UP<br />
 						Hi! Who are you?
@@ -127,8 +128,9 @@ class SignUp extends React.Component {
 class LogIn extends React.Component {
 	render() {
 		return (
-			<div>
-				<header className="auth-header">
+			<div className="auth-wrapper">
+				<header className="auth-header inline-vh">
+					<div className="auth-header_banner"></div>
 					<h1 className="auth-header_title">
 						LOGIN <br />
 						Welcome back!

@@ -14,7 +14,7 @@ let
             function cumulativeOffset(element) {
 				var top = 0, left = 0;
 				do {
-					top += element.offsetTop  || 0;
+					top += element.offsetTop || 0;
 					left += element.offsetLeft || 0;
 					element = element.offsetParent;
 				} while(element);
@@ -26,9 +26,18 @@ let
 			};
 
             Array.prototype.forEach.call(lazyImgs, (lazyImg) => {
-                new Promise((res, rej) => {
+                new Promise(async (res, rej) => {
                     // Search is-webp classname
-                    if(/(is-webp)\w*/.test(lazyImg.className)) {
+                    let waitingWebp = new Promise((res, rej) => {
+                        do {
+                            res(true);
+                        } while(window.CONF.webp == "end");
+
+                    }).catch((e) => {
+                        window.CONF.env === 'development' ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+                    });
+
+                    if(await waitingWebp) {
                         res(true);
                     } else {
                         res(false);
@@ -48,14 +57,15 @@ let
 
                     // Stock in lazyImgObjectProps
                     lazyImgObjectProps.src = lazyImgProperties[0];
-                    lazyImgObjectProps.ext = lazyImgProperties[1];
 
                     // Look if it's compatible with .webp format
-                    if(isWebp) {
-                        lazyImgReturn = lazyImgObjectProps.src.concat('.webp');
+                    if(isWebp === true) {
+                        lazyImgObjectProps.ext = '.webp';
                     } else {
-                        lazyImgReturn = lazyImgObjectProps.src.concat(lazyImgObjectProps.ext);
+                        lazyImgObjectProps.ext = lazyImgProperties[1];
                     }
+
+                    lazyImgReturn = lazyImgObjectProps.src.concat(lazyImgObjectProps.ext);
 
                     async function lazyLoadingScroll() {
                         if(window.pageYOffset >= cumulativeOffset(lazyImg).top - lazyImg.height - window.innerHeight * 1.75) {
