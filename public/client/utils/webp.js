@@ -70,7 +70,6 @@ let
                     // Add cookie to remember the decision
                     if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(true);
-                        window.CONF.webp = "end";
                     }
                 } else {
                     // Add .is-webp to html tag and .webp-test
@@ -80,7 +79,6 @@ let
                     // Add cookie to remember the decision
                     if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(false);
-                        window.CONF.webp = "end";
                     }
                 }
             });

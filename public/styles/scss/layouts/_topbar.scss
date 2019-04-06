@@ -59,6 +59,7 @@
 
 	&_header {
 		@extend %topbar_bars;
+		align-items: flex-end;
 		padding-bottom: 0 !important;
 
 		&-icon {

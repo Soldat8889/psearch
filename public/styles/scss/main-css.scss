@@ -31,10 +31,12 @@
 @import "base/_fonts";
 
 /* Layout */
-@import "layouts/_header";
-@import "layouts/_topbar";
-@import "layouts/_sidebar--right";
 @import "layouts/_footer";
+@import "layouts/_header";
+@import "layouts/_hero";
+@import "layouts/_pub-display";
+@import "layouts/_sidebar--right";
+@import "layouts/_topbar";
 
 /* Utils Modules */
 @import "modules/utils/_button";
@@ -48,12 +50,10 @@
 @import "modules/_fa";
 @import "modules/_feedback";
 @import "modules/_flash";
-@import "modules/_hero";
 @import "modules/_loader";
 @import "modules/_noscript";
 @import "modules/_nprogress";
 @import "modules/_page";
-@import "modules/_pub-display";
 @import "modules/_rating-icons";
 @import "modules/_slider";
 @import "modules/_theme";
@@ -63,6 +63,8 @@
 @import "medias/_media-authentication";
 @import "medias/_media-footer";
 @import "medias/_media-hero";
+@import "medias/media-page";
+@import "medias/media-pub-display";
 @import "medias/_media-sidebar--right";
 @import "medias/_media-slider";
 @import "medias/_media-topbar";

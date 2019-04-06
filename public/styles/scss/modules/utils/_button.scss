@@ -61,10 +61,9 @@
 	@include border-radius(30px);
 	
 	font: {
-		size: 1.7rem;
 		family: "Montserrat", $text_font;
 	}
-	letter-spacing: -0.5px;
+	text-align: center;
 
 	@include transition(background-color $vsm_tr ease-in-out);
 }

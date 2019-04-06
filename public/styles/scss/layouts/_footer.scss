@@ -125,7 +125,7 @@
 
 			font: {
 				size: 3rem;
-				family: 'News Cycle';
+				family: $text-font;
 			}
 		}
 
@@ -144,7 +144,7 @@
 			&--special {
 				font: {
 					size: 4rem;
-					weight: 800;
+					weight: 600;
 				}
 				
 				& > img[data-logo] {
@@ -154,7 +154,7 @@
 				}
 
 				&[data-website-title] {
-					font-family: 'News Cycle', $title_font;
+					font-family: $title_font;
 
 					&::after {
 						content: "";
@@ -171,7 +171,7 @@
 
 					font: {
 						size: 1.2rem;
-						family: 'News Cycle', $title_font;
+						family: $title_font;
 					}
 					color: #f0f0f0;
 				}

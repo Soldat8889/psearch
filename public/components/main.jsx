@@ -4,6 +4,9 @@ import MetaTags from 'react-meta-tags';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 
+// Packages
+import MobileDetect from 'mobile-detect';
+
 // Containers
 import Homepage from "./views/Homepage";
 import LangSelect from "./views/LangSelect";
@@ -24,26 +27,57 @@ class App extends React.Component {
         }
 
         this.getCookie = this.getCookie.bind(this);
+        this.controlPub = this.controlPub.bind(this);
     }
 
     getCookie(cname) {
-        const name = cname + "=",
-            decodedCookie = decodeURIComponent(document.cookie),
-            ca = decodedCookie.split(';');
+        try {
+            const 
+                name          = cname + "=",
+                decodedCookie = decodeURIComponent(document.cookie),
+                ca            = decodedCookie.split(';');
 
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
 
-            while(c.charAt(0) == ' ') {
-                c = c.substring(1);
+                while(c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+
+                if(c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
             }
+            
+            return null;
+        } catch (e) {
+            window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+            return false;
+        }
+    }
 
-            if(c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
+    controlPub() {
+        // Detect if the User is using his phone (not a tablet)
+        let md = new MobileDetect(window.navigator.userAgent);
+
+        if(!md.tablet() && md.mobile()) {
+            // If yes => no pub
+            return true;
+        } else {
+            try {
+                // If no => Verify if he has already decline pub
+                if(this.getCookie('advDisabling') == "true") {
+                    // Yes, he did => no pub
+                    return true;
+                } else {
+                    // No, he didn't => pub
+                    return false;
+                }
+            } catch (e) {
+                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+                return false;
             }
         }
-        
-        return null;
     }
 
     componentDidMount() {
@@ -122,7 +156,7 @@ class App extends React.Component {
         if(this.state.isReady) {
             return (
                 <div className="app">
-                    <PubDisplay isDisabled={/advDisabling=true/.test(document.cookie) ? true : false} />
+                    <PubDisplay isDisabled={this.controlPub()} />
                     <Router component={AppContainer}>
                         {/* Routing */}
                         <div className="rooting">

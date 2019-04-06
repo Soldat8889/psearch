@@ -9,8 +9,8 @@ import tooltip     from './utils/tooltip';
 // Apply
 init();
 webp();
-lazyLoading();
 onLine();
 form();
 flash();
 tooltip();
+lazyLoading();

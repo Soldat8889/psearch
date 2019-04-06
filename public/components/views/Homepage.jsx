@@ -95,7 +95,7 @@ const HeroHeader = (props) => {
 	return (
 		<div className="hero_content">
 			<h1>This sentence is a test for testing.</h1>
-			<button className="button">Submit</button>
+			<button className="button me-text">Submit</button>
 		</div>
 	);
 }

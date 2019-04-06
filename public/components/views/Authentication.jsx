@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
+// Components
+import SignUp from './../common/layouts/Body/SignUp';
+import LogIn from './../common/layouts/Body/LogIn';
 
 class Authentication extends React.Component {
 	constructor(props) {
@@ -76,84 +79,6 @@ class Authentication extends React.Component {
 					</div>
 				</section>
 			</section>
-		);
-	}
-}
-
-class SignUp extends React.Component {
-	render() {
-		return (
-			<div className="auth-wrapper">
-				<header className="auth-header inline-vh">
-					<div className="auth-header_banner"></div>
-					<h1 className="auth-header_title">
-						SIGN UP<br />
-						Hi! Who are you?
-					</h1>
-				</header>
-				<fieldset className="auth-inner">
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Username
-						</label>
-						<input type="text" name="username" className="auth-input" />
-					</div>
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Email
-						</label>
-						<input type="email" name="email" className="auth-input" />
-					</div>
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Password
-						</label>
-						<input type="password" name="password" className="auth-input" />
-					</div>
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Repeat Password
-						</label>
-						<input type="password" name="password" className="auth-input" />
-					</div>
-					<div className="auth-group inline-vh">
-						<input type="submit" value="SIGN UP" className="auth-submit" />
-					</div>
-				</fieldset>
-			</div>
-		);
-	}
-}
-
-class LogIn extends React.Component {
-	render() {
-		return (
-			<div className="auth-wrapper">
-				<header className="auth-header inline-vh">
-					<div className="auth-header_banner"></div>
-					<h1 className="auth-header_title">
-						LOGIN <br />
-						Welcome back!
-					</h1>
-				</header>
-				<fieldset className="auth-inner">
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Username
-						</label>
-						<input type="text" name="username" className="auth-input" />
-					</div>
-					<div className="auth-group">
-						<label className="auth-label" data-state="none">
-							Password
-						</label>
-						<input type="password" name="password" className="auth-input" />
-					</div>
-					<div className="auth-group inline-vh">
-						<input type="submit" value="LOG IN" className="auth-submit" />
-					</div>
-				</fieldset>
-			</div>
 		);
 	}
 }

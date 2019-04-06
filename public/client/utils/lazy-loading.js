@@ -5,7 +5,7 @@
 let
     lazyLoading = () => {
         // There may be no .lazy-loading
-        try {
+        // try {
             // Get lazy load img
             const
                 lazyImgs = document.getElementsByClassName('lazy-loading');
@@ -29,10 +29,27 @@ let
                 new Promise(async (res, rej) => {
                     // Search is-webp classname
                     let waitingWebp = new Promise((res, rej) => {
-                        do {
-                            res(true);
-                        } while(window.CONF.webp == "end");
+                        function getCookie(cname) {
+                            const name = cname + "=",
+                                decodedCookie = decodeURIComponent(document.cookie),
+                                ca = decodedCookie.split(';');
+                    
+                            for(let i = 0; i < ca.length; i++) {
+                                let c = ca[i];
+                    
+                                while(c.charAt(0) == ' ') {
+                                    c = c.substring(1);
+                                }
+                    
+                                if(c.indexOf(name) == 0) {
+                                    return c.substring(name.length, c.length);
+                                }
+                            }
+                            
+                            return null;
+                        }
 
+                        res(getCookie('webpSupport'));
                     }).catch((e) => {
                         window.CONF.env === 'development' ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
                     });
@@ -82,10 +99,10 @@ let
                     lazyLoadingScroll();
                 });
             });
-        } catch(e) {
+        // } catch(e) {
             // IF window.CONF.env is development mode
-            window.CONF.env === 'development' ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
-        }
+            // window.CONF.env === 'development' ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+        // }
     }
 
 export default lazyLoading;

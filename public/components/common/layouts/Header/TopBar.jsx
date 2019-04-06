@@ -54,14 +54,21 @@ class NavigationBarHeader extends React.Component {
 	render() {
 		return(
 			<div className="topbar_header container">
-				<div className="text topbar_header-icon">
+				<Link 
+					to={
+						JSON.parse(this.props.config)['heading']['navigation']['links']['homepage']
+					} 
+					className="topbar_header-icon"
+				>
+				<div>
 					<img src="/assets/images/favicon.png" alt="pSearch's Logo" />
 					<h1>pSearch: </h1>
 					<h4>
 						<Text config={this.props.config} path={['heading', 'navigation', 'linksTitles', 'homepageSub']} />
 					</h4>
 				</div>
-				<div className="topbar_options">
+				</Link>
+				<div id="topbar_options-menu_header" className="topbar_options">
 					<button id="sidebar--left_button" className="topbar_button" data-sidebar="left">
 						<i className="fa fa-4x"></i>
 					</button>
@@ -69,7 +76,7 @@ class NavigationBarHeader extends React.Component {
 						to={
 							JSON.parse(this.props.config)['heading']['navigation']['links']['login']
 						} 
-						className="topbar_button button"
+						className="topbar_button button me-text"
 					>
 						<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 					</Link>
@@ -89,22 +96,24 @@ class NavigationBarInner extends React.Component {
 
 	componentDidMount() {
 		let 
-			topbarHeader = document.querySelector('.topbar_header'),
-			topbarMenu = document.querySelector('.topbar_menu'),
-			topbarMenuHeading = document.querySelector('.topbar_menu-heading'),
-			topbarMenuWrapper = document.getElementById('topbar_menu-wrapper'),
+			topbarHeader            = document.querySelector('.topbar_header'),
+			topbarMenu              = document.querySelector('.topbar_menu'),
+			topbarMenuHeading       = document.querySelector('.topbar_menu-heading'),
+			topbarMenuWrapper       = document.getElementById('topbar_menu-wrapper'),
 			topbarMenuWrapperCloned = document.getElementById('topbar_menu-wrapper--clone'),
-			topbarMenuLinksSticky = document.querySelectorAll('.topbar--underlined.stickytable'),
-			topbarMenuOptions = topbarMenu.querySelector('.topbar_options'),
-			topbarMenuIcon = topbarMenu.querySelector('.topbar_menu-icon');
+			topbarMenuLinksSticky   = document.querySelectorAll('.topbar--underlined.stickytable'),
+			topbarMenuOptionsSticky       = document.getElementById('topbar_options-menu_sticky'),
+			topbarMenuOptionsMenu       = document.getElementById('topbar_options-menu'),
+			topbarMenuIcon          = topbarMenu.querySelector('.topbar_menu-icon');
 
-		window.addEventListener('scroll', (e) => {
+		let stickyBar = () => {
 			for(let i = 0, j = topbarMenuLinksSticky.length; i < j; i++) {
 				if((topbarHeader.offsetTop + topbarHeader.offsetHeight) <= window.pageYOffset) {
 					topbarMenuHeading.classList.remove('has-no-display');
 					topbarMenuWrapper.classList.add('is-sticky');
 					topbarMenuLinksSticky[i].classList.add('is-in-sticky');
-					topbarMenuOptions.classList.remove('has-no-display');
+					topbarMenuOptionsSticky.classList.remove('has-no-display');
+					topbarMenuOptionsMenu.classList.add('has-no-display');
 					topbarMenuIcon.parentNode.classList.remove('has-no-display');
 
 					topbarMenuWrapperCloned.classList.remove('has-no-display');
@@ -112,13 +121,16 @@ class NavigationBarInner extends React.Component {
 					topbarMenuHeading.classList.add('has-no-display');
 					topbarMenuWrapper.classList.remove('is-sticky');
 					topbarMenuLinksSticky[i].classList.remove('is-in-sticky');
-					topbarMenuOptions.classList.add('has-no-display');
+					topbarMenuOptionsSticky.classList.add('has-no-display');
+					topbarMenuOptionsMenu.classList.remove('has-no-display');
 					topbarMenuIcon.parentNode.classList.add('has-no-display');
 
 					topbarMenuWrapperCloned.classList.add('has-no-display');
 				}
 			}
-		});
+		}
+		
+		window.addEventListener('scroll', stickyBar, false);
 	}
 
 	render() {
@@ -161,12 +173,28 @@ class NavigationBarInner extends React.Component {
 							<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} config={this.props.config} />
 						</HashLink>
 					</span>
-					<div className="topbar_options has-no-display">
+					<div id="topbar_options-menu" className="topbar_options">
+						<button id="sidebar--left_button" className="topbar_button" data-sidebar="left">
+							<i className="fa fa-4x"></i>
+						</button>
 						<Link 
 							to={
 								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
 							} 
-							className="topbar_button button"
+							className="topbar_button button me-text"
+						>
+							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
+						</Link>
+						<button className="topbar_button sidebar--right--button" data-sidebar="right">
+							<i className="fa fa-3x"></i>
+						</button>
+					</div>
+					<div id="topbar_options-menu_sticky" className="topbar_options has-no-display">
+						<Link 
+							to={
+								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
+							} 
+							className="topbar_button button me-text"
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 						</Link>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const FooterLayout = (props) => {
 	return (
@@ -73,14 +74,18 @@ const FooterLayout = (props) => {
 }
 
 const FooterLink = (props) => (
-	<Link className="l-footer_item-link" to={props.link}>
+	<HashLink 
+		smooth 
+		to={props.link} 
+		className="l-footer_item-link"
+	>
 		<span className="l-footer_item-link_arrow fa">
 			<div className="l-footer_item-link_arrow-inner">
 				<span></span><span></span>
 			</div>
 		</span>
 		<h3 className="l-footer_item-title">{props.title}</h3>
-	</Link>
+	</HashLink>
 );
 
 export default FooterLayout;
