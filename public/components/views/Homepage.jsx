@@ -5,6 +5,8 @@ import Sidebar from '../common/layouts/Header/SidebarLayout';
 import FooterLayout from '../common/layouts/Footer/FooterLayout';
 // Utils
 import Border from '../utils/Border';
+import Parallax from '../../client/utils/parallax';
+import OffsetPosition from '../../client/utils/getOffsetPosition';
 
 class Homepage extends React.Component {
 	constructor(props) {
@@ -19,7 +21,7 @@ class Homepage extends React.Component {
 				<Sidebar config={this.props.config} />
 				<Body config={this.props.config} />
 				<FeedbackLayout config={this.props.config} />
-				<footer>
+				<footer id="Homepage-Footer">
 					<FooterLayout config={JSON.parse(this.props.config)} />
 				</footer>
 			</section>
@@ -31,34 +33,40 @@ class Homepage extends React.Component {
 import TopBar from '../common/layouts/Header/TopBar';
 import Slider from '../common/widgets/Slider';
 
-const Header = (props) => {
-	return (
-		<header className="page-part-wrapper">
-			<div className="background-overlay webp-test overlay--lol"></div>
-			<TopBar config={props.config} />
-			<div className="page-part-content">
-				<Slider 
-					id="slider1"
-					class="slider"
-					items={3}
-					content={JSON.parse(props.config).widgets.slider1}
-					options={
-						{
-							allowControl: true,
-							allowFooter: true,
-							autoSlide: 5000,
-							draggable: false,
-							infiniteSlider: true,
-							itemsPerScroll: 1,
-							itemsPerSlide: 1,
-							transitionTime: 300
+class Header extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<header id="Homepage-Heading" className="page-part-wrapper">
+				<div className="background-overlay webp-test overlay--lol"></div>
+				<TopBar config={this.props.config} />
+				<div className="page-part-content">
+					<Slider 
+						id="slider1"
+						class="slider"
+						items={3}
+						content={JSON.parse(this.props.config).widgets.slider1}
+						options={
+							{
+								allowControl: true,
+								allowFooter: true,
+								autoSlide: 5000,
+								draggable: false,
+								infiniteSlider: true,
+								itemsPerScroll: 1,
+								itemsPerSlide: 1,
+								transitionTime: 300
+							}
 						}
-					}
-				/>
-			</div>
-			<Border type="basic" style={{ bottom: "-1px", fill: "#0e0e0e" }} />
-		</header>
-	);
+					/>
+				</div>
+				<Border type="basic" style={{ bottom: "-1px", fill: "#0e0e0e" }} />
+			</header>
+		);
+	}
 }
 
 class Body extends React.Component {
@@ -68,7 +76,7 @@ class Body extends React.Component {
 
 	render() {
 		return (
-			<section className="page-part-wrapper">
+			<section id="Homepage-Body" className="page-part-wrapper">
 				<div className="background-overlay overlay--neutral"></div>
 				<Hero />
 			</section>
@@ -283,8 +291,8 @@ import CustomFieldSelect from './../utils/CustomFieldSelect';
 
 const FeedbackLayout = (props) => {
 	return (
-		<section className="page-part-wrapper">
-			<div className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
+		<section id="Homepage-Feedback" className="page-part-wrapper">
+			<div id="Homepage-Feedback-Bg" className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
 			<div className="page-part-content">
 				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
 				<div className="container">
