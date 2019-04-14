@@ -50,6 +50,10 @@
 
         @include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
         pointer-events: none;
+
+        &_active {
+            color: $positive_col;
+        }
     }
 
     &-input {
@@ -61,6 +65,14 @@
             border-bottom: solid 1px $green_col;
 
             @include transition(border-bottom $vsm_tr);
+        }
+
+        &_box {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+
+            @include transform(translateY(-50%));
         }
     }
 

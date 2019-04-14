@@ -26,20 +26,25 @@ let config = {
 	output: {
 		path: path.resolve(__dirname, './public/dist'),
 		publicPath: '/assets/dist/',
-		filename: development ? '[name].js' : '[name].[chunkhash].js'
+		filename: development ? '[name].js' : '[name].[chunkhash].js',
+		hotUpdateChunkFilename: 'hot/hot-update.js',
+    hotUpdateMainFilename: 'hot/hot-update.json'
 	},
 	devtool: development ? "cheap-module-eval-source-map" : "",
 	resolve: {
-		extensions: ['.js', '.jsx', 'css', 'scss', 'sass']
+		extensions: ['.js', '.jsx', 'css', 'scss', 'sass'],
+		alias: {
+			'react-dom': '@hot-loader/react-dom'
+		}
 	},
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules|bower_components)/,
-				use: {
-					loader: 'babel-loader'
-				}
+				loader: [
+					'babel-loader', 'react-hot-loader/webpack'
+				]
 			}
 		]
 	},
@@ -53,7 +58,7 @@ let config = {
 	]
 };
 
-if (process.env.NODE_ENV.trim() === "production") {
+if(production) {
 	config.plugins.push(
 		new ManifestPlugin()
 	);
@@ -69,7 +74,7 @@ if (process.env.NODE_ENV.trim() === "production") {
         {
             test: /\.(sa|sc|c)ss$/,
             use: [
-        		MiniCssExtractPlugin.loader,
+        			MiniCssExtractPlugin.loader,
             	'css-loader',
             	'sass-loader'
             ]
@@ -107,14 +112,14 @@ if (process.env.NODE_ENV.trim() === "production") {
 			level: 8
 		}
     }));
-} else if(process.env.NODE_ENV.trim() === "development") {
+} else if(development) {
 	console.log('Development')
 	config.plugins.push(
 		new webpack.NamedModulesPlugin()
 	);
-	// config.plugins.push(
-	// 	new webpack.HotModuleReplacementPlugin()
-	// );
+	config.plugins.push(
+		new webpack.HotModuleReplacementPlugin()
+	);
 	config.entry['main-js'].splice(1, 0, 'react-hot-loader/patch');
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 // Components
 import Sidebar from '../common/layouts/Header/SidebarLayout';
 import FooterLayout from '../common/layouts/Footer/FooterLayout';

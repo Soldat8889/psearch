@@ -2,11 +2,7 @@
     Form
     ================== */
 
-form {
-	background-color: $blue_gray_col;
-}
-
-input {
+%input_rule-form {
 	display: block;
 	width: 100%;
 	height: 50px;
@@ -25,11 +21,7 @@ input {
 	@include transition(border-bottom $sm_tr);
 }
 
-input[type="email"]:invalid {
-	@include box-shadow(none);
-}
-
-input[type="submit"] {
+%input_submit_rule-form {
 	border: none;
 	background-color: $green_col;
 
@@ -50,6 +42,27 @@ input[type="submit"] {
 		@include transition(background-color $sm_tr);
 		outline: none;
 	}
+}
+
+form {
+	background-color: $blue_gray_col;
+}
+
+input {
+	@extend %input_rule-form;
+}
+
+input[type="email"]:invalid {
+	@include box-shadow(none);
+}
+
+input[type="submit"] {
+	@extend %input_submit_rule-form;
+}
+
+button[type="submit"] {
+	@extend %input_rule-form;
+	@extend %input_submit_rule-form;
 }
 
 label {

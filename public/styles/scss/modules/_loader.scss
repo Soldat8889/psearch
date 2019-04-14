@@ -81,12 +81,11 @@
     bottom: 0;
     left: 0;
     @include flexbox((
-        display: flex
+        display: flex,
+        flex-direction: column
     ));
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
 
     z-index: $all-width_index;
     
@@ -105,8 +104,8 @@
     
     &_content {
         @include display-grid;
-        @include grid-template(column, 30px 30px 30px);
-        @include grid-template(row, 35px 35px 35px);
+        @include grid-template(column, repeat(3, 30px));
+        @include grid-template(row, repeat(3, 35px));
     }
 
     &_bubble {

@@ -5,8 +5,8 @@
 let 
     init = () => {
         const 
-            root = document.getElementById('root'),
-            loader = document.querySelector('.loader'),
+            root        = document.getElementById('root'),
+            loader      = document.getElementById('pageLoader'),
             scrollToTop = document.getElementById('scrollToTop');
 
         const

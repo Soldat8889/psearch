@@ -1,41 +1,69 @@
 import React, { Component } from 'react';
+    import PropTypes            from 'prop-types';
 
-class Text extends React.Component {
+class Text extends Component {
+    static defaultProps = {
+        path: [],
+        config: undefined
+    }
+
+    static propTypes = {
+        path: PropTypes.array.isRequired,
+        config: PropTypes.string.isRequired
+    }
+
     constructor(props) {
         super(props);
 
         this.state = {
-            text: '',
-            isReady: false
+            isReady: false,
+            text   : '...'
         }
+
+        this.handleLoading = this.handleLoading.bind(this);
     }
 
-    componentDidMount(props) {
-        const
-            config = JSON.parse(this.props.config),
-            path = this.props.path;
-
+    handleLoading() {
         let
-            finalPath = config[path[0]];
+            path       = this.props.path,
+            config     = JSON.parse(this.props.config),
+            pathToText = config[path[0]];
 
-        for(let i = 1, j = path.length; i < j; i++) {
-            finalPath = finalPath[path[i]];
-        }
+        new Promise(async (res, rej) => {
+            let pathSearching = new Promise(async (res, rej) => {
+                for(let i = 1, j = path.length; i < j; i++) {
+                    pathToText = pathToText[path[i]];
+                }
 
-        this.setState({
-            text: finalPath,
-            isReady: true
+                res(pathToText);
+            })
+            .catch((e) => {
+                window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+            });
+
+            res(await pathSearching);
+        })
+        .then((res) => {
+            this.setState({
+                isReady: true,
+                text   : res
+            });
+        })
+        .catch((e) => {
+            window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
         });
+    }
+
+    componentDidMount() {
+        this.handleLoading();
     }
 
     render() {
         if(this.state.isReady) {
-			return (
-				this.state.text
-			);
-		} else {
-			return '...';
-		}
+            return this.state.text;
+        } else {
+            return '...';
+        }
     }
 }
 
