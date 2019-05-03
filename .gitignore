@@ -86,3 +86,12 @@ typings/
 public/dist/app.js
 public/dist/main-js.js
 public/dist/hot/
+
+# scss folder
+public/scss
+
+# components folder
+public/components
+
+# client folder
+public/client
