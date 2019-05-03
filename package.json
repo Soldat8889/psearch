@@ -12,20 +12,6 @@
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
-<<<<<<< HEAD
-    "errorhandler": "^1.5.0",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "jsonwebtoken": "^8.4.0",
-    "morgan": "^1.9.1",
-    "mysql2": "^1.6.4",
-    "sequelize": "^4.42.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node app/start.js",
-    "heroku-postbuild": "npm install && npm run build"
-=======
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "jsonwebtoken": "^8.5.1",
@@ -89,7 +75,6 @@
     "nj-dev-server": "cross-env NODE_ENV=development nodemon app/start.js",
     "nj-prod-server": "cross-env NODE_ENV=production nodemon app/start.js",
     "compass": "compass watch"
->>>>>>> master
   },
   "author": "",
   "license": "ISC"
