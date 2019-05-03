@@ -1,0 +1,66 @@
+/*  ==================
+    Sidebar
+    ================== */
+
+.packed {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+
+	z-index: $packed_index;
+
+	&.is-visible {
+		display: block;
+	}
+}
+
+.sidebar--right {
+	position: fixed;
+	top: 0;
+	right: -470px;
+	width: 470px;
+	height: 100%;
+
+	@include box-shadow(-6px 1px 11px -8px rgba(0,0,0,0.67));
+	background-color: #060606;
+
+	visibility: hidden;
+
+	z-index: $sidebar_index;
+	@include transition(transform .4s cubic-bezier(.45,.05,.55,.95), visibility .4s cubic-bezier(.45,.05,.55,.95));
+
+	&.is-visible {
+		transform: translateX(-470px);
+		visibility: visible;
+
+		@include transition(transform .4s ease, visibility .4s ease);
+	}
+
+	> * {
+		margin: 10px 0;
+	}
+
+	&_header {
+		> * {
+			@include inline-block(middle);
+		}
+		button {
+			float: right;
+		}
+	}
+
+	&_body {
+		&-options-group {
+			padding: 15px 5px;
+		}
+
+		&-label {
+			display: inline-block;
+			vertical-align: top;
+			padding: 4px;
+
+			background-color: rgba(0,0,0,.4);
+		}
+	}
+}

@@ -1,0 +1,158 @@
+/*  ==================
+    Rating Icons
+    ================== */
+
+%rating-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0 10px;
+
+	background: {
+		size: 60px;
+		repeat: no-repeat;
+	}
+
+	text-indent: 0;
+}
+
+%rating-icons_list-star {
+	display: block;
+
+	font: {
+		size: 2rem;
+		family: "Font Awesome 5 Free";
+		weight: 800;
+	}
+	color: #FFF352;
+	text-indent: 0;
+}
+
+span.rating-icons {
+	@include inline-block(middle);
+	margin: 0 5px;
+
+	text-indent: 0;
+}
+
+.rating-icons {
+	&_list {
+		@include display-grid;
+		@include grid-template(column, 1fr 1fr 1fr);
+		@include grid-template(row, 1fr 4px 1fr);
+
+		&-teamplayer {
+			@extend %rating-icon;
+
+			background-position: 0 0;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-friendly {
+			@extend %rating-icon;
+
+			background-position: -20px 0;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-leader {
+			@extend %rating-icon;
+
+			background-position: -40px 0;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-troll {
+			@extend %rating-icon;
+			@include grid-child(unset, unset, 3, auto);
+
+			background-position: 0px -20px;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-toxic {
+			@extend %rating-icon;
+			@include grid-child(unset, unset, 3, auto);
+
+			background-position: -20px -20px;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-anti-playing {
+			@extend %rating-icon;
+			@include grid-child(unset, unset, 3, auto);
+
+			background-position: -40px -20px;
+
+			&.is-webp {
+				background-image: url('/assets/images/rating-icons-sprite.webp');
+			}
+
+			&.no-webp {
+				background-image: url('/assets/images/rating-icons-sprite.jpg');
+			}
+		}
+
+		&-star {
+			&--empty {
+				&::after {
+					@extend %rating-icons_list-star;
+
+					content: "\f005";
+					font-weight: 400;
+				}
+			}
+
+			&--half {
+				&::after {
+					@extend %rating-icons_list-star;
+
+					content: "\f5c0";
+				}
+			}
+
+			&--full {
+				&::after {
+					@extend %rating-icons_list-star;
+
+					content: "\f005";
+				}
+			}
+		}
+	}
+}

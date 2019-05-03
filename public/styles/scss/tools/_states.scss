@@ -1,0 +1,20 @@
+/*  ==================
+    States
+    ================== */
+
+.is-hidden {
+    visibility: hidden;
+}
+
+.is-sticky {
+    position: fixed;
+    top: 0;
+}
+
+.has-no-scroll {
+    overflow: hidden;
+}
+
+.has-no-display {
+    display: none !important;
+}
