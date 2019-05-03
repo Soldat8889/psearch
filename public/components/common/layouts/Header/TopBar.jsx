@@ -80,12 +80,6 @@ class NavigationBarHeader extends React.Component {
 					>
 						<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 					</Link>
-					<Link 
-						to='/dashboard' 
-						className="topbar_button button me-text"
-					>
-						Dashboard
-					</Link>
 					<button className="topbar_button sidebar--right--button" data-sidebar="right">
 						<i className="fa fa-3x"></i>
 					</button>

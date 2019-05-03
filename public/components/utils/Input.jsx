@@ -144,6 +144,7 @@ class Input extends Component {
                     name={this.props.name} 
                     className="auth-input" 
                     defaultValue={this.props.value} 
+                    autoComplete="on"
                     data-available={this.state.isAvailable}
                     onKeyUp={this.checkInput} 
                     onBlur={this.handleBlur}

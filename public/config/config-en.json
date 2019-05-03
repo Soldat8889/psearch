@@ -50,7 +50,8 @@
                 "patchNotes": "Patch Notes",
                 "feedback": "Feedback",
                 "login": "Log In",
-                "signup": "Sign Up"
+                "signup": "Sign Up",
+                "dashboard": "Dashboard"
             },
             "links": {
                 "homepage": "/",
@@ -58,7 +59,8 @@
                 "patchNotes": "#",
                 "feedback": "/#feedback",
                 "login": "/login",
-                "signup": "/signup"
+                "signup": "/signup",
+                "dashboard": "Dashboard"
             }
         }
     },

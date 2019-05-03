@@ -49,7 +49,8 @@
                 "patchNotes": "Notes de patch",
                 "feedback": "Feedback",
                 "login": "Se connecter",
-                "signup": "S'inscrire"
+                "signup": "S'inscrire",
+                "dashboard": "Dashboard"
             },
             "links": {
                 "homepage": "/",
@@ -57,7 +58,8 @@
                 "patchNotes": "#",
                 "feedback": "/#feedback",
                 "login": "/login",
-                "signup": "/signup"
+                "signup": "/signup",
+                "dashboard": "Dashboard"
             }
         }
     },
