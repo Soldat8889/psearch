@@ -1,0 +1,74 @@
+/*  ==================
+    Button
+    ================== */
+
+@each $name, $bgc, $hov, $foc in (normal, $green_col, $green_col_hover, $green_col_focus), (dark, $dark_col, $dark_col_hover, $dark_col_focus) {
+	.button--icon.button--#{$name}[type="submit"] {
+		@include flexbox((
+			display: inline-flex
+		));
+		vertical-align: top;
+		width: 50px;
+		height: 50px;
+
+		background-color: #{$bgc};
+
+		@include transition(background-color $sm_tr);
+
+		&:hover {
+			background-color: #{$hov};
+		}
+
+		&:focus {
+			background-color: #{$foc};
+		}
+
+		&::before {
+			width: 100%;
+			height: 100%;
+			@include flexbox((
+				display: flex
+			));
+			align-items: center;
+			justify-content: center;
+
+			font: {
+				family: "Font Awesome 5 Free";
+				weight: 900;
+			}
+		}
+
+		> i {
+			margin: auto;
+
+			font-size: 2rem;
+		}
+	}
+}
+
+@each $type, $content in (check, "\f00c"), (cross, "\f00d") {
+	.button--#{$type}::before {
+		content: "#{$content}";
+	}
+}
+
+.button {
+	min-width: 100px;
+	margin: 0 3px;
+	padding: 10px 20px;
+
+	border: 2px solid $green_col;
+	@include border-radius(30px);
+	
+	font: {
+		family: "Montserrat", $text_font;
+	}
+	text-align: center;
+	letter-spacing: -.085rem;
+
+	@include transition(background-color $vsm_tr ease-in-out);
+}
+
+.material-button {
+	@include border-radius(0px);
+}

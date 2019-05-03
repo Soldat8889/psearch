@@ -1,5 +1,3 @@
-import fs from 'fs';
-
 // Whitelisted langs
 const langs = ['fr', 'en'];
 

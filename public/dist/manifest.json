@@ -1,8 +1,8 @@
 {
-  "main-js.js": "/assets/dist/main-js.520d89ac00036dd5f9ef.js",
-  "app.js": "/assets/dist/app.9da4956b986d5182dd3d.js",
-  "main-css.css": "/assets/dist/main-css.a324af63436c933d1e0d.css",
-  "main-css.a324af63436c933d1e0d.css.gz": "/assets/dist/main-css.a324af63436c933d1e0d.css.gz",
-  "app.9da4956b986d5182dd3d.js.gz": "/assets/dist/app.9da4956b986d5182dd3d.js.gz",
-  "main-js.520d89ac00036dd5f9ef.js.gz": "/assets/dist/main-js.520d89ac00036dd5f9ef.js.gz"
+  "app.js": "/assets/dist/app.f1ee040f3b8f63a3361e.js",
+  "main-css.css": "/assets/dist/main-css.df823a7da1d1b7034535.css",
+  "main-js.js": "/assets/dist/main-js.bae5c14f6fc27e991ea8.js",
+  "app.f1ee040f3b8f63a3361e.js.gz": "/assets/dist/app.f1ee040f3b8f63a3361e.js.gz",
+  "main-css.df823a7da1d1b7034535.css.gz": "/assets/dist/main-css.df823a7da1d1b7034535.css.gz",
+  "main-js.bae5c14f6fc27e991ea8.js.gz": "/assets/dist/main-js.bae5c14f6fc27e991ea8.js.gz"
 }

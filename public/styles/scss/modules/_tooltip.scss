@@ -1,0 +1,31 @@
+/*  ==================
+    Theme
+    ================== */
+
+@include keyframes(tooltipSpawn) {
+	from {
+		@include transform(translateX(-55%) translateY(-18px));
+		opacity: 0;
+	}
+	to {
+		@include transform(translateX(-55%) translateY(0px));
+		opacity: 1;
+	}
+}
+
+.tooltip {
+	position: absolute;
+	min-height: 25px;
+
+	@include box-shadow(1px 2px 2px 1px rgba(0, 0, 0, 0.6));
+
+	@include transform(translateX(-55%));
+	@include animation(tooltipSpawn 0.1s ease-in);
+	z-index: $help_index;
+
+	&_inner {
+		margin: auto;
+
+		text-align: center;
+	}
+}
