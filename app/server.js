@@ -65,9 +65,9 @@ passport.deserializeUser(function(user, done) {
 
 // Sync db
 models.sequelize.sync().then(function() {
-    console.log('OK! DB');
+    console.log('\nSequelize SYNC: OK!');
 }).catch((e) => {
-    console.log(e);
+    console.log('\nSequelize SYNC: ', e);
 });
 
 // CATCH ERROR => Console

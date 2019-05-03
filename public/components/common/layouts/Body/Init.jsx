@@ -1,5 +1,6 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
+import NProgress from 'nprogress';
 
 class Init extends React.Component {
     static defaultProps = {

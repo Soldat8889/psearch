@@ -1,6 +1,5 @@
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt                        from 'bcrypt';
-import { testModeAPI } from 'react-ga';
 
 // Authentication
 module.exports = (passport, user) => {
