@@ -83,10 +83,6 @@ typings/
 # # # #
 
 # dist files
-<<<<<<< HEAD
-public/dist
-=======
 public/dist/app.js
 public/dist/main-js.js
 public/dist/hot/
->>>>>>> master
