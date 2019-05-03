@@ -1,0 +1,64 @@
+/*  ==================
+    Fonts
+    ================== */
+
+h1 { @include fonts(3.2, 600, $title_font); }
+h2 { @include fonts(2.7, 500, $title_font); }
+h3 { @include fonts(2.3, 400, $title_font); }
+h4, .me-text { @include fonts(1.9, 400, $text_font); }
+p, .text { @include fonts(1.65, 300, $text_font); }
+.sm-text { @include fonts(1.4, 300, $text_font); }
+
+@media screen and (max-width: $portrait_tablet_size) {
+    h1 { font-size: 2.9rem; }
+    h2 { font-size: 2.4rem; }
+    h3 { font-size: 2rem; }
+    h4, .me-text { font-size: 1.7rem; }
+    p, .text { font-size: 1.45rem; }
+    .sm-text { font-size: 1.2rem; }
+}
+
+p, .paragraph { text-indent: 20px; }
+
+.text-heading {
+    @include inline-block(middle);
+    position: relative;
+    margin-bottom: 35px;
+
+    z-index: 1;
+
+    h1, h2, h3, h4 {
+        @include inline-block(top);
+        position: relative;
+        bottom: -10px;
+        margin-left: 100px;
+
+        font-family: 'Calibri', $title_font !important;
+    }
+}
+
+.triangular-bar {
+    position: absolute;
+    
+    overflow: visible;
+    fill: #000;
+
+    @for $i from 1 through 5 {
+        > polygon:nth-child(#{$i}) {
+            opacity: $i * 0.15;
+        }
+    }
+
+    polygon {
+        @include transition(opacity $me_tr);
+    }
+
+    &:hover {
+        @for $i from 1 through 5 {
+            > polygon:nth-child(#{$i}) {
+                opacity: $i * 0.175;
+                @include transition(opacity $me_tr);
+            }
+        }
+    }
+}

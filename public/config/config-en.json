@@ -3,6 +3,7 @@
         "index": "pSearch: Search, Chat, Play !",
         "signup": "pSearch: Sign Up",
         "login": "pSearch: Log In",
+        "dashboard": "pSearch: Dashboard",
         "errors": {
             "404": "pSearch: 404 Error"
         }
@@ -11,6 +12,7 @@
         "index": "Qu'est-ce que c'est pSearch ? pSearch est un site web qui permet de rechercher des joueurs, de discuter et de jouer avec eux, qu'ils soient des noobs ou bien des hard-players ! À vos manettes !",
         "signup": "Ayez un compte sur pSearch pour vous ouvrir à une toute nouvelle expérience utilisateur !",
         "login": "Reconnectez vous à votre compte pour revenir à jouer !",
+        "dashboard": "Your profile",
         "errors": {
             "404": "Vous vous êtes perdu ? Cette page n'existe soit pas ou soit plus ! Sinon veuillez réessayer ultérieurement."
         }
@@ -48,7 +50,8 @@
                 "patchNotes": "Patch Notes",
                 "feedback": "Feedback",
                 "login": "Log In",
-                "signup": "Sign Up"
+                "signup": "Sign Up",
+                "dashboard": "Dashboard"
             },
             "links": {
                 "homepage": "/",
@@ -56,7 +59,8 @@
                 "patchNotes": "#",
                 "feedback": "/#feedback",
                 "login": "/login",
-                "signup": "/signup"
+                "signup": "/signup",
+                "dashboard": "Dashboard"
             }
         }
     },
