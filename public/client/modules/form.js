@@ -17,22 +17,13 @@ let
 
                     switch (state) {
                         case 'active':
-                            materialLabel.style.transform = "translateY(-24px)";
-                            materialLabel.style.fontSize = "1.6rem";
-                            materialLabel.style.fontWeight = "600";
                             materialLabel.classList.add("auth-label_active");
                             break;
                         case 'none':
-                            materialLabel.style.transform = "";
-                            materialLabel.style.fontSize = "";
-                            materialLabel.style.fontWeight = "";
                             materialLabel.classList.remove("auth-label_active");
                         break;
 
                         default:
-                            materialLabel.style.transform = "";
-                            materialLabel.style.fontSize = "";
-                            materialLabel.style.fontWeight = "";
                             materialLabel.classList.remove("auth-label_active");
                             break;
                     }
@@ -54,6 +45,9 @@ let
 
                     labelStyle('none');
                 }, false);
+
+                materialInput.value === "" ? labelStyle('none') : labelStyle('active');
+                materialInput.value === "" ? materialInput.setAttribute('data-available', false) : materialInput.setAttribute('data-available', true);
             });
         } catch (e) {
             console.warn(e)

@@ -1,15 +1,42 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    email: DataTypes.STRING,
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    bio: DataTypes.STRING,
-    isAdmin: DataTypes.BOOLEAN
-  }, {});
-  User.associate = function(models) {
-    // associations can be defined here
-    models.User.hasMany(models.Message);
-  };
-  return User;
-};
+    const models = { sequelize };
+
+    let user = sequelize.define('user', {
+        Id_User: {
+            autoIncrement: true,
+            primaryKey   : true,
+            type         : DataTypes.INTEGER
+        },
+        Username_User: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                len: [6, 45]
+            }
+        },
+        Email_User: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+                len: [3, 254]
+            }
+        },
+        Password_User: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        Grade_User: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [['Client', 'Premium', 'Moderator', 'Administrator']]
+            },
+            defaultValue: 'Client'
+        }
+    });
+
+    return user;
+}

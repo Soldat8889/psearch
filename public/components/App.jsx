@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import MetaTags from 'react-meta-tags';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import axios from 'axios';
+import { Route, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
 
 // Packages
 import MobileDetect from 'mobile-detect';
@@ -9,49 +10,55 @@ import MobileDetect from 'mobile-detect';
 import Homepage from "./views/Homepage";
 import LangSelect from "./views/LangSelect";
 import Authentication from "./views/Authentication";
+import Dashboard from './views/Dashboard';
 import Error from "./views/Error";
 
 // Common
+import Helmet from "./common/layouts/Header/Helmet";
+import Init from "./common/layouts/Body/Init";
 import PubDisplay from "./common/layouts/Footer/PubDisplay";
 
+// Utils
+import ProtectedRoute from "./utils/ProtectedRoute";
+import GetCookie from "../client/utils/getCookie";
+
+// GOOGLE ANALYTICS
+if(window.CONF.env === 'production') {
+    ReactGA.initialize('UA-106638919-2');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
 class App extends Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
 
         this.state = {
-            isReady: false,
-            config: null,
-            manifest: null
+            isReady    : false,
+            config     : null,
+            manifest   : null,
+            apiResponse: "",
+            isAuthed   : undefined
         }
 
-        this.getCookie = this.getCookie.bind(this);
+        this.callAPI    = this.callAPI.bind(this);
         this.controlPub = this.controlPub.bind(this);
     }
 
-    getCookie(cname) {
-        try {
-            const 
-                name          = cname + "=",
-                decodedCookie = decodeURIComponent(document.cookie),
-                ca            = decodedCookie.split(';');
-
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-
-                while(c.charAt(0) == ' ') {
-                    c = c.substring(1);
+    callAPI() {
+        axios
+            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/testAPI`)
+            .then((res) => { 
+                if(this._isMounted) {
+                    this.setState({
+                        apiResponse: res.data
+                    });
                 }
-
-                if(c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            
-            return null;
-        } catch (e) {
-            window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
-            return false;
-        }
+            })
+            .catch((e) => {
+                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+            });
     }
 
     controlPub() {
@@ -64,7 +71,7 @@ class App extends Component {
         } else {
             try {
                 // If no => Verify if he has already decline pub
-                if(this.getCookie('advDisabling') == "true") {
+                if(GetCookie('advDisabling') == "true") {
                     // Yes, he did => no pub
                     return true;
                 } else {
@@ -79,14 +86,29 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+
+        this.callAPI();
+
         try {
             let
                 JSONFile;
 
-            this.getCookie('lang') !== null ? JSONFile = `/assets/config/config-${this.getCookie('lang')}.json` : JSONFile = "/assets/config/config-en.json";
-
+            GetCookie('lang') !== null ? JSONFile = `/assets/config/config-${GetCookie('lang')}.json` : JSONFile = "/assets/config/config-en.json";
             Promise.all(
             [
+                new Promise((res, rej) => {
+                    axios
+                        .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/isAuth`)
+                        .then((r) => {
+                            this.setState({isAuthed: r.data});
+                            res(r.data)
+                        })
+                        .catch((e) => {
+                            window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+                            rej(`DEVELOPMENT MODE => ${e}`);
+                        });
+                }),
                 new Promise((res, rej) => {
                     fetch(JSONFile, { 
                         method: 'GET',
@@ -141,21 +163,27 @@ class App extends Component {
                 })
             ])
             .then(() => {
-                this.setState({
-                    isReady: true
-                });
+                if(this._isMounted) {
+                    this.setState({
+                        isReady: true
+                    });
+                }
             });
         } catch(e) {
             throw new Error(e);
         }
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     render() {
         if(this.state.isReady) {
             return (
-                <div className="app">
+                <div className="app" data-is-auth={this.state.isAuthed}>
                     <PubDisplay isDisabled={this.controlPub()} />
-                    <Router>
+                    <Router isAuthed={this.state.isAuthed}>
                         {/* Routing */}
                         <div className="rooting">
                             <Switch>
@@ -166,7 +194,6 @@ class App extends Component {
                                         props => ( 
                                         <div>
                                             <Init {...props} 
-                                                config={this.state.config} 
                                                 manifest={this.state.manifest}
                                             />
                                             <Helmet {...props}
@@ -181,13 +208,63 @@ class App extends Component {
                                         </div> )
                                     } 
                                 />
-                                <Route 
-                                    path="/signup" 
-                                    component={
+                                <ProtectedRoute 
+                                    path="/login" 
+                                    redirect="/dashboard"
+                                    isAuthed={this.state.isAuthed}
+                                    rule={true}
+                                    Component={
                                         props => ( 
                                         <div>
                                             <Init {...props} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['login']}
+                                                description={JSON.parse(this.state.config)['description']['login']}
+                                            />
+                                            <Authentication {...props} 
                                                 config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                                type="login"
+                                            />
+                                        </div> )
+                                    } 
+                                />
+                                <ProtectedRoute 
+                                    path="/dashboard" 
+                                    redirect="/login"
+                                    isAuthed={this.state.isAuthed}
+                                    rule={false}
+                                    Component={
+                                        props => ( 
+                                        <div>
+                                            <Init {...props} 
+                                                manifest={this.state.manifest}
+                                            />
+                                            <Helmet {...props}
+                                                manifest={this.state.manifest}
+                                                title={JSON.parse(this.state.config)['title']['dashboard']}
+                                                description={JSON.parse(this.state.config)['description']['dashboard']}
+                                            />
+                                            <Dashboard {...props} 
+                                                config={this.state.config} 
+                                                manifest={this.state.manifest}
+                                                type="login"
+                                            />
+                                        </div> )
+                                    } 
+                                />
+                                <ProtectedRoute 
+                                    path="/signup" 
+                                    redirect="/dashboard"
+                                    isAuthed={this.state.isAuthed}
+                                    rule={true}
+                                    Component={
+                                        props => ( 
+                                        <div>
+                                            <Init {...props} 
                                                 manifest={this.state.manifest}
                                             />
                                             <Helmet {...props}
@@ -204,34 +281,11 @@ class App extends Component {
                                     } 
                                 />
                                 <Route 
-                                    path="/login" 
-                                    component={
-                                        props => ( 
-                                        <div>
-                                            <Init {...props} 
-                                                config={this.state.config} 
-                                                manifest={this.state.manifest}
-                                            />
-                                            <Helmet {...props}
-                                                manifest={this.state.manifest}
-                                                title={JSON.parse(this.state.config)['title']['login']}
-                                                description={JSON.parse(this.state.config)['description']['login']}
-                                            />
-                                            <Authentication {...props} 
-                                                config={this.state.config} 
-                                                manifest={this.state.manifest}
-                                                type="login"
-                                            />
-                                        </div> )
-                                    } 
-                                />
-                                <Route 
                                     path="/lang-select" 
                                     component={
                                         props => ( 
                                         <div>
                                             <Init {...props} 
-                                                config={this.state.config} 
                                                 manifest={this.state.manifest}
                                             />
                                             <Helmet {...props}
@@ -251,7 +305,6 @@ class App extends Component {
                                         props => ( 
                                         <div>
                                             <Init {...props} 
-                                                config={this.state.config} 
                                                 manifest={this.state.manifest}
                                             />
                                             <Helmet {...props}
@@ -278,136 +331,4 @@ class App extends Component {
     }
 }
 
-class Init extends Component {
-    constructor(props) {
-		super(props);
-
-		this.state = {
-			appJS: null
-		}
-	}
-
-	componentWillMount() {
-        NProgress.start();
-
-		new Promise((res, rej) => {
-			if(window.CONF.env === 'development') {
-				this.setState({
-					appJS: '/assets/dist/app.js'
-				});
-
-				res('/assets/dist/app.js');
-			} else {
-				this.setState({
-					appJS: JSON.parse(this.props.manifest)['app.js']
-				});
-
-				res(JSON.parse(this.props.manifest)['app.js']);
-			}
-		})
-		.then((val) => {
-			let
-				script = document.createElement('script');
-				
-			script.setAttribute('type', 'application/javascript');
-			script.setAttribute('src', val);
-
-			document.body.appendChild(script);
-		});
-    }
-    
-    componentDidMount() {
-        setTimeout(() => {
-            NProgress.done();
-        }, 1000);
-    }
-
-	componentWillUnmount() {
-		document.body.removeChild(document.querySelector(`script[src="${this.state.appJS}"]`));
-    }
-    
-    render() {
-        return true;
-    }
-}
-
-class Helmet extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            mainCSS: null,
-            isReady: false
-        }
-    }
-
-    componentDidMount() {
-        if(window.CONF.env === 'development') {
-            this.setState({
-                mainCSS: '/assets/styles/main-css.css',
-                isReady: true
-            });
-        } else {
-            this.setState({
-                mainCSS: JSON.parse(this.props.manifest)['main-css.css'],
-                isReady: true
-            });
-        }
-    }
-
-    render() {
-        if(this.state.isReady) {
-            if(window.CONF.env !== 'development') {
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', 'UA-106638919-2');
-            }
-
-            return (
-                <MetaTags>
-                    {/* Metas */}
-                    <meta charSet="utf-8" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <meta name="Identifier-URL" content="https://psearch.alwaysdata.net" />
-                    <meta name="theme-color" content="#30AE60" />
-                    <meta name="language" content="fr, en" />
-                    <meta name="reply-to" content="psearchfr@gmail.com" />
-                    <meta name="copyright" content="Copyright © 2018 pSearch" />
-                    <meta name="author" content="Soldat8889|pSearch" />
-                    <meta name="publisher" content="Soldat8889|pSearch" />
-                    <meta name="keywords" content="players, search, play, chat" />
-                    <title>{this.props.title}</title>
-                    <meta name="description" content={this.props.description} />
-                    <meta name="category" content="Searching Players, Playing, Chatting" />
-                    {/* The Open Graph protocol */}
-                    <meta name="og:title" content={this.props.title} />
-                    <meta name="og:description" content={this.props.description} />
-                    <meta name="og:locale" content="fr_FR" />
-                    <meta name="og:site_name" content="pSearch" />
-                    <meta name="og:url" content={window.location} />
-                    <meta name="og:type" content="website" />
-                    {/* Loading */}
-                    {/* Favicon */}
-                    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png" />
-                    {/* Main CSS */}
-                    <link rel="stylesheet" type="text/css" href={this.state.mainCSS} />
-                    {/* Fonts */}
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossOrigin="anonymous" />
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/regular.css" integrity="sha384-4e3mPOi7K1/4SAx8aMeZqaZ1Pm4l73ZnRRquHFWzPh2Pa4PMAgZm8/WNh6ydcygU" crossOrigin="anonymous" />
-                    {/* Global site tag (gtag.js) - Google Analytics */}
-                    {window.CONF.env !== 'development' ? <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106638919-2"></script> : null}
-                    {/* Adding Metas */}
-                    {
-                        this.props.children
-                    }
-                </MetaTags>
-            );
-        } else {
-            return null;
-        }
-    }
-}
-
-export default App;
+export default withRouter(App);

@@ -12,9 +12,9 @@ const FooterLayout = (props) => {
 						<div className="l-footer">
 							<hr className="l-footer_top-delimitation" />
 							<div className="l-footer_top-arrow">
-								<span></span>
-								<span></span>
-								<span></span>
+								<span>&nbsp;</span>
+								<span>&nbsp;</span>
+								<span>&nbsp;</span>
 							</div>
 							<div className="l-footer_item">
 								<div className="content-wrapper">
@@ -59,9 +59,6 @@ const FooterLayout = (props) => {
 										<FooterLink 
 											title={props.config['footer']['basics']['col3']['list']['1']} 
 											link="#" />
-										<div className="text" style={{position: 'absolute', bottom: '10px'}}>
-											Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto consectetur aliquid eaque numquam. Reiciendis aliquid maiores saepe laborum rem enim placeat omnis deserunt, sint, recusandae dignissimos nobis distinctio natus tenetur?
-										</div>
 									</div>
 								</div>
 							</div>

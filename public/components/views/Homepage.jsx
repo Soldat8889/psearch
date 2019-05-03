@@ -233,22 +233,22 @@ class HeroFooter extends React.Component {
 				<div className="hero_footer" data-current-item={this.state.currentItem}>
 					<div className="hero_footer-item" data-id="1" data-tooltip="League of Legends">
 						<div className="hero_footer-item_wrapper">						
-							<img src="https://via.placeholder.com/380x225" alt="League of Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--league-of-legends .jpg" />
+							<img src="/assets/images/loading-content.jpg" alt="League of Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--league-of-legends .jpg" />
 						</div>
 					</div>
 					<div className="hero_footer-item" data-id="2" data-tooltip="Overwatch">
 						<div className="hero_footer-item_wrapper">
-							<img src="https://via.placeholder.com/380x225" alt="Overwatch" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--overwatch .jpg" />
+							<img src="/assets/images/loading-content.jpg" alt="Overwatch" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--overwatch .jpg" />
 						</div>
 					</div>
 					<div className="hero_footer-item" data-id="3" data-tooltip="Super Smash Bros. Ultimate">
 						<div className="hero_footer-item_wrapper">
-							<img src="https://via.placeholder.com/380x225" alt="Super Smash Bros. Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
+							<img src="/assets/images/loading-content.jpg" alt="Super Smash Bros. Ultimate" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--super-smash-bros-ultimate .jpg" />
 						</div>
 					</div>
 					<div className="hero_footer-item" data-id="4" data-tooltip="Apex Legends">
 						<div className="hero_footer-item_wrapper">
-							<img src="https://via.placeholder.com/380x225" alt="Apex Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--apex-legends .jpg" />
+							<img src="/assets/images/loading-content.jpg" alt="Apex Legends" className="hero_footer-item_img webp-test lazy-loading" data-lazy-loading="/assets/images/icon--apex-legends .jpg" />
 						</div>
 					</div>
 				</div>
@@ -285,9 +285,6 @@ const HeroFooterFoldingContent = (props) => {
 			break;
 	}
 }
-
-// Utils
-import CustomFieldSelect from './../utils/CustomFieldSelect';
 
 const FeedbackLayout = (props) => {
 	return (
