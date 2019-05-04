@@ -80,9 +80,24 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# alwaysdata folder
+.bash_history/
+.config/
+.node-gyp/
+.npm-packages/
+
 # # # #
 
 # dist files
 public/dist/app.js
 public/dist/main-js.js
 public/dist/hot/
+
+# scss folder
+public/styles/scss/
+
+# components folder
+public/components/
+
+# client folder
+public/client/
