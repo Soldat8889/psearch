@@ -1,9 +1,9 @@
 {
     "development": {
-        "username": "psearch",
+        "username": "root",
         "password": "PGr7h+)S:(A#H|p:BC6eqoqBoMXbbpsAeNM.r)~z",
-        "database": "psearch_psearch",
-        "host"    : "mysql-psearch.alwaysdata.net",
+        "database": "psearch",
+        "host"    : "127.0.0.1",
         "dialect" : "mysql"
     },
     "production": {
