@@ -76,6 +76,6 @@
     "nj-prod-server": "cross-env NODE_ENV=production nodemon app/start.js",
     "compass": "compass watch"
   },
-  "author": "Soldat8889",
+  "author": "",
   "license": "ISC"
 }

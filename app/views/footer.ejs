@@ -20,7 +20,11 @@
 	<!-- Scripts -->
 	<script type="application/javascript">
 		// JS File can access window.CONF Object
+<<<<<<< HEAD
+		window.CONF = {env: "<%= env %>"}
+=======
 		window.CONF = {env: "<%= env %>", params: <%- JSON.stringify(params) %> }
+>>>>>>> master
 		// JS Control
 		document.documentElement.classList.remove("no-js");
 	</script>
