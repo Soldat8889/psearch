@@ -81,7 +81,7 @@ typings/
 .dynamodb/
 
 # alwaysdata folder
-.bash_history/
+.bash_history
 .config/
 .node-gyp/
 .npm-packages/
