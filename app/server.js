@@ -27,8 +27,13 @@ let
 	nodeEnv = process.env.NODE_ENV;
 
 // Define the HOST & PORT
-process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT | 8000;
-process.env.HOST = process.env.ALWAYSDATA_HTTPD_IP | 'localhost' || '127.0.0.1';
+process.env.PORT = 8000;
+process.env.HOST = 'localhost' || '127.0.0.1';
+
+if(nodeEnv === 'production') {
+	process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
+	process.env.HOST = process.env.ALWAYSDATA_HTTPD_HOST;
+}
 
 // Configure app
 // View Engine
