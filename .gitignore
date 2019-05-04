@@ -80,6 +80,12 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# alwaysdata folder
+.bash_history/
+.config/
+.node-gyp/
+.npm-packages/
+
 # # # #
 
 # dist files
