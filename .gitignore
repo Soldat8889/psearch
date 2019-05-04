@@ -88,10 +88,10 @@ public/dist/main-js.js
 public/dist/hot/
 
 # scss folder
-public/styles/scss
+public/styles/scss/
 
 # components folder
-public/components
+public/components/
 
 # client folder
-public/client
+public/client/
