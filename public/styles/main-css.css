@@ -950,15 +950,13 @@ p, .paragraph {
 
 .button {
   min-width: 100px;
-  margin: 0 3px;
   padding: 10px 20px;
-  border: 2px solid #27ae60;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  border-radius: 30px;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  border: 1.5px solid #27ae60;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   text-align: center;
-  letter-spacing: -.085rem;
   -moz-transition: background-color 0.15s ease-in-out;
   -o-transition: background-color 0.15s ease-in-out;
   -webkit-transition: background-color 0.15s ease-in-out;
@@ -1386,6 +1384,14 @@ p, .paragraph {
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     cursor: pointer; }
+
+/*  ==================
+    Grid
+    ================== */
+.grid-layout {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(1fr, 12); }
 
 /*  ==================
     Loader

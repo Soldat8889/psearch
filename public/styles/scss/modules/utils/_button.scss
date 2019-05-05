@@ -54,17 +54,15 @@
 
 .button {
 	min-width: 100px;
-	margin: 0 3px;
 	padding: 10px 20px;
 
-	border: 2px solid $green_col;
-	@include border-radius(30px);
+	border: 1.5px solid $green_col;
+	@include border-radius(18px);
 	
 	font: {
-		family: "Montserrat", $text_font;
+		family: $text_font;
 	}
 	text-align: center;
-	letter-spacing: -.085rem;
 
 	@include transition(background-color $vsm_tr ease-in-out);
 }

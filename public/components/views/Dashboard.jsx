@@ -9,8 +9,8 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
-            apiResponse: '',
-            isLoading  : true
+            user     : '',
+            isLoading: true
         }
     }
 
@@ -18,12 +18,12 @@ class Dashboard extends React.Component {
         this._isMounted = true;
 
         axios
-            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/dashboard`)
+            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`)
             .then((res) => {
                 if(this._isMounted) {
                     this.setState({
-                        apiResponse: res.data,
-                        isLoading  : false
+                        user     : res.data,
+                        isLoading: false
                     });
                 }
             })
@@ -37,17 +37,30 @@ class Dashboard extends React.Component {
     }
     
     render() {
+        const { user } = this.state;
         return (
-            <section className="page-content">
+            <section className="page-content grid-layout">
                 <div id="packed" className="packed"></div>
                 <section id="context" className="page-part-wrapper">
                     <div className="page-part-content">
-                        <h1>Welcome to your profile !</h1>
-                        <h2>{JSON.stringify(this.state.apiResponse)}</h2>
+                        <Header user={user} />
                     </div>
                 </section>
             </section>
         )
+    }
+}
+
+class Header extends React.Component {
+    render() {
+        const { user } = this.props;
+        
+        return (
+            <header id="Dashboard_Header" className="page-part-wrapper">
+                <h1>Welcome to your profile !</h1>
+                <h2>{JSON.stringify(user)}</h2>
+            </header>
+        );
     }
 }
 

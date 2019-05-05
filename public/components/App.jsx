@@ -35,25 +35,8 @@ class App extends Component {
             isAuthed   : undefined
         }
 
-        this.callAPI    = this.callAPI.bind(this);
         this.controlPub = this.controlPub.bind(this);
     }
-
-    callAPI() {
-        axios
-            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/testAPI`)
-            .then((res) => { 
-                if(this._isMounted) {
-                    this.setState({
-                        apiResponse: res.data
-                    });
-                }
-            })
-            .catch((e) => {
-                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
-            });
-    }
-
     controlPub() {
         // Detect if the User is using his phone (not a tablet)
         let md = new MobileDetect(window.navigator.userAgent);
@@ -81,8 +64,6 @@ class App extends Component {
     componentDidMount() {
         this._isMounted = true;
 
-        this.callAPI();
-
         try {
             let
                 JSONFile;
@@ -92,7 +73,7 @@ class App extends Component {
             [
                 new Promise((res, rej) => {
                     axios
-                        .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/isAuth`)
+                        .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`)
                         .then((r) => {
                             this.setState({isAuthed: r.data});
                             res(r.data)
@@ -174,7 +155,7 @@ class App extends Component {
     render() {
         if(this.state.isReady) {
             return (
-                <div className="app" data-is-auth={this.state.isAuthed}>
+                <div className="app" data-is-auth={this.state.isAuthed ? true : false}>
                     <PubDisplay isDisabled={this.controlPub()} />
                     <Router isAuthed={this.state.isAuthed}>
                         <Routing 

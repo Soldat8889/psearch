@@ -31,7 +31,7 @@ class ProtectedRoute extends React.Component {
         this._isMounted = true;
 
         axios
-            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/isAuth`)
+            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`)
             .then((res) => {
                 if(this._isMounted) {
                     this.setState({

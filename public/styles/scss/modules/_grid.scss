@@ -1,0 +1,10 @@
+/*  ==================
+    Grid
+    ================== */
+
+.grid {
+    &-layout {
+        @include display-grid();
+        grid-template-columns: repeat(1fr, 12);
+    }
+}

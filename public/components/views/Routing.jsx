@@ -26,7 +26,10 @@ class Routing extends React.Component {
     static propTypes = {
         manifest: PropTypes.string.isRequired,
         config  : PropTypes.string.isRequired,
-        isAuthed: PropTypes.bool.isRequired
+        isAuthed: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.array
+        ]).isRequired
     }
 
     constructor(props) {

@@ -20,15 +20,15 @@ CNX.connect((e) => {
     console.log('\nYou are now connected on your database\n');
 });
 
-apiRouter.get('/api/auth/isAuth', (req, res) => {
-    return res.status(200).send(req.isAuthenticated());
-});
-
-apiRouter.get('/api/auth/dashboard', (req, res) => {
-    CNX.query('SELECT * FROM users WHERE Id_User = ?', [req.user.Id_User], (e, r) => {
-        if(e) throw e;
-        return res.send(r);
-    })
+apiRouter.get('/api/auth/user', (req, res) => {
+    if(req.user !== undefined) {
+        CNX.query('SELECT * FROM users WHERE Id_User = ?', [req.user.Id_User], (e, r) => {
+            if(e) throw e;
+            return res.send(r);
+        });   
+    } else {
+        return res.send(false);
+    }
 });
 
 module.exports = apiRouter;
