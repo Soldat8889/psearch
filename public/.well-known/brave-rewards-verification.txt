@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: psearch.alwaysdata.net
+Token: e01f67dc5ac47fc11c831355cd5bdedcb1890205fcdc521f9973a900ba916ab5

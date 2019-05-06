@@ -1,5 +1,5 @@
 import { Strategy as LocalStrategy } from 'passport-local';
-import bcrypt                        from 'bcrypt';
+import bcrypt                        from 'bcryptjs';
 
 // Authentication
 module.exports = (passport, user) => {
