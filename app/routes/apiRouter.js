@@ -69,6 +69,14 @@ apiRouter.get('/logout', (req, res) => {
     });
 });
 
+// BRAVE REWARDS
+apiRouter.get('/.well-known/brave-rewards-verification.txt', (req, res) => {
+    fs.readFile(`public/.well-known/brave-rewards-verification.txt`, 'utf-8', (e, data) => {
+        if(e) throw e;
+        res.send(data);
+    });
+});
+
 // LangSelecting
 apiRouter.get('/lang-select', (req, res) => {
     langSelect.get(req, res, Template);
