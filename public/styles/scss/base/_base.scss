@@ -6,7 +6,7 @@ body {
     min-width: 280px;
     min-height: 100%;
 
-    background-color: #303030;
+    background-color: $main-first_col;
 
     font-size: 62.5%;
     line-height: 1.4;
@@ -21,7 +21,7 @@ body {
 
 @each $prefix in (moz), (webkit) {
     *::-#{$prefix}-selection {
-        background-color: rgba(39, 174, 96, 0.4);
+        background-color: rgba(225, 100, 40, .4);
 
         color: #fff;
     }

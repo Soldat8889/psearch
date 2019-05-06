@@ -50,7 +50,7 @@ class BasicalBorder extends React.Component {
 
     render() {
         return (
-            this.renderingContent()  
+            this.renderingContent()
         );
     }
 }

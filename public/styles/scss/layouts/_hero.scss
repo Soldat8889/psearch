@@ -28,11 +28,11 @@
                 @if $where == before {
                     @extend %hero-bgc;
     
-                    background-color: #0e0e0e;
+                    background-color: $full-dark-first_col;
                 } @else {
                     @extend %hero-bgc;
     
-                    background-color: #090909;
+                    background-color: $full-dark-third_col;
                 }
             }
         }
@@ -45,7 +45,7 @@
     }
 
     &_background {
-        background-color: #090909;
+        background-color: $full-dark-third_col;
     }
 
     &_title {

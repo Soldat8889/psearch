@@ -9,27 +9,12 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
-            user     : '',
             isLoading: true
         }
     }
 
     componentDidMount() {
         this._isMounted = true;
-
-        axios
-            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`)
-            .then((res) => {
-                if(this._isMounted) {
-                    this.setState({
-                        user     : res.data,
-                        isLoading: false
-                    });
-                }
-            })
-            .catch((e) => {
-                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
-            });
     }
 
     componentWillUnmount() {
@@ -37,13 +22,18 @@ class Dashboard extends React.Component {
     }
     
     render() {
-        const { user } = this.state;
+        const { config, isAuthed, user } = this.props;
+
         return (
-            <section className="page-content grid-layout">
+            <section className="page-content">
                 <div id="packed" className="packed"></div>
                 <section id="context" className="page-part-wrapper">
                     <div className="page-part-content">
-                        <Header user={user} />
+                        <Header 
+                            config={config}
+                            isAuthed={isAuthed}
+                            user={user}
+                        />
                     </div>
                 </section>
             </section>
@@ -51,14 +41,26 @@ class Dashboard extends React.Component {
     }
 }
 
+// Components
+import TopBar from './../common/layouts/Header/TopBar';
+
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const { user } = this.props;
+        const { config, user } = this.props;
         
         return (
-            <header id="Dashboard_Header" className="page-part-wrapper">
-                <h1>Welcome to your profile !</h1>
-                <h2>{JSON.stringify(user)}</h2>
+            <header id="Dashboard_Header" className="page-part-wrapper dashboard-header">
+                <TopBar 
+                    config={config}   
+                />
+                <div className="container">
+                    <h1>Welcome to your profile !</h1>
+                    <h2>{JSON.stringify(user)}</h2>
+                </div>
             </header>
         );
     }

@@ -32,7 +32,7 @@ process.env.HOST = 'localhost' || '127.0.0.1';
 
 if(nodeEnv === 'production') {
 	process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
-	process.env.HOST = process.env.ALWAYSDATA_HTTPD_HOST;
+	process.env.HOST = process.env.ALWAYSDATA_HTTPD_IP;
 }
 
 // Configure app
@@ -101,6 +101,12 @@ app.use(authAPI);
 app.use(apiRouter);
 
 // Mount server
-app.listen(process.env.PORT, process.env.HOST, () => {
-	console.log(`App has been started on PORT: ${process.env.PORT}`);
-});
+if(nodeEnv === 'development') {
+	app.listen(process.env.PORT, process.env.HOST, () => {
+		console.log(`App has been started on PORT: ${process.env.PORT}`);
+	});
+} else {
+	app.listen(process.env.ALWAYSDATA_HTTPD_PORT, process.env.ALWAYSDATA_HTTPD_IP, () => {
+		console.log('App has been started')
+	});
+}

@@ -34,20 +34,12 @@ class NavigationBarHeader extends React.Component {
 			const
 				body = document.body,
 				packed = document.getElementById('packed'),
-				sidebarRight = document.getElementById('sidebar--right'),
-				sidebarRightButtons = document.getElementsByClassName('sidebar--right--button'),
-				sidebarRightCrossButton = document.getElementById('sidebar--right_cross-button'),
 				onClick = () => {
 					body.classList.toggle('has-no-scroll');
 					packed.classList.toggle('is-visible');
-					sidebarRight.classList.toggle('is-visible');
 				};
 
-			for(let i = 0, j = sidebarRightButtons.length; i < j; i++) {
-				sidebarRightButtons[i].addEventListener('click', onClick, false);
-			}
 			packed.addEventListener('click', onClick, false);
-			sidebarRightCrossButton.addEventListener('click', onClick, false);
 		})();
 	}
 
@@ -69,9 +61,6 @@ class NavigationBarHeader extends React.Component {
 				</div>
 				</Link>
 				<div id="topbar_options-menu_header" className="topbar_options">
-					<button id="sidebar--left_button" className="topbar_button" data-sidebar="left">
-						<i className="fa fa-4x"></i>
-					</button>
 					<Link 
 						to={
 							JSON.parse(this.props.config)['heading']['navigation']['links']['login']
@@ -80,9 +69,6 @@ class NavigationBarHeader extends React.Component {
 					>
 						<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 					</Link>
-					<button className="topbar_button sidebar--right--button" data-sidebar="right">
-						<i className="fa fa-3x"></i>
-					</button>
 				</div>
 			</div>
 		);
@@ -102,8 +88,8 @@ class NavigationBarInner extends React.Component {
 			topbarMenuWrapper       = document.getElementById('topbar_menu-wrapper'),
 			topbarMenuWrapperCloned = document.getElementById('topbar_menu-wrapper--clone'),
 			topbarMenuLinksSticky   = document.querySelectorAll('.topbar--underlined.stickytable'),
-			topbarMenuOptionsSticky       = document.getElementById('topbar_options-menu_sticky'),
-			topbarMenuOptionsMenu       = document.getElementById('topbar_options-menu'),
+			topbarMenuOptionsSticky = document.getElementById('topbar_options-menu_sticky'),
+			topbarMenuOptionsMenu   = document.getElementById('topbar_options-menu'),
 			topbarMenuIcon          = topbarMenu.querySelector('.topbar_menu-icon');
 
 		let stickyBar = () => {
@@ -151,7 +137,7 @@ class NavigationBarInner extends React.Component {
 							to={
 								JSON.parse(this.props.config)['heading']['navigation']['links']['forum']
 							} 
-							className="text topbar--underlined stickytable"
+							className="text topbar--underlined topbar_menu-links--forum stickytable"
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'forum']} config={this.props.config} />
 						</Link>
@@ -174,9 +160,6 @@ class NavigationBarInner extends React.Component {
 						</HashLink>
 					</span>
 					<div id="topbar_options-menu" className="topbar_options">
-						<button id="sidebar--left_button" className="topbar_button" data-sidebar="left">
-							<i className="fa fa-4x"></i>
-						</button>
 						<Link 
 							to={
 								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
@@ -185,9 +168,6 @@ class NavigationBarInner extends React.Component {
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 						</Link>
-						<button className="topbar_button sidebar--right--button" data-sidebar="right">
-							<i className="fa fa-3x"></i>
-						</button>
 					</div>
 					<div id="topbar_options-menu_sticky" className="topbar_options has-no-display">
 						<Link 
@@ -198,9 +178,6 @@ class NavigationBarInner extends React.Component {
 						>
 							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
 						</Link>
-						<button className="topbar_button sidebar--right--button" data-sidebar="right">
-							<i className="fa fa-3x"></i>
-						</button>
 					</div>
 				</nav>
 			</div>

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 
 // Components
-import Sidebar from '../common/layouts/Header/SidebarLayout';
 import FooterLayout from '../common/layouts/Footer/FooterLayout';
 // Utils
-import Border from '../utils/Border';
-import Parallax from '../../client/utils/parallax';
-import OffsetPosition from '../../client/utils/getOffsetPosition';
+import Border from '../utils/Border';7
 
 class Homepage extends React.Component {
 	constructor(props) {
@@ -18,7 +15,6 @@ class Homepage extends React.Component {
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
 				<Header config={this.props.config} />
-				<Sidebar config={this.props.config} />
 				<Body config={this.props.config} />
 				<FeedbackLayout config={this.props.config} />
 				<footer id="Homepage-Footer">
@@ -291,7 +287,7 @@ const FeedbackLayout = (props) => {
 		<section id="Homepage-Feedback" className="page-part-wrapper">
 			<div id="Homepage-Feedback-Bg" className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
 			<div className="page-part-content">
-				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#090909" } } />
+				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)" } } />
 				<div className="container">
 					<div id="feedback" className="feedback page-part-content">
 						<h1>Des idées ? Aidez-nous !</h1>

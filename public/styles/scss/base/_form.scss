@@ -23,7 +23,7 @@
 
 %input_submit_rule-form {
 	border: none;
-	background-color: $green_col;
+	background-color: $main-third--special_col;
 
 	color: #fff;
 
@@ -31,13 +31,13 @@
 	cursor: pointer;
 
 	&:hover {
-		background-color: $green_col_hover;
+		background-color: $main-third--special_col--hover;
 
 		@include transition(background-color $sm_tr);
 	}
 
 	&:focus {
-		background-color: $green_col_focus;
+		background-color: $main-third--special_col--focus;
 
 		@include transition(background-color $sm_tr);
 		outline: none;
@@ -45,7 +45,14 @@
 }
 
 form {
-	background-color: $blue_gray_col;
+	background-color: $main-third_col;
+
+	input {
+		&:-webkit-autofill {
+            -webkit-text-fill-color: #fff !important;
+            @include box-shadow(0 0 0px 1000px $main-third_col inset !important);
+        }
+	}
 }
 
 input {

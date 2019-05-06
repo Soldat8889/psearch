@@ -94,7 +94,7 @@
 			width: 100%;
 			height: 5px;
 
-			background: $green_col;
+			background: $main-third--special_col;
 		}
 
 		&-wrapper {
@@ -116,6 +116,14 @@
 			& > * {
 				@include inline-block(middle);
 				margin: 0 15px;
+			}
+
+			&--forum {
+				margin-left: 0;
+
+				&.is-in-sticky {
+					margin-left: 15px;
+				}
 			}
 		}
 

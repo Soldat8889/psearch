@@ -16,7 +16,7 @@
         width: 100%;
         height: 5px;
 
-        background: #099042;
+        background: $main-third--special_col--focus;
 
         z-index: $very-important_index;
     }
@@ -28,7 +28,7 @@
         width: 100px;
         height: 100%;
 
-        @include box-shadow(0 0 10px #099042, 0 0 5px #099042);
+        @include box-shadow(0 0 10px $main-third--special_col--focus, 0 0 5px $main-third--special_col--focus);
       
         @include transform(rotate(3deg) translate(0px, -4px));
         opacity: 1.0;
@@ -47,8 +47,8 @@
             height: 18px;
           
             border: solid 4px transparent;
-            border-top-color: #099042;
-            border-left-color: #099042;
+            border-top-color: $main-third--special_col--focus;
+            border-left-color: $main-third--special_col--focus;
             @include border-radius(50%);
             @include box-sizing(border-box);
           

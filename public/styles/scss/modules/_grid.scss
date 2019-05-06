@@ -5,6 +5,29 @@
 .grid {
     &-layout {
         @include display-grid();
-        grid-template-columns: repeat(1fr, 12);
+        @include grid-template(column, repeat(12, 1fr));
+    }
+}
+
+@for $i from 1 through 12 {
+    @media screen and (min-width: $portrait_tablet_size) {
+        %col-grid {
+            position: relative;
+            min-height: 1px;
+            padding: {
+                left: 15px;
+                right: 15px;
+            }
+        }
+
+        .col-m-#{$i} {
+            @extend %col-grid;
+            width: #{$i * (100% / 12)};
+        }
+    }
+
+    .col-s-#{$i} {
+        @extend %col-grid;
+        width: #{$i * (100% / 12)};
     }
 }

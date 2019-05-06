@@ -26,7 +26,7 @@
         display: flex,
         flex-direction: column
     ));
-    max-width: 1300px;
+    max-width: 1130px;
     margin: 0 auto;
 
     padding: 25px 2.5%;
@@ -70,7 +70,7 @@
     position: absolute;
     bottom: 0;
 
-    fill: $primary_col;
+    fill: $full-dark-second_col;
 
     z-index: 0;
 }

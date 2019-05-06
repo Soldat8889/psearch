@@ -3,23 +3,43 @@
     ================== */
 
 // Variables of colors
-$primary_col: #050608;
 $dark_col: #111111;
 $dark_col_hover: #0D0D0D;
 $dark_col_focus: #080808;
-$gray_col: #121212;
-$blue_gray_col: #202123;
-$light_gray_col: #464648;
+
+$light_gray_col: #707070;
+
 $gold_col: #A17836;
+
+$yellow_col: #FFF352;
+
 $light_green_col: #7ABA59;
 $green_col: #27ae60;
 $green_col_hover: #26a75d;
 $green_col_focus: #219552;
+
 $blue_col: #2980b9;
+// DISCORD COLORS
+$discord_col: #738ADB;
+
 $red_col: #c0392b;
 // STATE
 $positive_col: #26a75d;
 $negative_col: #B22222;
+
+// MAIN PALETTE
+$main-first_col: #525252;
+$main-second_col: #414141;
+$main-third_col: #313131;
+$main-third--light-special_col: #e87d49;
+$main-third--special_col: #e16428;
+$main-third--special_col--hover: #e85610;
+$main-third--special_col--focus: #e85109;
+
+// FULL DARK PALETTE
+$full-dark-first_col: #0e0e0e;
+$full-dark-second_col: #050608;
+$full-dark-third_col: #090909;
 
 // Variables of time
 $vsm_tr: 0.15s;

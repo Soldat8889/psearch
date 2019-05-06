@@ -18,7 +18,7 @@
 	@include box-shadow(1px 1px 4px rgba(0, 0 , 0, 0.2));
 
 	font-family: $text_font;
-	color: #818182;
+	color: $light_gray_col;
 
 	z-index: $help_index;
 	@include transition(transform $sm_tr, opacity $sm_tr);

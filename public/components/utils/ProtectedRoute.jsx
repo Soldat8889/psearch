@@ -9,13 +9,15 @@ class ProtectedRoute extends React.Component {
     static defaultProps = {
         Component: {},
         path     : '/',
-        redirect : '/'
+        redirect : '/',
+        state    : {}
     }
 
     static propTypes = {
         Component: PropTypes.func.isRequired,
         path     : PropTypes.string.isRequired,
-        redirect : PropTypes.string.isRequired
+        redirect : PropTypes.string.isRequired,
+        state    : PropTypes.object
     }
 
     constructor(props) {
@@ -24,6 +26,7 @@ class ProtectedRoute extends React.Component {
         this.state = {
             isAuthed : undefined,
             isLoading: true,
+            user     : undefined
         }
     }
 
@@ -34,8 +37,17 @@ class ProtectedRoute extends React.Component {
             .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`)
             .then((res) => {
                 if(this._isMounted) {
+                    if(res.data) {
+                        this.setState({
+                            isAuthed: true,
+                            user    : res.data
+                        });
+                    } else {
+                        this.setState({
+                            isAuthed: false
+                        });
+                    }
                     this.setState({
-                        isAuthed : res.data,
                         isLoading: false
                     });
                 }
@@ -50,8 +62,8 @@ class ProtectedRoute extends React.Component {
     }
 
     render() {
-        let { Component, path, redirect, rule } = this.props;
-        let { isAuthed, isLoading }             = this.state;
+        let { Component, path, redirect, propsToChild, rule } = this.props;
+        let { isAuthed, user, isLoading }             = this.state;
 
         if(isLoading === false) {
             return (
@@ -62,11 +74,18 @@ class ProtectedRoute extends React.Component {
                         isAuthed == rule ? (
                             <Switch>
                                 <Redirect
-                                    to={redirect}
+                                    to={{
+                                        pathname: redirect
+                                    }}
                                 />
                             </Switch>
                         ) : (
-                            <Component {...props} />
+                            <Component 
+                                {...props} 
+                                parentProps={propsToChild}
+                                isAuthed={isAuthed}
+                                user={user}
+                            />
                         )
                     }
                 />

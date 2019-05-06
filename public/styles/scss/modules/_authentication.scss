@@ -17,7 +17,7 @@
             width: 100%;
             height: 20px;
 
-            background-color: $green_col;
+            background-color: $main-third--special_col;
         }
 
         &_title {
@@ -46,7 +46,7 @@
         top: 12.5px;
         left: 10px;
 
-        @include fonts(1.8, 400, $text_font, #8A8A8C);
+        @include fonts(1.8, 400, $text_font, $light_gray_col);
 
         @include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
         pointer-events: none;
@@ -54,7 +54,7 @@
         &_active {
             font-weight: 600;
             font-size: 1.6rem;
-            color: $positive_col;
+            color: $main-third--special_col;
 
             @include transform(translateY(-24px));
         }
@@ -63,17 +63,12 @@
     &-input {
         padding: 2px 2px 0px 10px;
 
-        border-bottom: solid 1px $light_gray_col;
+        border-bottom: solid 1.5px $main-first_col;
 
         &:focus {
-            border-bottom: solid 1px $green_col;
+            border-bottom: solid 1.5px $main-third--special_col;
 
             @include transition(border-bottom $vsm_tr);
-        }
-
-        &:-webkit-autofill {
-            -webkit-text-fill-color: #fff !important;
-            @include box-shadow(0 0 0px 1000px #202123 inset !important);
         }
 
         &_box {
@@ -145,7 +140,7 @@
             @include fonts(1.5, 400, $text_font);
 
             &-link {
-                color: $light_green_col;
+                color: $main-third--light-special_col;
                 font-weight: 500;
                 
                 &:hover {
@@ -165,8 +160,8 @@
     }
 
     &_discord {
-        border: 2px solid #738ADB;
-        background-color: #738ADB;
+        border: 2px solid $discord_col;
+        background-color: $discord_col;
         
         color: #fff;
     }
