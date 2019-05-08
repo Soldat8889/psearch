@@ -59,6 +59,11 @@ input {
 	@extend %input_rule-form;
 }
 
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+
 input[type="email"]:invalid {
 	@include box-shadow(none);
 }

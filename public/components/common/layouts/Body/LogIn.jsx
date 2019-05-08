@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React          from 'react';
 import { withRouter } from 'react-router-dom';
 // Components
 import Loader from './../../../utils/Loader';
 import Input  from './../../../utils/Input';
+import axios from 'axios';
 
 class LogIn extends React.Component {
 	constructor(props) {
         super(props);
 
         this.state = {
-            submitState: 'none'
+            submitState: 'none',
+            errorTarget: undefined
         }
+
+        this.child = React.createRef();
         
         this.handleClick   = this.handleClick.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
@@ -38,10 +42,16 @@ class LogIn extends React.Component {
     }
 
     handleSubmit(e) {
+        // Inputs
+        let 
+            usernameInput = document.getElementsByName('username')[0],
+            passwordInput = document.getElementsByName('password')[0];
+
         let
             target = e.target;
         
         e.preventDefault();
+        target.setAttribute('disabled', true);
         target.style.transition = "none";
 
         this.setState({
@@ -49,6 +59,7 @@ class LogIn extends React.Component {
         });
 
         new Promise(async (res, rej) => {
+            // Verify all inputs, are they no errors (defined by regex / limits)?
             let 
                 inputsChecking = document.querySelectorAll('.auth-input'),
                 checkingList = [];
@@ -70,6 +81,7 @@ class LogIn extends React.Component {
             res(await checkingListPush);
         })
         .then(async (response) => {
+            // Catch all errors and apply color to inputs (which have errors)
             let checkFalse = new Promise(async (res, rej) => {
                 let
                     authLabel = document.querySelectorAll('.auth-label');
@@ -88,21 +100,55 @@ class LogIn extends React.Component {
             })
             .then(async (res) => {
                 setTimeout(() => {
+                    // If there's at least one error
                     if(res == false) {
-                        target.style.transition = "";
-                        
-                        this.setState({
-                            submitState: 'none'
-                        });
-                    } else {
-                        console.log('FRONT END VERIFY => OK');
-                        target.style.transition = "";
-
                         this.setState({
                             submitState: 'submit'
                         });
+                        target.removeAttribute('disabled');
+                        target.style.transition = "";
+                    } else {
+                        console.log('FRONT END VERIFY => OK');
 
-                        document.forms['login'].submit();
+                        // Calling API
+                        axios
+                            .post(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, {
+                                callType: 'login',
+                                username: usernameInput.value,
+                                password: passwordInput.value
+                            })
+                            .then(async res => {
+                                let
+                                    data = res.data;
+                                
+                                if(data === 'OK') {
+                                    // We can submit if username & pw are okay and verified
+                                    this.setState({
+                                        submitState: 'submit'
+                                    });
+                                    target.removeAttribute('disabled');
+                                    target.style.transition = "";
+                                    console.log('CALL API VERIFY => OK');
+                                    console.log('SUBMIT');
+
+                                    document.forms['login'].submit();
+                                } else {
+                                    // Display errors
+                                    await this.child.current.displayMessage(data.errorTarget, 'error', data.error);
+
+                                    this.setState({
+                                        submitState: 'none',
+                                        errorTarget: data.errorTarget
+                                    });
+                                    target.removeAttribute('disabled');
+                                    target.style.transition = "";
+                                    console.log('CALL API VERIFY => OK');
+                                    console.log(data.error);
+                                }
+                            })
+                            .catch(e => {
+                                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+                            });
                     }
                 }, 566);
             });
@@ -122,7 +168,7 @@ class LogIn extends React.Component {
                 "SIGN UP"
             );
         }
-	}
+    }
 	
 	componentDidMount() {
         let
@@ -168,6 +214,8 @@ class LogIn extends React.Component {
                             content: /([a-z0-9])*/gi
                         }}
                         value={window.CONF.params.username !== undefined ? window.CONF.params.username : ""}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
                     />
                     <Input 
                         title="Password" 
@@ -180,7 +228,12 @@ class LogIn extends React.Component {
                             content: /(.*)*/gi
                         }}
                         children={<button id="view-password" className="far fa-2x" data-state="hidden"></button>}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
                     />
+                    <div className="auth-group">
+                        <input type="checkbox" name="remember_me" />
+                    </div>
 					<div className="auth-group inline-vh">
                         <button 
                             type="submit" 
@@ -190,7 +243,6 @@ class LogIn extends React.Component {
                         >
                             {this.handleLoading()}
                         </button>
-						<input type="checkbox" name="remember_me" />
 					</div>
 				</fieldset>
 			</div>

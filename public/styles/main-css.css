@@ -251,6 +251,10 @@ form {
     -webkit-box-shadow: 0 0 0px 1000px #313131 inset !important;
     box-shadow: 0 0 0px 1000px #313131 inset !important; }
 
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px; }
+
 input[type="email"]:invalid {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -991,6 +995,30 @@ p, .paragraph {
     -ms-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%); }
+.auth-message_wrapper {
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+.auth-message_text {
+  font-style: italic;
+  font-size: 1.5rem; }
+.auth-message--error {
+  background-color: #B22222; }
+.auth-message_icon {
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: -.05rem;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%; }
 .auth-submit {
   min-width: 300px;
   width: 85%; }

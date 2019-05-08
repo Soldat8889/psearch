@@ -80,6 +80,41 @@
         }
     }
 
+    &-message {
+        &_wrapper {
+            @include flexbox((
+                display: flex,
+                justify-content: center
+            ));
+            align-items: center;
+        }
+
+        &_text {
+            font: {
+                style: italic;
+                size: 1.5rem;
+            }
+        }
+
+        &--error {
+            background-color: $negative_col;
+        }
+
+        &_icon {
+            @include flexbox((
+                display: flex,
+                justify-content: center
+            ));
+            align-items: center;
+            position: relative;
+            left: -.05rem;
+            width: 20px;
+            height: 20px;
+
+            @include border-radius(100%);
+        }
+    }
+
     &-submit {
         min-width: 300px;
         width: 85%;

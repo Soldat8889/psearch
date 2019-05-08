@@ -112,7 +112,7 @@ module.exports = (passport, user) => {
         req.session.username = username;
 
         const
-            isValidPassword = (pwGiven, password) => {
+            isValidPassword = (password, pwGiven) => {
                 return bcrypt.compareSync(password, pwGiven);
             }
 
@@ -125,11 +125,11 @@ module.exports = (passport, user) => {
                 req.session.errorTarget = 'username';
 
                 return done(null, false, {
-                    message: 'This username does not exist'
+                    message: 'This user is not used. Create your account or verify this field.'
                 });
             }
 
-            if(!isValidPassword(user.Password_User, password)) {
+            if(!isValidPassword(password, user.Password_User)) {
                 req.session.errorTarget = 'password';
 
                 return done(null, false, {
