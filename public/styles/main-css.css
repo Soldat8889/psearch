@@ -152,7 +152,7 @@ path {
 .content-wrapper {
   padding: 10px; }
 
-/* TAGS RULES*/
+/* TAGS RULES */
 .bar {
   position: relative;
   display: inline-block;
@@ -166,6 +166,9 @@ path {
 li.stacked {
   margin-bottom: 30px;
   overflow: hidden; }
+
+.interface {
+  cursor: pointer; }
 
 svg.icon {
   margin: 5px; }

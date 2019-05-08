@@ -1,9 +1,9 @@
 import React          from 'react';
 import { withRouter } from 'react-router-dom';
+import axios          from 'axios';
 // Components
 import Loader from './../../../utils/Loader';
 import Input  from './../../../utils/Input';
-import axios from 'axios';
 
 class LogIn extends React.Component {
 	constructor(props) {
@@ -16,29 +16,8 @@ class LogIn extends React.Component {
 
         this.child = React.createRef();
         
-        this.handleClick   = this.handleClick.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
         this.handleLoading = this.handleLoading.bind(this);
-    }
-
-    handleClick(e) {
-        let
-            passwordViewer      = document.getElementById('view-password'),
-            passwordInput       = document.getElementsByName('password')[0];
-
-        e.preventDefault();
-
-        if(passwordViewer.getAttribute('data-state') == 'hidden') {
-            passwordViewer.innerHTML = "";
-            passwordViewer.setAttribute('data-state', 'visible');
-            
-            passwordInput.setAttribute('type', 'text');
-        } else {
-            passwordViewer.innerHTML = "";
-            passwordViewer.setAttribute('data-state', 'hidden');
-            
-            passwordInput.setAttribute('type', 'password');
-        }
     }
 
     handleSubmit(e) {
@@ -99,11 +78,12 @@ class LogIn extends React.Component {
                 res(await checkFalse);
             })
             .then(async (res) => {
+                // UX Timeout (just visual)
                 setTimeout(() => {
                     // If there's at least one error
                     if(res == false) {
                         this.setState({
-                            submitState: 'submit'
+                            submitState: 'none'
                         });
                         target.removeAttribute('disabled');
                         target.style.transition = "";
@@ -150,7 +130,7 @@ class LogIn extends React.Component {
                                 window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
                             });
                     }
-                }, 566);
+                }, 566); // One animation step timing
             });
         })
         .catch((e) => {
@@ -171,24 +151,16 @@ class LogIn extends React.Component {
     }
 	
 	componentDidMount() {
-        let
-            passwordViewer = document.getElementById('view-password'),
-            inputSubmit    = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('auth-submit');
 
-        passwordViewer.addEventListener('click', (e) => {
-            this.handleClick(e);
-        }, false);
         inputSubmit.addEventListener('click', (e) => {
             this.handleSubmit(e);
         }, false);
     }
 
     componentWillUnmount() {
-        let
-            passwordViewer = document.getElementById('view-password'),
-            inputSubmit    = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('auth-submit');
 
-        passwordViewer.removeEventListener('click', this.handleClick, false);
         inputSubmit.removeEventListener('click', this.handleSubmit, false);
     }
 
@@ -227,9 +199,9 @@ class LogIn extends React.Component {
                             type: "Regex",
                             content: /(.*)*/gi
                         }}
-                        children={<button id="view-password" className="far fa-2x" data-state="hidden"></button>}
                         ref={this.child}
                         apiErrorTarget={this.state.errorTarget}
+                        pwViewer={true}
                     />
                     <div className="auth-group">
                         <input type="checkbox" name="remember_me" />

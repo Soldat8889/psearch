@@ -1,7 +1,6 @@
-import React, { Component }                             from 'react';
-import PropTypes                                        from 'prop-types';
+import React          from 'react';
 import { withRouter } from 'react-router-dom';
-
+import axios          from 'axios'
 // Components
 import Loader from './../../../utils/Loader';
 import Input  from './../../../utils/Input';
@@ -11,42 +10,29 @@ class SignUp extends React.Component {
         super(props);
 
         this.state = {
-            submitState: 'none'
+            submitState: 'none',
+            errorTarget: undefined
         }
-        
-        this.handleClick   = this.handleClick.bind(this);
+
+        this.child = React.createRef();
+
         this.handleSubmit  = this.handleSubmit.bind(this);
         this.handleLoading = this.handleLoading.bind(this);
     }
 
-    handleClick(e) {
-        let
-            passwordViewer      = document.getElementById('view-password'),
-            passwordInput       = document.getElementsByName('password')[0],
-            passwordRepeatInput = document.getElementsByName('r-password')[0];
-
-        e.preventDefault();
-
-        if(passwordViewer.getAttribute('data-state') == 'hidden') {
-            passwordViewer.innerHTML = "";
-            passwordViewer.setAttribute('data-state', 'visible');
-            
-            passwordInput.setAttribute('type', 'text');
-            passwordRepeatInput.setAttribute('type', 'text');
-        } else {
-            passwordViewer.innerHTML = "";
-            passwordViewer.setAttribute('data-state', 'hidden');
-            
-            passwordInput.setAttribute('type', 'password');
-            passwordRepeatInput.setAttribute('type', 'password');
-        }
-    }
-
     handleSubmit(e) {
+        // Inputs
+        let
+            usernameInput  = document.getElementsByName('username')[0],
+            emailInput     = document.getElementsByName('email')[0],
+            passwordInput  = document.getElementsByName('password')[0],
+            rPasswordInput = document.getElementsByName('r-password')[0];
+
         let
             target = e.target;
         
         e.preventDefault();
+        target.setAttribute('disabled', true);
         target.style.transition = "none";
 
         this.setState({
@@ -54,6 +40,7 @@ class SignUp extends React.Component {
         });
 
         new Promise(async (res, rej) => {
+            // Verify all inputs, are they no errors (defined by regex / limits)?
             let 
                 inputsChecking = document.querySelectorAll('.auth-input'),
                 checkingList = [];
@@ -75,6 +62,7 @@ class SignUp extends React.Component {
             res(await checkingListPush);
         })
         .then(async (response) => {
+            // Catch all errors and apply color to inputs (which have errors)
             let checkFalse = new Promise(async (res, rej) => {
                 let
                     authLabel = document.querySelectorAll('.auth-label');
@@ -92,24 +80,60 @@ class SignUp extends React.Component {
                 res(await checkFalse);
             })
             .then(async (res) => {
+                // UX Timeout (just visual)
                 setTimeout(() => {
+                    // If there's at least one error
                     if(res == false) {
-                        target.style.transition = "";
-                        
                         this.setState({
                             submitState: 'none'
                         });
+                        target.removeAttribute('disabled');
+                        target.style.transition = "";
                     } else {
                         console.log('FRONT END VERIFY => OK');
-                        target.style.transition = "";
 
-                        this.setState({
-                            submitState: 'submit'
-                        });
+                        // Calling API
+                        axios
+                            .post(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, {
+                                callType: 'signup',
+                                username: usernameInput.value,
+                                email   : emailInput.value,
+                                password: passwordInput.value
+                            })
+                            .then(async res => {
+                                let
+                                    data = res.data;
+                                
+                                if(data === 'OK') {
+                                    // We can submit if username & pw are okay and verified
+                                    this.setState({
+                                        submitState: 'submit'
+                                    });
+                                    target.removeAttribute('disabled');
+                                    target.style.transition = "";
+                                    console.log('CALL API VERIFY => OK');
+                                    console.log('SUBMIT');
 
-                        document.forms['signup'].submit();
+                                    document.forms['signup'].submit();
+                                } else {
+                                    // Display errors
+                                    await this.child.current.displayMessage(data.errorTarget, 'error', data.error);
+
+                                    this.setState({
+                                        submitState: 'none',
+                                        errorTarget: data.errorTarget
+                                    });
+                                    target.removeAttribute('disabled');
+                                    target.style.transition = "";
+                                    console.log('CALL API VERIFY => OK');
+                                    console.log(data.error);
+                                }
+                            })
+                            .catch(e => {
+                                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+                            });
                     }
-                }, 566);
+                }, 566); // One animation step timing
             });
         })
         .catch((e) => {
@@ -130,24 +154,16 @@ class SignUp extends React.Component {
     }
 
     componentDidMount() {
-        let
-            passwordViewer = document.getElementById('view-password'),
-            inputSubmit    = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('auth-submit');
 
-        passwordViewer.addEventListener('click', (e) => {
-            this.handleClick(e);
-        }, false);
         inputSubmit.addEventListener('click', (e) => {
             this.handleSubmit(e);
         }, false);
     }
 
     componentWillUnmount() {
-        let
-            passwordViewer = document.getElementById('view-password'),
-            inputSubmit    = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('auth-submit');
 
-        passwordViewer.removeEventListener('click', this.handleClick, false);
         inputSubmit.removeEventListener('click', this.handleSubmit, false);
     }
 
@@ -173,6 +189,8 @@ class SignUp extends React.Component {
                             content: /([a-z0-9])*/gi
                         }}
                         value={window.CONF.params.username !== undefined ? window.CONF.params.username : ""}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
                     />
                     <Input 
                         title="Email" 
@@ -185,6 +203,8 @@ class SignUp extends React.Component {
                             content: /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i
                         }}
                         value={window.CONF.params.email !== undefined ? window.CONF.params.email : ""}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
                     />
                     <Input 
                         title="Password" 
@@ -196,7 +216,9 @@ class SignUp extends React.Component {
                             type: "Regex",
                             content: /(.*)*/gi
                         }}
-                        children={<button id="view-password" className="far fa-2x" data-state="hidden"></button>}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
+                        pwViewer={true}
                     />
                     <Input 
                         title="Repeat Password" 
@@ -208,6 +230,8 @@ class SignUp extends React.Component {
                             type: "Match",
                             content: "password"
                         }}
+                        ref={this.child}
+                        apiErrorTarget={this.state.errorTarget}
                     />
 					<div className="auth-group inline-vh">
                         <button 

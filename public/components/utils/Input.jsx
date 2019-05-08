@@ -12,7 +12,8 @@ class Input extends Component {
         name: 'default-title',
         minLength: 6,
         maxLength: 52,
-        apiErrorTarget: undefined
+        apiErrorTarget: undefined,
+        pwViewer: false
     }
 
     static propTypes = {
@@ -28,7 +29,8 @@ class Input extends Component {
                 PropTypes.object,
             ]),
         }).isRequired,
-        apiErrorTarget: PropTypes.string
+        apiErrorTarget: PropTypes.string,
+        pwViewer: PropTypes.bool
     }
 
     constructor(props) {
@@ -36,6 +38,7 @@ class Input extends Component {
 
         this.state = {
             currentLabel  : null,
+            currentMsgBox : null,
             currentInput  : null,
             handleError   : false,
             ruleType      : "",
@@ -49,14 +52,16 @@ class Input extends Component {
         this.handleBlur         = this.handleBlur.bind(this);
         this.displayMessage     = this.displayMessage.bind(this);
         this.inputRemoveMessage = this.inputRemoveMessage.bind(this);
+        this.handleView         = this.handleView.bind(this);
     }
 
     componentDidMount() {
         this.setState({
-            currentLabel: document.querySelector(`[data-reference="${this.props.name}"]`),
-            currentInput: document.getElementsByName(this.props.name)[0],
-            ruleType    : this.props.rule.type,
-            ruleContent : this.props.rule.content
+            currentLabel : document.querySelector(`label[data-reference="${this.props.name}"]`),
+            currentMsgBox: document.querySelector(`span#auth-message_text[data-reference="${this.props.name}"]`),
+            currentInput : document.getElementsByName(this.props.name)[0],
+            ruleType     : this.props.rule.type,
+            ruleContent  : this.props.rule.content
         });
 
         // If the page has been refresh, get window.CONF.params
@@ -77,10 +82,13 @@ class Input extends Component {
     }
 
     componentWillUnmount() {
-        let
-            inputs = document.querySelectorAll('.auth-input');
+        const
+            inputs   = document.querySelectorAll('.auth-input'),
+            pwViewer = document.getElementById('view-password');
 
-        // Get all inputs
+        pwViewer.removeEventListener("click", this.handleView, false);
+
+        // Get each input
         Array.prototype.forEach.call(inputs, input => {
             input.removeEventListener("keyup", this.checkInput, false);
             input.removeEventListener("blur", this.handleBlur, false);
@@ -160,8 +168,9 @@ class Input extends Component {
 
     async displayMessage(target, type, message) {
         const
-            label = document.querySelector(`label[data-reference="${target}"`),
-            box   = label.parentNode.querySelector('.auth-input_box');
+            label  = document.querySelector(`label[data-reference="${target}"`),
+            msgBox = document.querySelector(`span#auth-message_text[data-reference="${target}"`),
+            box    = label.parentNode.querySelector('.auth-input_box');
 
         const 
             msgWrapper = document.createElement('div'),
@@ -192,7 +201,7 @@ class Input extends Component {
             msgCross.textContent = '';
 
             // Message Text
-            label.innerHTML = `${this.props.title} - <span class="auth-message_text">${message}</span>`;
+            msgBox.innerHTML = `- <span class="auth-message_text">${message}</span>`;
 
             // Set color
             switch(type) {
@@ -214,63 +223,106 @@ class Input extends Component {
 
     inputRemoveMessage() {
         const
-            label = this.state.currentLabel;
+            msgBox = this.state.currentMsgBox;
 
         // Reinitialize its title
-        label.textContent = this.props.title;
+        msgBox.innerHTML = '';
 
         // Not undefined so...
-        if(this.state.apiErrorTarget !== undefined && this.state.apiErrorTarget === this.props.name) {
-            const
-                msg = document.querySelector(`div.auth-message_wrapper[data-reference="${this.state.apiErrorTarget}"]`),
-                box = msg.parentNode;
-
-            // Each children so...
-            Array.prototype.forEach.call([].slice.call(box.children), child => {
+        try {
+            if(this.state.apiErrorTarget !== undefined && this.state.apiErrorTarget === this.props.name) {
                 const
-                    childClasses = [].slice.call(child.classList);
-
-                // Not the cross
-                if(childClasses.indexOf('auth-message_wrapper') === -1) {
-                    // Hidden all except the cross
-                    child.setAttribute('data-display', 'block');
-                    child.style.display = 'block';
-                } else {
-                    box.removeChild(child);
-                }
-
-                // Remove errorTargeter
-                this.setState({
-                    apiErrorTarget: undefined
+                    msg = document.querySelector(`div.auth-message_wrapper[data-reference="${this.state.apiErrorTarget}"]`),
+                    box = msg.parentNode;
+    
+                // Each children so...
+                Array.prototype.forEach.call([].slice.call(box.children), child => {
+                    const
+                        childClasses = [].slice.call(child.classList);
+    
+                    // Not the cross
+                    if(childClasses.indexOf('auth-message_wrapper') === -1) {
+                        // Hidden all except the cross
+                        child.setAttribute('data-display', 'block');
+                        child.style.display = 'block';
+                    } else {
+                        box.removeChild(child);
+                    }
+    
+                    // Remove errorTargeter
+                    this.setState({
+                        apiErrorTarget: undefined
+                    });
                 });
-            });
-        }
+            }
+        } catch(e) {}
+    }
+
+    handleView() {
+        try {
+            const
+                pwViewer = document.getElementById('view-password'),
+                pwInput  = document.getElementsByName('password')[0];
+
+            const 
+                pwRInput = document.getElementsByName('r-password')[0];
+
+            if(pwViewer.getAttribute('data-state') == 'hidden') {
+                // Eye is closed
+                pwViewer.innerHTML = "";
+                pwViewer.setAttribute('data-state', 'visible');
+
+                // View inputs
+                pwInput.setAttribute('type', 'text');
+                pwRInput !== undefined ? pwRInput.setAttribute('type', 'text') : false;
+            } else {
+                // Eye is open
+                pwViewer.innerHTML = "";
+                pwViewer.setAttribute('data-state', 'hidden');
+                
+                // Hide inputs
+                pwInput.setAttribute('type', 'password');
+                pwRInput !== undefined ? pwRInput.setAttribute('type', 'password') : false;
+            }
+        } catch (e) {}
     }
 
     render() {
+        const { name, title, type, value, pwViewer } = this.props;
+        const { handleError, errorTarget, isAvailable } = this.state;
+
         return (
             <div className="auth-group">
                 <label 
                     className="auth-label" 
-                    data-reference={this.props.name}
+                    data-reference={name}
                     data-state="none"
-                    data-error={this.state.handleError}
-                    style={this.state.errorTarget ? {'color': '#B22222'} : {'color': ''}}
+                    data-error={handleError}
+                    style={errorTarget ? {'color': '#B22222'} : {'color': ''}}
                 >
-                    {this.props.title}
+                    {title}
+                    <span id="auth-message_text" className="auth-message_text" data-reference={name}></span>
                 </label>
                 <input 
-                    type={this.props.type} 
-                    name={this.props.name} 
+                    type={type} 
+                    name={name} 
                     className="auth-input" 
-                    defaultValue={this.props.value} 
+                    defaultValue={value} 
                     autoComplete="on"
-                    data-available={this.state.isAvailable}
+                    data-available={isAvailable}
                     onKeyUp={this.checkInput} 
                     onBlur={this.handleBlur}
                 />
                 <div className="auth-input_box">
-                    {this.props.children}
+                    {type === 'password' && pwViewer ? 
+                        <div 
+                            id="view-password" 
+                            className="far fa-2x interface" 
+                            data-state="hidden" 
+                            onClick={this.handleView}>
+                            
+                        </div> 
+                        : null}
                 </div>
             </div>
         );

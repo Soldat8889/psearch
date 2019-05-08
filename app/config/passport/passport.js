@@ -27,14 +27,14 @@ module.exports = (passport, user) => {
                     req.session.errorTarget = 'username';
                     
                     return done(null, false, {
-                        message: 'That username is already taken.'
+                        message: 'Username is already used'
                     });
                 } else {
                     if(username.length < 6 || username.length > 45) {
                         req.session.errorTarget = 'username';
                     
                         return done(null, false, {
-                            message: 'That username is too short or too long...'
+                            message: 'Username is too short or too long'
                         });
                     } else {
                         User.findOne({
@@ -48,14 +48,14 @@ module.exports = (passport, user) => {
                                 req.session.errorTarget = 'email';
 
                                 return done(null, false, {
-                                    message: 'That email is already taken.'
+                                    message: 'Email is already used'
                                 });
                             } else {
                                 if(!/(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i.test(req.body.email)) {
                                     req.session.errorTarget = 'email';
 
                                     return done(null, false, {
-                                        message: 'That email is not available.'
+                                        message: 'Email is not valid: is it an email?'
                                     });
                                 } else {
                                     let genHash = (pw) => {
@@ -66,7 +66,7 @@ module.exports = (passport, user) => {
                                         req.session.errorTarget = 'email';
 
                                         return done(null, false, {
-                                            message: 'That email is not available: there is at least one uppercase letter. Please replace them.'
+                                            message: 'Email is not valid: there is at least one uppercase letter'
                                         });
                                     } else {
                                         const 
