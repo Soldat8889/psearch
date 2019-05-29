@@ -86,8 +86,7 @@ class Helmet extends React.Component {
                     {/* Fonts */}
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossOrigin="anonymous" />
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/regular.css" integrity="sha384-4e3mPOi7K1/4SAx8aMeZqaZ1Pm4l73ZnRRquHFWzPh2Pa4PMAgZm8/WNh6ydcygU" crossOrigin="anonymous" />
-                    {/* Global site tag (gtag.js) - Google Analytics */}
-                    {window.CONF.env !== 'development' ? <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106638919-2"></script> : null}
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700" />
                     {/* Adding Metas */}
                     {
                         this.props.children

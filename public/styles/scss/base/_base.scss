@@ -135,7 +135,7 @@ svg.icon {
 
     @include transition(all $sm_tr);
     opacity: 0;
-    z-index: 100;
+    z-index: $help_index;
     visibility: hidden;
     cursor: pointer;
 

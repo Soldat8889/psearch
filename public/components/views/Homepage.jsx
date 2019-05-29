@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // Components
 import FooterLayout from '../common/layouts/Footer/FooterLayout';
@@ -29,7 +29,7 @@ class Homepage extends React.Component {
 import TopBar from '../common/layouts/Header/TopBar';
 import Slider from '../common/widgets/Slider';
 
-class Header extends Component {
+class Header extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -38,7 +38,9 @@ class Header extends Component {
 		return (
 			<header id="Homepage-Heading" className="page-part-wrapper">
 				<div className="background-overlay webp-test overlay--lol"></div>
-				<TopBar config={this.props.config} />
+				<TopBar config={this.props.config} params={{
+					isSticky: true
+				}}/>
 				<div className="page-part-content">
 					<Slider 
 						id="slider1"

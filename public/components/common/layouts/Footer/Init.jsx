@@ -39,12 +39,14 @@ class Init extends React.Component {
 		})
 		.then((val) => {
 			let
-				script = document.createElement('script');
+				app = document.createElement('script'),
+				socket = document.createElement('script');
 				
-			script.setAttribute('type', 'application/javascript');
-			script.setAttribute('src', val);
+			// AppJS create Element
+			app.setAttribute('type', 'application/javascript');
+			app.setAttribute('src', val);
 
-			document.body.appendChild(script);
+			document.body.appendChild(app);
 		});
     }
     
@@ -54,6 +56,7 @@ class Init extends React.Component {
     }
 
 	componentWillUnmount() {
+		// Remove when Router is activated (change page)
 		document.body.removeChild(document.querySelector(`script[src="${this.state.appJS}"]`));
     }
     

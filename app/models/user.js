@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        Avatar_User: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                is: /.*\.(?:jpe?g|png|gif)/gi
+            },
+            defaultValue: '/avatars/default--avatar.png'
+        },
         Grade_User: {
             type: DataTypes.STRING,
             allowNull: false,

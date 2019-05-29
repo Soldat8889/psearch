@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import PropTypes from 'prop-types';
 
 // Utils
 import Text from '../../../utils/Text';
@@ -10,12 +11,36 @@ class TopBar extends React.Component {
 		super(props);
 	}
 
+	static defaultProps = {
+		params: {
+			isSticky: true
+		}
+	}
+
+	/**
+		@param { Object } this.props.params Define Params of Class
+			@param { Boolean } this.props.params.isSticky Define bar will be stickyable
+	**/
+
+	static propTypes = {
+		params: PropTypes.shape({
+			isSticky: PropTypes.bool
+		})
+	}
+
 	render () {
 		return (
 			<header className="topbar page-part-wrapper">
 				<div className="page-part-content">
 					<NavigationBarHeader config={this.props.config} />
-					<NavigationBarInner config={this.props.config} />
+					<NavigationBarInner 
+						config={this.props.config}
+						params={
+							{
+								isSticky: this.props.params.isSticky
+							}
+						} 
+					/>
 					<div id="topbar_menu-wrapper--clone" className="has-no-display" style={{height: '98px'}}></div>
 				</div>
 			</header>
@@ -26,21 +51,6 @@ class TopBar extends React.Component {
 class NavigationBarHeader extends React.Component {
 	constructor(props) {
 		super(props);
-	}
-
-	componentDidMount() {
-		// TopBar Options
-		(() => {
-			const
-				body = document.body,
-				packed = document.getElementById('packed'),
-				onClick = () => {
-					body.classList.toggle('has-no-scroll');
-					packed.classList.toggle('is-visible');
-				};
-
-			packed.addEventListener('click', onClick, false);
-		})();
 	}
 
 	render() {
@@ -78,9 +88,23 @@ class NavigationBarHeader extends React.Component {
 class NavigationBarInner extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			isSticky: false
+		}
+
+		this.isSticky = this.isSticky.bind(this);
 	}
 
 	componentDidMount() {
+		this.props.params.isSticky ? window.addEventListener("scroll", this.isSticky, false) : false;
+	}
+
+	componentWillUnmount() {
+		this.props.params.isSticky ? window.removeEventListener("scroll", this.isSticky, false) : false;
+	}
+
+	isSticky() {
 		let 
 			topbarHeader            = document.querySelector('.topbar_header'),
 			topbarMenu              = document.querySelector('.topbar_menu'),
@@ -92,37 +116,41 @@ class NavigationBarInner extends React.Component {
 			topbarMenuOptionsMenu   = document.getElementById('topbar_options-menu'),
 			topbarMenuIcon          = topbarMenu.querySelector('.topbar_menu-icon');
 
-		let stickyBar = () => {
-			for(let i = 0, j = topbarMenuLinksSticky.length; i < j; i++) {
-				if((topbarHeader.offsetTop + topbarHeader.offsetHeight) <= window.pageYOffset) {
-					topbarMenuHeading.classList.remove('has-no-display');
-					topbarMenuWrapper.classList.add('is-sticky');
-					topbarMenuLinksSticky[i].classList.add('is-in-sticky');
-					topbarMenuOptionsSticky.classList.remove('has-no-display');
-					topbarMenuOptionsMenu.classList.add('has-no-display');
-					topbarMenuIcon.parentNode.classList.remove('has-no-display');
+		for(let i = 0, j = topbarMenuLinksSticky.length; i < j; i++) {
+			if((topbarHeader.offsetTop + topbarHeader.offsetHeight) <= window.pageYOffset) {
+				topbarMenuHeading.classList.remove('has-no-display');
+				topbarMenuWrapper.classList.add('is-sticky');
+				topbarMenuLinksSticky[i].classList.add('is-in-sticky');
+				topbarMenuOptionsSticky.classList.remove('has-no-display');
+				topbarMenuOptionsMenu.classList.add('has-no-display');
+				topbarMenuIcon.parentNode.classList.remove('has-no-display');
 
-					topbarMenuWrapperCloned.classList.remove('has-no-display');
-				} else {
-					topbarMenuHeading.classList.add('has-no-display');
-					topbarMenuWrapper.classList.remove('is-sticky');
-					topbarMenuLinksSticky[i].classList.remove('is-in-sticky');
-					topbarMenuOptionsSticky.classList.add('has-no-display');
-					topbarMenuOptionsMenu.classList.remove('has-no-display');
-					topbarMenuIcon.parentNode.classList.add('has-no-display');
+				topbarMenuWrapperCloned.classList.remove('has-no-display');
 
-					topbarMenuWrapperCloned.classList.add('has-no-display');
-				}
+				this.setState({
+					isSticky: true
+				});
+			} else {
+				topbarMenuHeading.classList.add('has-no-display');
+				topbarMenuWrapper.classList.remove('is-sticky');
+				topbarMenuLinksSticky[i].classList.remove('is-in-sticky');
+				topbarMenuOptionsSticky.classList.add('has-no-display');
+				topbarMenuOptionsMenu.classList.remove('has-no-display');
+				topbarMenuIcon.parentNode.classList.add('has-no-display');
+
+				topbarMenuWrapperCloned.classList.add('has-no-display');
+
+				this.setState({
+					isSticky: false
+				});
 			}
 		}
-		
-		window.addEventListener('scroll', stickyBar, false);
 	}
 
 	render() {
 		return (
 			<div className="topbar_menu-wrapper" id="topbar_menu-wrapper">
-				<nav className="topbar_menu container">
+				<nav className="topbar_menu container" data-is-sticky={this.state.isSticky}>
 					<div className="topbar_menu-heading has-no-display"></div>
 					<span className="topbar_menu-links">
 						<Link 

@@ -14,7 +14,7 @@ import ProtectedRoute from "./../utils/ProtectedRoute";
 
 // Common
 import Helmet from "./../common/layouts/Header/Helmet";
-import Init   from "./../common/layouts/Body/Init";
+import Init   from "./../common/layouts/Footer/Init";
 
 class Routing extends React.Component {
     static defaultProps = {
@@ -28,7 +28,7 @@ class Routing extends React.Component {
         config  : PropTypes.string.isRequired,
         isAuthed: PropTypes.oneOfType([
             PropTypes.bool,
-            PropTypes.array
+            PropTypes.object
         ]).isRequired
     }
 

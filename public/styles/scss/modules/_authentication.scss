@@ -33,6 +33,13 @@
         width: 500px;
 
         @include box-shadow(0px 0px 7px 1px rgba(0, 0, 0, 0.14));
+
+        overflow: hidden;
+    }
+    
+    &-context {
+        opacity: 1;
+        @include transition($me_tr transform, $lo_tr opacity);
     }
 
     &-group {
@@ -113,6 +120,14 @@
 
             @include border-radius(100%);
         }
+    }
+
+    &-avatar {
+        width: 175px;
+        height: 175px;
+
+        @include border-radius(50%);
+        background-color: $main-third_col;
     }
 
     &-submit {

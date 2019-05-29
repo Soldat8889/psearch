@@ -70,7 +70,13 @@ class Authentication extends React.Component {
 				<section id="context" className="page-part-wrapper">
 					<div className="page-part-content" style={{paddingTop: '30px'}}>
 						<div className="container all-page-size inline-vh">
-							<form id={this.props.type} action={`/${this.props.type}`} method="POST" className="auth-form">
+							<form 
+								id={this.props.type} 
+								action={`/${this.props.type}`} 
+								method="POST" 
+								className="auth-form" 
+								// encType={this.props.type === "signup" ? "multipart/form-data" : "application/x-www-form-urlencoded"}
+							>
 								{this.renderAdaptativeTab(this.props.type)}
 								<hr className="auth-hr" />
 								{this.renderAdaptativeAccessibility(this.props.type)}

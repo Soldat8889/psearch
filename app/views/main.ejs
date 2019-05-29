@@ -32,6 +32,7 @@
 	<link rel="stylesheet" type="text/css" href="<%= mainCSS %>" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/regular.css" integrity="sha384-4e3mPOi7K1/4SAx8aMeZqaZ1Pm4l73ZnRRquHFWzPh2Pa4PMAgZm8/WNh6ydcygU" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700" />
 </head>
 <body class="has-no-scroll">
 	<div id="pageLoader" class="loader all-page-size" data-state="onload">
@@ -82,6 +83,7 @@
 		window.CONF = {env: "<%= env %>", params: <%- JSON.stringify(params) %> }
 		// JS Control
 		document.documentElement.classList.remove("no-js");
+		document.documentElement.classList.add("js");
 	</script>
 	<script type="application/javascript" src="<%= mainJS %>"></script>
 	<script type="application/javascript" src="<%= appJS %>"></script>

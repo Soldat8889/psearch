@@ -2,10 +2,10 @@
     Fonts
     ================== */
 
-h1 { @include fonts(3.2, 600, $title_font); }
-h2 { @include fonts(2.7, 500, $title_font); }
-h3 { @include fonts(2.3, 400, $title_font); }
-h4, .me-text { @include fonts(1.9, 400, $text_font); }
+h1 { @include fonts(3.2, 400, $title_font); }
+h2 { @include fonts(2.7, 400, $title_font); }
+h3 { @include fonts(2.3, 300, $title_font); }
+h4, .me-text { @include fonts(1.9, 300, $text_font); }
 p, .text { @include fonts(1.65, 300, $text_font); }
 .sm-text { @include fonts(1.4, 300, $text_font); }
 
@@ -33,7 +33,7 @@ p, .paragraph { text-indent: 20px; }
         bottom: -10px;
         margin-left: 100px;
 
-        font-family: 'Calibri', $title_font !important;
+        font-family: $title_font;
     }
 }
 

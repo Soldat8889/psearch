@@ -2,21 +2,32 @@ import React, { Component } from 'react';
 import PropTypes            from 'prop-types';
 
 class Input extends Component {
-    /*
-     * @minLength { number }: Equal OR Greater, accepted
-     * @maxLength { number }: Equal OR Less, accepted
-    */
-
     static defaultProps = {
+        form: '',
         title: 'Default title',
         name: 'default-title',
         minLength: 6,
         maxLength: 52,
-        apiErrorTarget: undefined,
+        errorTarget: undefined,
         pwViewer: false
     }
 
+    /**
+     * @param { String } this.props.form        Define reference form
+     * @param { String } this.props.title       Define title label
+     * @param { String } this.props.name        Define reference name, name attr
+     * @param { Number } this.props.minLength   Equal OR Greater, accepted
+     * @param { Number } this.props.maxLength   Equal OR Less, accepted
+     * @param { Object } this.props.rule
+     *  @param { String } this.props.rule.type                        Define rule type between Regex | Match
+     *  @param { String || RegExp || Object } this.props.rule.content Define rule content
+     *  @param { String } this.props.rule.error                       Define error callback
+     * @param { String } this.props.errorTarget Define error target (reference label)
+     * @param { Boolean } this.props.pwViewer   Define if it's a mirror password input
+     */
+    
     static propTypes = {
+        form: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         minLength: PropTypes.number.isRequired,
@@ -28,8 +39,9 @@ class Input extends Component {
                 PropTypes.instanceOf(RegExp),
                 PropTypes.object,
             ]),
+            error: PropTypes.string,
         }).isRequired,
-        apiErrorTarget: PropTypes.string,
+        errorTarget: PropTypes.string,
         pwViewer: PropTypes.bool
     }
 
@@ -45,7 +57,7 @@ class Input extends Component {
             ruleContent   : null,
             isAvailable   : false,
             errorTarget   : false,
-            apiErrorTarget: undefined
+            errorTarget: undefined
         }
 
         this.checkInput         = this.checkInput.bind(this);
@@ -73,10 +85,10 @@ class Input extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // When apiErrorTarget changes, so update state
-        if(nextProps.apiErrorTarget !== this.props.apiErrorTarget || this.state.apiErrorTarget === undefined) {
+        // When errorTarget changes, so update state
+        if(nextProps.errorTarget !== this.props.errorTarget || this.state.errorTarget === undefined) {
             this.setState({
-                apiErrorTarget: nextProps.apiErrorTarget 
+                errorTarget: nextProps.errorTarget 
             });
         }
     }
@@ -100,6 +112,11 @@ class Input extends Component {
         let
             negativeColor = "#B22222";
 
+        if(this.state.currentInput.value == '') {
+            this.inputRemoveMessage();
+            return;
+        }
+
         // Verify minLength & maxLength
         if(this.state.currentInput.value.length < this.props.minLength || this.state.currentInput.value.length > this.props.maxLength) {
             this.setState({
@@ -109,6 +126,8 @@ class Input extends Component {
             
             // Negative color
             this.state.currentLabel.style.color = negativeColor;
+
+            this.displayMessage(this.props.name, 'error', `Must contain between ${this.props.minLength} to ${this.props.maxLength} characters.`);
         } else {
             // RuleType between Regex & Match
             switch(this.state.ruleType) {
@@ -119,27 +138,35 @@ class Input extends Component {
                             isAvailable: true
                         });
                         this.state.currentLabel.style.color = "";
+
+                        this.inputRemoveMessage();
                     } else if(this.state.ruleContent.test(this.state.currentInput.value) === false) {
                         this.setState({
                             handleError: true,
                             isAvailable: false
                         });
                         this.state.currentLabel.style.color = negativeColor;
+                        
+                        this.displayMessage(this.props.name, 'error', this.props.rule.error ? this.props.rule.error : null);
                     }
                     break;
                 case 'Match':
-                    if(document.getElementsByName(this.state.ruleContent)[0].value != this.state.currentInput.value) {
-                        this.setState({
-                            handleError: true,
-                            isAvailable: false
-                        });
-                        this.state.currentLabel.style.color = negativeColor;
-                    } else {
+                    if(document.getElementsByName(this.state.ruleContent)[0].value == this.state.currentInput.value) {
                         this.setState({
                             handleError: false,
                             isAvailable: true
                         });
                         this.state.currentLabel.style.color = "";
+                        
+                        this.inputRemoveMessage();
+                    } else {
+                        this.setState({
+                            handleError: true,
+                            isAvailable: false
+                        });
+                        this.state.currentLabel.style.color = negativeColor;
+
+                        this.displayMessage(this.props.name, 'error', this.props.rule.error ? this.props.rule.error : null);
                     }
                     break;
                 default:
@@ -147,9 +174,6 @@ class Input extends Component {
                     break;
             }
         }
-
-        // Call this
-        this.inputRemoveMessage();
     }
 
     handleBlur() {
@@ -201,7 +225,7 @@ class Input extends Component {
             msgCross.textContent = '';
 
             // Message Text
-            msgBox.innerHTML = `- <span class="auth-message_text">${message}</span>`;
+            msgBox.innerHTML = ` - <span class="auth-message_text">${message}</span>`;
 
             // Set color
             switch(type) {
@@ -229,33 +253,29 @@ class Input extends Component {
         msgBox.innerHTML = '';
 
         // Not undefined so...
-        try {
-            if(this.state.apiErrorTarget !== undefined && this.state.apiErrorTarget === this.props.name) {
-                const
-                    msg = document.querySelector(`div.auth-message_wrapper[data-reference="${this.state.apiErrorTarget}"]`),
-                    box = msg.parentNode;
-    
-                // Each children so...
-                Array.prototype.forEach.call([].slice.call(box.children), child => {
-                    const
-                        childClasses = [].slice.call(child.classList);
-    
-                    // Not the cross
-                    if(childClasses.indexOf('auth-message_wrapper') === -1) {
-                        // Hidden all except the cross
-                        child.setAttribute('data-display', 'block');
-                        child.style.display = 'block';
-                    } else {
-                        box.removeChild(child);
-                    }
-    
-                    // Remove errorTargeter
-                    this.setState({
-                        apiErrorTarget: undefined
-                    });
-                });
+        const
+            label  = document.querySelector(`label[data-reference="${this.props.name}"`),
+            box    = label.parentNode.querySelector('.auth-input_box');
+
+        // Each children so...
+        Array.prototype.forEach.call([].slice.call(box.children), child => {
+            const
+                childClasses = [].slice.call(child.classList);
+
+            // Not the cross
+            if(childClasses.indexOf('auth-message_wrapper') === -1) {
+                // Hidden all except the cross
+                child.setAttribute('data-display', 'block');
+                child.style.display = 'block';
+            } else {
+                box.removeChild(child);
             }
-        } catch(e) {}
+
+            // Remove errorTargeter
+            this.setState({
+                errorTarget: undefined
+            });
+        });
     }
 
     handleView() {

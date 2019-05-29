@@ -27,7 +27,7 @@ apiRouter.get('/api/auth/user', (req, res) => {
         // Get data from cookie
         CNX.query('SELECT * FROM users WHERE Id_User = ?', [req.user.Id_User], (e, r) => {
             if(e) throw e;
-            return res.send(r);
+            return res.send(r[0]);
         });
     } else {
         // Seems not connected

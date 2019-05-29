@@ -6,6 +6,8 @@ import cors          from 'cors';
 import errorHandler  from 'errorhandler';
 import morgan        from 'morgan';
 import ejs           from 'ejs';
+import http          from 'http';
+import socketIo      from 'socket.io';
 
 // AUTH
 import passport      from 'passport';
@@ -15,6 +17,7 @@ import models        from './models';
 // Custom Middlewares
 import flash       from './middlewares/flash';
 import gzipHeaders from './middlewares/gzip_headers';
+import chat        from './middlewares/chat';
 
 // Routes
 import apiRouter from './routes/apiRouter';
@@ -28,7 +31,7 @@ let
 
 // Define the HOST & PORT
 process.env.PORT = 8000;
-process.env.HOST = 'localhost' || '127.0.0.1';
+process.env.HOST = 'localhost';
 
 if(nodeEnv === 'production') {
 	process.env.PORT = process.env.ALWAYSDATA_HTTPD_PORT;
@@ -43,6 +46,8 @@ app.set('view engine', 'ejs');
 app.use(cors());
 // Log requests	
 if(nodeEnv == 'development') { app.use(morgan('dev')); }
+// CATCH ERROR => Console
+if(nodeEnv == 'development') { app.use(errorHandler()); }
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -75,9 +80,6 @@ models.sequelize.sync().then(function() {
     console.log('\nSequelize SYNC: ', e);
 });
 
-// CATCH ERROR => Console
-if(nodeEnv !== 'production') { app.use(errorHandler()); }
-
 // Cust. Middlewares
 app.use(flash);
 app.use(gzipHeaders);
@@ -91,6 +93,7 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+app.use(chat);
 
 // Use STATIC files
 app.use('/assets', express.static('public'));
@@ -99,6 +102,34 @@ app.use('/assets', express.static('public'));
 app.use(authAPI);
 // Mount the routes
 app.use(apiRouter);
+
+// Socket io
+let 
+	server = app.listen('8000'),
+	io = socketIo.listen(server, {'transports': ['websocket', 'polling'], 'origins': '*:*' });
+
+io.on('connection', (socket) => {
+	// Get status (test)
+	socket.emit('status', true);
+
+	// Channel01
+	let dt = new Date;
+		
+	socket.emit('channel01', {
+		'username': '[Server Channel01]',
+		'message': 'You are connected!'
+	});
+	socket.broadcast.emit('channel01', {
+		'username': '[Server Channel01]',
+		'message': 'A user has been connected!'
+	});
+
+	socket.on('channel01', (data) => {
+		// Log messages from channel01
+		dt = new Date;
+		console.log(`[Channel01] ${dt.getFullYear()} ${dt.getMonth()}/${dt.getDay()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()} => ${JSON.stringify(data)}`)
+	});
+});
 
 // Mount server
 if(nodeEnv === 'development') {
