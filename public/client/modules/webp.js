@@ -32,6 +32,10 @@ let
                 return null;
             }
 
+            async function eraseCookie(name) {   
+                document.cookie = name+'=; Max-Age=-99999999;';  
+            }
+
             // Support webp function
             // Look if webp can be available
             async function supportsWebp() {
@@ -42,6 +46,8 @@ let
                 if(await getCookie('webpSupport') && await getCookie('userAgent')) {
                     // Look the version of User's browser
                     if(encodeURIComponent(await getCookie('userAgent')) != userAgentEncode) {
+                        await eraseCookie("userAgent");
+                        await eraseCookie("webpSupport");
                         return createImageBitmap(await fetch(webpData).then(r => r.blob())).then(() => true, () => false);
                     } else {
                         return true;
@@ -61,8 +67,8 @@ let
                 document.cookie = `userAgent=${userAgentEncode}; Expires=${expiresDate}; Path=/;`;
             }
             
-            Array.prototype.forEach.call(webpEls, async (webpEl) => {
-                if(await supportsWebp()) {
+            if(supportsWebp()) {
+                Array.prototype.forEach.call(webpEls, async (webpEl) => {
                     // Add .is-webp to html tag and .webp-test
                     document.documentElement.classList.add('is-webp');
                     webpEl.classList.add('is-webp');
@@ -71,7 +77,9 @@ let
                     if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(true);
                     }
-                } else {
+                });
+            } else {
+                Array.prototype.forEach.call(webpEls, async (webpEl) => {
                     // Add .is-webp to html tag and .webp-test
                     document.documentElement.classList.add('no-webp');
                     webpEl.classList.add('no-webp');
@@ -80,8 +88,9 @@ let
                     if(!await getCookie('webpSupport') || !await getCookie('userAgent')) {
                         await supportsWebpControl(false);
                     }
-                }
-            });
+                });
+            }
+
         } catch(e) {
             // IF window.CONF.env is development mode
             window.CONF.env === 'development' ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;

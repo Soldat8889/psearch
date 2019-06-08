@@ -1,8 +1,8 @@
 /*  ==================
-    Authentication
+    Form
     ================== */
 
-.auth {
+.form {
     &-wrapper {
         margin-top: 20px;
     }
@@ -28,14 +28,6 @@
     &-inner {
        margin: 25px 12px 10px 12px;
     }
-
-    &-form {
-        width: 500px;
-
-        @include box-shadow(0px 0px 7px 1px rgba(0, 0, 0, 0.14));
-
-        overflow: hidden;
-    }
     
     &-context {
         opacity: 1;
@@ -44,6 +36,12 @@
 
     &-group {
         position: relative;
+        @include flexbox((
+            display: flex,
+            flex-direction: row,
+            justify-content: center
+        ));
+        align-items: center;
 
         margin-bottom: 22px;
     }
@@ -167,11 +165,11 @@
 
                 color: none;
 
-                &.account_google {
+                &.account--google {
                     background-image: url("https://pbs.twimg.com/profile_images/927446347879292930/Fi0D7FGJ_400x400.jpg");
                 }
 
-                &.account_discord {
+                &.account--discord {
                     background-image: url("https://pmcvariety.files.wordpress.com/2018/05/discord-logo.jpg?w=1000&h=563&crop=1");
                 }
             }
@@ -202,14 +200,14 @@
 }
 
 .account {
-    &_google {
+    &--google {
         border: 2px solid #fff;
         background-color: #fff;
         
         color: #000;
     }
 
-    &_discord {
+    &--discord {
         border: 2px solid $discord_col;
         background-color: $discord_col;
         

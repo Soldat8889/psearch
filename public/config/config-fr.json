@@ -59,7 +59,7 @@
                 "feedback": "/#feedback",
                 "login": "/login",
                 "signup": "/signup",
-                "dashboard": "Dashboard"
+                "dashboard": "/dashboard"
             }
         }
     },

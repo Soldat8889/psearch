@@ -32,7 +32,10 @@ class TopBar extends React.Component {
 		return (
 			<header className="topbar page-part-wrapper">
 				<div className="page-part-content">
-					<NavigationBarHeader config={this.props.config} />
+					<NavigationBarHeader 
+						config={this.props.config} 
+						isAuthed={this.props.isAuthed}
+					/>
 					<NavigationBarInner 
 						config={this.props.config}
 						params={
@@ -40,6 +43,7 @@ class TopBar extends React.Component {
 								isSticky: this.props.params.isSticky
 							}
 						} 
+						isAuthed={this.props.isAuthed}
 					/>
 					<div id="topbar_menu-wrapper--clone" className="has-no-display" style={{height: '98px'}}></div>
 				</div>
@@ -71,14 +75,25 @@ class NavigationBarHeader extends React.Component {
 				</div>
 				</Link>
 				<div id="topbar_options-menu_header" className="topbar_options">
-					<Link 
-						to={
-							JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-						} 
-						className="topbar_button button me-text"
-					>
-						<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-					</Link>
+					{this.props.isAuthed ? 
+						<Link 
+							to={
+								JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
+							} 
+							className="topbar_button button me-text"
+						>
+							<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
+						</Link>
+						: 
+						<Link 
+							to={
+								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
+							} 
+							className="topbar_button button me-text"
+						>
+							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
+						</Link>
+					}
 				</div>
 			</div>
 		);
@@ -188,24 +203,46 @@ class NavigationBarInner extends React.Component {
 						</HashLink>
 					</span>
 					<div id="topbar_options-menu" className="topbar_options">
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-							} 
-							className="topbar_button button me-text"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-						</Link>
+						{this.props.isAuthed ? 
+							<Link 
+								to={
+									JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
+								} 
+								className="topbar_button button me-text"
+							>
+								<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
+							</Link>
+							: 
+							<Link 
+								to={
+									JSON.parse(this.props.config)['heading']['navigation']['links']['login']
+								} 
+								className="topbar_button button me-text"
+							>
+								<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
+							</Link>
+						}
 					</div>
 					<div id="topbar_options-menu_sticky" className="topbar_options has-no-display">
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-							} 
-							className="topbar_button button me-text"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-						</Link>
+						{this.props.isAuthed ? 
+							<Link 
+								to={
+									JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
+								} 
+								className="topbar_button button me-text"
+							>
+								<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
+							</Link>
+							: 
+							<Link 
+								to={
+									JSON.parse(this.props.config)['heading']['navigation']['links']['login']
+								} 
+								className="topbar_button button me-text"
+							>
+								<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
+							</Link>
+						}
 					</div>
 				</nav>
 			</div>

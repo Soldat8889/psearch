@@ -70,7 +70,7 @@ class Input extends Component {
     componentDidMount() {
         this.setState({
             currentLabel : document.querySelector(`label[data-reference="${this.props.name}"]`),
-            currentMsgBox: document.querySelector(`span#auth-message_text[data-reference="${this.props.name}"]`),
+            currentMsgBox: document.querySelector(`span#form-message_text[data-reference="${this.props.name}"]`),
             currentInput : document.getElementsByName(this.props.name)[0],
             ruleType     : this.props.rule.type,
             ruleContent  : this.props.rule.content
@@ -95,7 +95,7 @@ class Input extends Component {
 
     componentWillUnmount() {
         const
-            inputs   = document.querySelectorAll('.auth-input'),
+            inputs   = document.querySelectorAll('.form-input'),
             pwViewer = document.getElementById('view-password');
 
         pwViewer.removeEventListener("click", this.handleView, false);
@@ -193,8 +193,8 @@ class Input extends Component {
     async displayMessage(target, type, message) {
         const
             label  = document.querySelector(`label[data-reference="${target}"`),
-            msgBox = document.querySelector(`span#auth-message_text[data-reference="${target}"`),
-            box    = label.parentNode.querySelector('.auth-input_box');
+            msgBox = document.querySelector(`span#form-message_text[data-reference="${target}"`),
+            box    = label.parentNode.querySelector('.form-input_box');
 
         const 
             msgWrapper = document.createElement('div'),
@@ -207,7 +207,7 @@ class Input extends Component {
                     childClasses = [].slice.call(child.classList);
 
                 // Not the cross
-                if(childClasses.indexOf('auth-message_wrapper') === -1) {
+                if(childClasses.indexOf('form-message_wrapper') === -1) {
                     // Display: none for all except the cross
                     child.setAttribute('data-display', 'none');
                     child.style.display = 'none';
@@ -217,15 +217,15 @@ class Input extends Component {
             });
 
             // Message Wrapper
-            msgWrapper.setAttribute('class', `auth-message_wrapper`);
+            msgWrapper.setAttribute('class', `form-message_wrapper`);
             msgWrapper.setAttribute('data-reference', target);
 
             // Message Cross
-            msgCross.setAttribute('class', `fas sm-text auth-message_icon auth-message--${type}`);
+            msgCross.setAttribute('class', `fas sm-text form-message_icon form-message--${type}`);
             msgCross.textContent = '';
 
             // Message Text
-            msgBox.innerHTML = ` - <span class="auth-message_text">${message}</span>`;
+            msgBox.innerHTML = ` - <span class="form-message_text">${message}</span>`;
 
             // Set color
             switch(type) {
@@ -255,7 +255,7 @@ class Input extends Component {
         // Not undefined so...
         const
             label  = document.querySelector(`label[data-reference="${this.props.name}"`),
-            box    = label.parentNode.querySelector('.auth-input_box');
+            box    = label.parentNode.querySelector('.form-input_box');
 
         // Each children so...
         Array.prototype.forEach.call([].slice.call(box.children), child => {
@@ -263,7 +263,7 @@ class Input extends Component {
                 childClasses = [].slice.call(child.classList);
 
             // Not the cross
-            if(childClasses.indexOf('auth-message_wrapper') === -1) {
+            if(childClasses.indexOf('form-message_wrapper') === -1) {
                 // Hidden all except the cross
                 child.setAttribute('data-display', 'block');
                 child.style.display = 'block';
@@ -312,28 +312,28 @@ class Input extends Component {
         const { handleError, errorTarget, isAvailable } = this.state;
 
         return (
-            <div className="auth-group">
+            <div className="form-group">
                 <label 
-                    className="auth-label" 
+                    className="form-label" 
                     data-reference={name}
                     data-state="none"
                     data-error={handleError}
                     style={errorTarget ? {'color': '#B22222'} : {'color': ''}}
                 >
                     {title}
-                    <span id="auth-message_text" className="auth-message_text" data-reference={name}></span>
+                    <span id="form-message_text" className="form-message_text" data-reference={name}></span>
                 </label>
                 <input 
                     type={type} 
                     name={name} 
-                    className="auth-input" 
+                    className="form-input" 
                     defaultValue={value} 
                     autoComplete="on"
                     data-available={isAvailable}
                     onKeyUp={this.checkInput} 
                     onBlur={this.handleBlur}
                 />
-                <div className="auth-input_box">
+                <div className="form-input_box">
                     {type === 'password' && pwViewer ? 
                         <div 
                             id="view-password" 

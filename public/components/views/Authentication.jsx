@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
+import React    from 'react';
+import { Link } from 'react-router-dom';
 // Components
 import SignUp from './../common/layouts/Body/SignUp';
 import LogIn from './../common/layouts/Body/LogIn';
@@ -8,11 +8,10 @@ class Authentication extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.renderAdaptativeTab = this.renderAdaptativeTab.bind(this);
-		this.renderAdaptativeAccessibility = this.renderAdaptativeAccessibility.bind(this);
+		this.handleTab = this.handleTab.bind(this);
 	}
 
-	renderAdaptativeTab(type) {
+	handleTab(type) {
 		switch(type) {
 			case 'signup':
 				return <SignUp />
@@ -23,47 +22,9 @@ class Authentication extends React.Component {
 		}
 	}
 
-	renderAdaptativeAccessibility(type) {
-		if(type === "signup") {
-			return (
-				<div className="auth-footer inline-vh">
-					<div className="auth-footer_external-account inline-vh">
-						<button className="button material-button auth-footer_external-account_buttons account_google">
-							<span className="auth-footer_external-account_icon account_google"></span>
-							<span className="auth-footer_external-account_label account_google">SIGN UP WITH GOOGLE</span>
-						</button>
-						<button className="button material-button auth-footer_external-account_buttons account_discord">
-							<span className="auth-footer_external-account_icon account_discord"></span>
-							<span className="auth-footer_external-account_label account_discord">SIGN UP WITH DISCORD</span>
-						</button>
-					</div>
-					<div className="auth-footer_account">
-						Have already an account? <Link to="/login" className="auth-footer_account-link"> Log in to yours</Link>														
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				<div className="auth-footer inline-vh">
-					<div className="auth-footer_external-account inline-vh">
-						<button className="button material-button auth-footer_external-account_buttons account_google">
-							<span className="auth-footer_external-account_icon account_google"></span>
-							<span className="auth-footer_external-account_label account_google">SIGN IN WITH GOOGLE</span>
-						</button>
-						<button className="button material-button auth-footer_external-account_buttons account_discord">
-							<span className="auth-footer_external-account_icon account_discord"></span>
-							<span className="auth-footer_external-account_label account_discord">SIGN IN WITH DISCORD</span>
-						</button>
-					</div>
-					<div className="auth-footer_account">
-						Don't have an account? <Link to="/signup" className="auth-footer_account-link"> Create yours</Link>														
-					</div>
-				</div>
-			);
-		}
-	}
-
 	render() {
+		const { type } = this.props;
+
 		return (
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
@@ -71,15 +32,30 @@ class Authentication extends React.Component {
 					<div className="page-part-content" style={{paddingTop: '30px'}}>
 						<div className="container all-page-size inline-vh">
 							<form 
-								id={this.props.type} 
-								action={`/${this.props.type}`} 
+								id={type} 
+								action={`/${type}`} 
 								method="POST" 
-								className="auth-form" 
-								// encType={this.props.type === "signup" ? "multipart/form-data" : "application/x-www-form-urlencoded"}
+								// encType={type === "signup" ? "multipart/form-data" : "application/x-www-form-urlencoded"}
 							>
-								{this.renderAdaptativeTab(this.props.type)}
-								<hr className="auth-hr" />
-								{this.renderAdaptativeAccessibility(this.props.type)}
+								{this.handleTab(type)}
+								<hr className="form-hr" />
+								<div className="form-footer inline-vh">
+									<div className="form-footer_external-account inline-vh">
+										<button className="button material-button form-footer_external-account_buttons account--google">
+											<span className="form-footer_external-account_icon account--google"></span>
+											<span className="form-footer_external-account_label account--google">SIGN IN WITH GOOGLE</span>
+										</button>
+										<button className="button material-button form-footer_external-account_buttons account--discord">
+											<span className="form-footer_external-account_icon account--discord"></span>
+											<span className="form-footer_external-account_label account--discord">SIGN IN WITH DISCORD</span>
+										</button>
+									</div>
+									{type === "signup" ?
+										<div className="form-footer_account">Have already an account? <Link to="/login" className="form-footer_account-link"> Log in to yours</Link></div>
+										:
+										<div className="form-footer_account">Don't have an account? <Link to="/signup" className="form-footer_account-link"> Create yours</Link></div>
+									}
+								</div>
 							</form>
 						</div>
 					</div>

@@ -13,7 +13,8 @@ import Routing from './views/Routing';
 import PubDisplay from "./common/layouts/Footer/PubDisplay";
 
 // Utils
-import GetCookie from "../client/utils/getCookie";
+import GetCookie         from "../client/utils/getCookie";
+import GetOffsetPosition from "../client/utils/getOffsetPosition";
 
 // GOOGLE ANALYTICS
 if(window.CONF.env === 'production') {
@@ -35,8 +36,10 @@ class App extends Component {
             isAuthed   : undefined
         }
 
-        this.controlPub = this.controlPub.bind(this);
+        this.controlPub   = this.controlPub.bind(this);
+        this.handleAnchor = this.handleAnchor.bind(this);
     }
+
     controlPub() {
         // Detect if the User is using his phone (not a tablet)
         let md = new MobileDetect(window.navigator.userAgent);
@@ -61,9 +64,34 @@ class App extends Component {
         }
     }
 
+    handleAnchor() {
+        setTimeout(() => {
+            try {
+                const hash = window.location.hash,
+                    el   = document.querySelector(hash);
+    
+                if(hash) {
+                    window.scroll({
+                        top: GetOffsetPosition(el).top, 
+                        left: window.scrollX, 
+                        behavior: 'smooth' 
+                    })
+                }
+            } catch (e) {}
+        }, 100);
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if(nextState.isReady !== this.state.isReady) {
+            // ScrollTo the Anchor (normally, native function => with the awaiting render, it does not work)
+            this.handleAnchor();
+        }
+    }
+
     componentDidMount() {
         this._isMounted = true;
 
+        // Manifest JSON
         try {
             let
                 JSONFile;

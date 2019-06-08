@@ -18,6 +18,8 @@ let
         appJS  : ''
     }
 
+let nodeEnv = process.env.NODE_ENV;
+
 apiRouter.get('/*', (req, res, next) => {
     // Get Path of files
     fs.readFile('public/dist/manifest.json', 'utf-8', (e, data) => {
@@ -88,8 +90,24 @@ apiRouter.get('/api/testAPI', testAPI.get);
 
 // /|!|\ CATCH ERROR ROUTING
 apiRouter.all('*', (req, res) => {
-    res.status(404).send({
-        msg: 'Not found'
+    fs.readFile(`public/config/config-${req.cookies.lang}.json`, 'utf-8', (e, data) => {
+        if(e) {
+            // REDIRECT
+            res.redirect('/lang-select');
+            return;
+        }
+
+        res.render('main', {
+            title: JSON.parse(data)['title']['errors']['404'],
+            description: JSON.parse(data)['description']['errors']['404'],
+            lang: req.cookies.lang,
+            url: `${req.protocol}://${req.get('host')}${req.originalUrl}`,
+            env: nodeEnv,
+            mainCSS: Template.mainCSS,
+            mainJS: Template.mainJS,
+            appJS: Template.appJS,
+            params: {}
+        });
     });
 });
 

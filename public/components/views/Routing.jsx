@@ -40,143 +40,143 @@ class Routing extends React.Component {
         const { manifest, config, isAuthed } = this.props;
 
         return (
-            <div className="rooting">
-                <Switch>
-                    <Route 
-                        exact 
-                        path="/" 
-                        component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title={JSON.parse(config)['title']['index']}
-                                    description={JSON.parse(config)['description']['index']}
-                                />
-                                <Homepage {...props} 
-                                    config={config} 
-                                    manifest={manifest}
-                                />
-                            </div> )
-                        } 
-                    />
-                    <ProtectedRoute 
-                        path="/login" 
-                        redirect="/dashboard"
-                        isAuthed={isAuthed}
-                        rule={true}
-                        Component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title={JSON.parse(config)['title']['login']}
-                                    description={JSON.parse(config)['description']['login']}
-                                />
-                                <Authentication {...props} 
-                                    config={config} 
-                                    manifest={manifest}
-                                    type="login"
-                                />
-                            </div> )
-                        } 
-                    />
-                    <ProtectedRoute 
-                        path="/dashboard" 
-                        redirect="/login"
-                        isAuthed={isAuthed}
-                        rule={false}
-                        Component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title={JSON.parse(config)['title']['dashboard']}
-                                    description={JSON.parse(config)['description']['dashboard']}
-                                />
-                                <Dashboard {...props} 
-                                    config={config} 
-                                    manifest={manifest}
-                                    type="login"
-                                />
-                            </div> )
-                        } 
-                    />
-                    <ProtectedRoute 
-                        path="/signup" 
-                        redirect="/dashboard"
-                        isAuthed={isAuthed}
-                        rule={true}
-                        Component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title={JSON.parse(config)['title']['signup']}
-                                    description={JSON.parse(config)['description']['signup']}
-                                />
-                                <Authentication {...props} 
-                                    config={config} 
-                                    manifest={manifest}
-                                    type="signup"
-                                /> 
-                            </div> )
-                        } 
-                    />
-                    <Route 
-                        path="/lang-select" 
-                        component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title="pSearch: Select your language"
-                                    description="Select the default language beetween the french and the english."
-                                />
-                                <LangSelect {...props} 
-                                    config={config} 
-                                    manifest={manifest}
-                                />
-                            </div> )
-                        } 
-                    />
-                    <Route 
-                        component={
-                            props => ( 
-                            <div>
-                                <Init {...props} 
-                                    manifest={manifest}
-                                />
-                                <Helmet {...props}
-                                    manifest={manifest}
-                                    title={JSON.parse(config)['title']['errors']['404']}
-                                    description={JSON.parse(config)['description']['errors']['404']}
-                                />
-                                <Error {...props} 
-                                    typeError={404} 
-                                    config={config} 
-                                    manifest={manifest}
-                                />
-                            </div> )
-                        } 
-                    />
-                </Switch>
-            </div>
+            <Switch>
+                <Route 
+                    exact 
+                    path="/" 
+                    component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title={JSON.parse(config)['title']['index']}
+                                description={JSON.parse(config)['description']['index']}
+                            />
+                            <Homepage {...props} 
+                                config={config} 
+                                manifest={manifest}
+                                isAuthed={isAuthed}
+                            />
+                        </div> )
+                    } 
+                />
+                <ProtectedRoute 
+                    path="/login" 
+                    redirect="/dashboard"
+                    isAuthed={isAuthed}
+                    rule={true}
+                    Component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title={JSON.parse(config)['title']['login']}
+                                description={JSON.parse(config)['description']['login']}
+                            />
+                            <Authentication {...props} 
+                                config={config} 
+                                manifest={manifest}
+                                type="login"
+                            />
+                        </div> )
+                    } 
+                />
+                <ProtectedRoute 
+                    path="/dashboard" 
+                    redirect="/login"
+                    isAuthed={isAuthed}
+                    rule={false}
+                    Component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title={JSON.parse(config)['title']['dashboard']}
+                                description={JSON.parse(config)['description']['dashboard']}
+                            />
+                            <Dashboard {...props} 
+                                config={config} 
+                                manifest={manifest}
+                                type="login"
+                            />
+                        </div> )
+                    } 
+                />
+                <ProtectedRoute 
+                    path="/signup" 
+                    redirect="/dashboard"
+                    isAuthed={isAuthed}
+                    rule={true}
+                    Component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title={JSON.parse(config)['title']['signup']}
+                                description={JSON.parse(config)['description']['signup']}
+                            />
+                            <Authentication {...props} 
+                                config={config} 
+                                manifest={manifest}
+                                type="signup"
+                            /> 
+                        </div> )
+                    } 
+                />
+                <Route 
+                    path="/lang-select" 
+                    component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title="pSearch: Select your language"
+                                description="Select the default language beetween the french and the english."
+                            />
+                            <LangSelect {...props} 
+                                config={config} 
+                                manifest={manifest}
+                                isAuthed={isAuthed}
+                            />
+                        </div> )
+                    } 
+                />
+                <Route 
+                    component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} 
+                                manifest={manifest}
+                            />
+                            <Helmet {...props}
+                                manifest={manifest}
+                                title={JSON.parse(config)['title']['errors']['404']}
+                                description={JSON.parse(config)['description']['errors']['404']}
+                            />
+                            <Error {...props} 
+                                type={404} 
+                                config={config} 
+                                isAuthed={isAuthed}
+                            />
+                        </div> )
+                    } 
+                />
+            </Switch>
         );
     }
 }

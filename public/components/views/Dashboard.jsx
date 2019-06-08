@@ -25,14 +25,14 @@ class Dashboard extends React.Component {
         const { config, isAuthed, user } = this.props;
 
         return (
-            <section className="dashboard-container page-content">
+            <section className="page-content">
                 <div id="packed" className="packed"></div>
                 <Sidebar 
                     config={config}
                     isAuthed={isAuthed}
                     user={user}    
                 />
-                <div className="dashboard-main page-part-content">
+                <div className="dashboard-main">
                     <Header 
                         config={config}
                         isAuthed={isAuthed}
@@ -55,9 +55,16 @@ class Sidebar extends React.Component {
     }
 
     render() {
+        const { user } = this.props;
+
         return (
             <aside className="dashboard-sidebar">
+                <div className="dashboard-sidebar--heading"></div>
                 <div className="dashboard-menu"></div>
+                <div className="dashboard-sidebar--container">
+                    <img className="dashboard--avatar" src={`/assets${user.Avatar_User}`} />
+                    <h1>{user.Username_User}</h1>
+                </div>
             </aside>
         );
     }
@@ -72,22 +79,26 @@ class Header extends React.Component {
     }
 
     render() {
-        const { config, user } = this.props;
+        const { config, user, isAuthed } = this.props;
         
         return (
             <header id="Dashboard_Header" className="dashboard-header page-part-wrapper">
-                <TopBar 
-                    config={config} 
-                    params={
-                        {
-                            isSticky: false
+                <div className="background-overlay overlay--horizon-zero-dawn" style={{backgroundImage: 'url(https://cdna.artstation.com/p/assets/images/images/011/428/098/large/graham-tattersall-flat-background-mountains.jpg?1529525121)'}}></div>
+                <div className="page-part-content">
+                    <TopBar 
+                        config={config} 
+                        params={
+                            {
+                                isSticky: false
+                            }
                         }
-                    }
-                />
-                <div className="dashboard-header_review--container">
-                    <div className="dashboard-header_review--content container">
-                        <h1>Welcome to your profile !</h1>
-                        {/* <h2>{JSON.stringify(user)}</h2> */}
+                        isAuthed={isAuthed}
+                    />
+                    <div className="dashboard-header_review--container">
+                        <div className="dashboard-header_review--content container">
+                            <h1>Welcome to your profile !</h1>
+                            {/* <h2>{JSON.stringify(user)}</h2> */}
+                        </div>
                     </div>
                 </div>
             </header>
@@ -107,35 +118,45 @@ class Body extends React.Component {
         const { user } = this.props;
 
         return (
-            <section id="Dashboard_Body" className="dashboard-body container page-part-wrapper">
-                {/* <Chat 
-                    user={user}
-                /> */}
-                <div className="dashboard-body--line">
-                    <div className="dashboard-body_box--wrapper col-m-5">
-                        <div className="dashboard-body_box"></div>
+            <section id="Dashboard_Body" className="dashboard-body page-part-wrapper container">
+                <div className="page-part-content">
+                    <div className="dashboard-body--line">
+                        <CurrentPlaying user={user} />
+                        <Chat user={user} />
                     </div>
-                    <div className="dashboard-body_box--wrapper col-m-7">
-                        <div className="dashboard-body_box"></div>
-                    </div>
-                </div>
-                <div className="dashboard-body--line">
-                    <div className="dashboard-body_box--wrapper col-m-3">
-                        <div className="dashboard-body_box"></div>
-                    </div>
-                    <div className="dashboard-body_box--wrapper col-m-3">
-                        <div className="dashboard-body_box"></div>
-                    </div>
-                    <div className="col-m-6">
-                        <div className="dashboard-body_box--wrapper dashboard-body_box--vertical">
+                    <div className="dashboard-body--line">
+                        <div className="dashboard-body_box--wrapper col-m-3">
                             <div className="dashboard-body_box"></div>
                         </div>
-                        <div className="dashboard-body_box--wrapper dashboard-body_box--vertical">
+                        <div className="dashboard-body_box--wrapper col-m-3">
                             <div className="dashboard-body_box"></div>
+                        </div>
+                        <div className="col-m-6">
+                            <div className="dashboard-body_box--wrapper dashboard-body_box--vertical">
+                                <div className="dashboard-body_box"></div>
+                            </div>
+                            <div className="dashboard-body_box--wrapper dashboard-body_box--vertical">
+                                <div className="dashboard-body_box"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+        );
+    }
+}
+
+class CurrentPlaying extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="dashboard-body_box--wrapper col-m-4">
+                <div className="dashboard-body_box background--cover-all webp-test lazy-loading" data-background data-lazy-loading="/assets/images/league-of-legends--summoners-rift .jpg">
+                </div>
+            </div>
         );
     }
 }

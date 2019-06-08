@@ -3,7 +3,7 @@ import React from 'react';
 // Components
 import FooterLayout from '../common/layouts/Footer/FooterLayout';
 // Utils
-import Border from '../utils/Border';7
+import Border from '../utils/Border';
 
 class Homepage extends React.Component {
 	constructor(props) {
@@ -14,11 +14,11 @@ class Homepage extends React.Component {
 		return (
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
-				<Header config={this.props.config} />
-				<Body config={this.props.config} />
-				<FeedbackLayout config={this.props.config} />
+				<Header config={this.props.config} isAuthed={this.props.isAuthed} />
+				<Body config={this.props.config} isAuthed={this.props.isAuthed} />
+				<FeedbackLayout config={this.props.config} isAuthed={this.props.isAuthed} />
 				<footer id="Homepage-Footer">
-					<FooterLayout config={JSON.parse(this.props.config)} />
+					<FooterLayout config={JSON.parse(this.props.config)} isAuthed={this.props.isAuthed} />
 				</footer>
 			</section>
 		);
@@ -38,9 +38,13 @@ class Header extends React.Component {
 		return (
 			<header id="Homepage-Heading" className="page-part-wrapper">
 				<div className="background-overlay webp-test overlay--lol"></div>
-				<TopBar config={this.props.config} params={{
-					isSticky: true
-				}}/>
+				<TopBar 
+					config={this.props.config} 
+					params={{
+						isSticky: true
+					}}
+					isAuthed={this.props.isAuthed}
+				/>
 				<div className="page-part-content">
 					<Slider 
 						id="slider1"
@@ -61,7 +65,7 @@ class Header extends React.Component {
 						}
 					/>
 				</div>
-				<Border type="basic" style={{ bottom: "-1px", fill: "#0e0e0e" }} />
+				<Border type="basic" style={{ bottom: "-1px", fill: "#292929" }} />
 			</header>
 		);
 	}
@@ -84,7 +88,7 @@ class Body extends React.Component {
 
 const Hero = (props) => {
 	return (
-		<div className="page-part-content" style={{ padding: "0" }}>
+		<div className="page-part-content" style={{ padding: "0", fill: "#181718" }}>
 			<div className="hero">
 				<div className="hero_wrapper">
 					<HeroHeader />
@@ -289,13 +293,13 @@ const FeedbackLayout = (props) => {
 		<section id="Homepage-Feedback" className="page-part-wrapper">
 			<div id="Homepage-Feedback-Bg" className="background-overlay webp-test overlay--overwatch" style={{filter: 'blur(15px)'}}></div>
 			<div className="page-part-content">
-				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)" } } />
+				<Border type="basic" style={ { top: "-1px", transform: "rotateZ(180deg) rotateY(180deg)", fill: "#181718" } } />
 				<div className="container">
 					<div id="feedback" className="feedback page-part-content">
 						<h1>Des idées ? Aidez-nous !</h1>
 					</div>
 				</div>
-				<Border type="basic" style={{ bottom: "-1px", transform: "rotateY(-180deg)" }} />
+				<Border type="basic" style={{ bottom: "-1px", transform: "rotateY(-180deg)", fill: "#181718" }} />
 			</div>
 		</section>
 	);

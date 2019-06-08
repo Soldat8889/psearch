@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class CustomFieldSelect extends React.Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ class CustomFieldSelect extends React.Component {
 		this.createCustomOptions = this.createCustomOptions.bind(this);
 	}
 
-	componentDidMount(props) {
+	componentDidMount() {
 		const itemSelected = document.querySelector(`.select-selected[data-select-id="${this.props.id}"]`),
 			itemsSelection = itemSelected.nextSibling,
 			selectOptions = [].slice.call(itemsSelection.children);

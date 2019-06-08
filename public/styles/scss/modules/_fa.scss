@@ -17,7 +17,7 @@
     line-height: 1;
 }
 
-.fa {
+.fa, .fas {
     @extend %fa;
     
     font-weight: 800;

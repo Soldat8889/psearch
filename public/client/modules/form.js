@@ -6,7 +6,7 @@ let
     form = () => {
         try {
             const 
-                materialInputs = document.querySelectorAll('.auth-input');
+                materialInputs = document.querySelectorAll('.form-input');
 
             Array.prototype.forEach.call(materialInputs, (materialInput) => {
                 const
@@ -17,14 +17,14 @@ let
 
                     switch (state) {
                         case 'active':
-                            materialLabel.classList.add("auth-label_active");
+                            materialLabel.classList.add("form-label_active");
                             break;
                         case 'none':
-                            materialLabel.classList.remove("auth-label_active");
+                            materialLabel.classList.remove("form-label_active");
                         break;
 
                         default:
-                            materialLabel.classList.remove("auth-label_active");
+                            materialLabel.classList.remove("form-label_active");
                             break;
                     }
                 }

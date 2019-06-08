@@ -30,24 +30,14 @@
 @import "base/_form";
 @import "base/_fonts";
 
-/* Layout */
-@import "layouts/_dashboard";
-@import "layouts/_footer";
-@import "layouts/_header";
-@import "layouts/_hero";
-@import "layouts/_pub-display";
-@import "layouts/_topbar";
-
 /* Utils Modules */
 @import "modules/utils/_button";
 
 /* Modules */
-@import "modules/_authentication";
 @import "modules/_background";
 @import "modules/_box";
 @import "modules/_cookie";
 @import "modules/_custom-select";
-@import "modules/_dashboard";
 @import "modules/_fa";
 @import "modules/_feedback";
 @import "modules/_flash";
@@ -61,6 +51,16 @@
 @import "modules/_slider";
 @import "modules/_theme";
 @import "modules/_tooltip";
+
+/* Layout */
+@import "layouts/_chat";
+@import "layouts/_dashboard";
+@import "layouts/_footer";
+@import "layouts/_form";
+@import "layouts/_header";
+@import "layouts/_hero";
+@import "layouts/_pub-display";
+@import "layouts/_topbar";
 
 /* Media */
 @import "medias/_media-authentication";

@@ -28,11 +28,24 @@
 	<meta name="og:site_name" content="pSearch" />
 	<meta name="og:url" content="<%= url %>" />
 	<meta name="og:type" content="website" />
-	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="<%= mainCSS %>" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/regular.css" integrity="sha384-4e3mPOi7K1/4SAx8aMeZqaZ1Pm4l73ZnRRquHFWzPh2Pa4PMAgZm8/WNh6ydcygU" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700" />
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "Organization",
+			"name": "pSearch",
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"url": "https://psearch.alwaysdata.net",
+				"email": "psearchfr@gmail.com",
+				"contactType": "technical support",
+				"contactOption": "TollFree"
+			}
+		}
+	</script>
 </head>
 <body class="has-no-scroll">
 	<div id="pageLoader" class="loader all-page-size" data-state="onload">
@@ -74,7 +87,7 @@
 			</div>
 		</div>
 	<% } %>
-	<div id="scrollToTop" class="scroll-to-top">
+	<div id="scrollToTop" class="scroll-to-top interface">
 		<i class="fa fa-2x scroll-to-top_icon"></i>
 	</div>
 	<!-- Scripts -->
@@ -86,6 +99,5 @@
 		document.documentElement.classList.add("js");
 	</script>
 	<script type="application/javascript" src="<%= mainJS %>"></script>
-	<script type="application/javascript" src="<%= appJS %>"></script>
 </body>
 </html>

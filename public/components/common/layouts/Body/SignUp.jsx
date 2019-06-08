@@ -49,7 +49,7 @@ class SignUp extends React.Component {
                 new Promise(async (res, rej) => {
                     // Verify all inputs, are they no errors (defined by regex / limits)?
                     let 
-                        inputsChecking = document.querySelectorAll('.auth-input'),
+                        inputsChecking = document.querySelectorAll('.form-input'),
                         checkingList = [];
         
                     let checkingListPush = new Promise(async (res, rej) => {
@@ -72,7 +72,7 @@ class SignUp extends React.Component {
                     // Catch all errors and apply color to inputs (which have errors)
                     let checkFalse = new Promise(async (res, rej) => {
                         let
-                            authLabel = document.querySelectorAll('.auth-label');
+                            authLabel = document.querySelectorAll('.form-label');
         
                         for(let i = 0, j = response.length; i < j; i++) {
                             if(response[i] == 'false') {
@@ -127,7 +127,7 @@ class SignUp extends React.Component {
                                             });
                                         } else {
                                             // Display errors
-                                            await this.child.current.displayMessage(data.errorTarget, 'error', data.error);
+                                            await this.child.current.child.current.child.current.displayMessage(data.errorTarget, 'error', data.error);
         
                                             this.setState({
                                                 submitState: 'none',
@@ -163,7 +163,7 @@ class SignUp extends React.Component {
             ready: true
         });
 
-        let inputSubmit = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('form-submit');
 
         inputSubmit.addEventListener('click', (e) => {
             this.handleSubmit(e);
@@ -177,7 +177,7 @@ class SignUp extends React.Component {
             ready: false
         });
 
-        let inputSubmit = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('form-submit');
 
         inputSubmit.removeEventListener('click', this.handleSubmit, false);
     }
@@ -199,26 +199,27 @@ class SignUp extends React.Component {
         const { stage, submitState, errorTarget, ready } = this.state;
 
         return (
-            <div className="auth-wrapper">
-                <header className="auth-header inline-vh">
-                    <div className="auth-header_banner"></div>
-                    <h1 className="auth-header_title">
+            <div className="form-wrapper">
+                <header className="form-header inline-vh">
+                    <div className="form-header_banner"></div>
+                    <h1 className="form-header_title">
                         SIGN UP<br />
                         Hi! Who are you?
                     </h1>
                 </header>
-                <fieldset className="auth-inner">
+                <fieldset className="form-inner">
                     <StagesRouting 
                         config={config}
                         stage={stage}
                         errorTarget={errorTarget}
                         ready={ready}
+                        ref={this.child}
                     />
-                    <div className="auth-group inline-vh">
+                    <div className="form-group inline-vh">
                         <button 
                             type="submit" 
-                            id="auth-submit" 
-                            className="auth-submit" 
+                            id="form-submit" 
+                            className="form-submit" 
                             data-state={submitState}
                             data-form="signup"
                         >
@@ -237,10 +238,12 @@ import BreadCrumb from './../../../utils/Breadcrumb';
 class StagesRouting extends React.Component {
     constructor(props) {
         super(props);
+
+        this.child = React.createRef();
     }
 
     componentDidMount() {
-        const tabs = [].slice.call(document.querySelectorAll('.auth-context'));
+        const tabs = [].slice.call(document.querySelectorAll('.form-context'));
 
         const 
             n = tabs.filter(tab => tab.getAttribute('data-stage') != this.props.stage);
@@ -252,7 +255,7 @@ class StagesRouting extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.stage !== this.props.stage) {
-            const tabs = [].slice.call(document.querySelectorAll('.auth-context'));
+            const tabs = [].slice.call(document.querySelectorAll('.form-context'));
 
             const 
                 n = tabs.filter(tab => tab.getAttribute('data-stage') != this.props.stage),
@@ -300,6 +303,7 @@ class StagesRouting extends React.Component {
                     config={config}
                     errorTarget={errorTarget}
                     ready={ready}
+                    ref={this.child}
                 />
                 <StageTwo
                     config={config}
@@ -314,13 +318,15 @@ class StagesRouting extends React.Component {
 class StageOne extends React.Component {
     constructor(props) {
         super(props);
+
+        this.child = React.createRef();
     }
 
     render() {
         const { config, errorTarget, ready } = this.props;
 
         return (
-            <div className="auth-context" data-form="signup" data-stage={1}>
+            <div className="form-context" data-form="signup" data-stage={1}>
                 <Input 
                     form="signup"
                     title="Username" 
@@ -418,9 +424,9 @@ class StageTwo extends React.Component {
 
     render() {
         return (
-            <div className="auth-context" data-form="signup" data-stage={2}>
+            <div className="form-context" data-form="signup" data-stage={2}>
                 <h1>Choose your image</h1>
-                <img id="avatar-preview" className="auth-avatar" src="#" alt="Uploading Image Preview" />
+                <img id="avatar-preview" className="form-avatar" src="#" alt="Uploading Image Preview" />
                 <input id="avatar-upload" type="file" name="avatar" />
             </div>
         );

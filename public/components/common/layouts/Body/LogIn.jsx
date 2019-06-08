@@ -40,7 +40,7 @@ class LogIn extends React.Component {
         new Promise(async (res, rej) => {
             // Verify all inputs, are they no errors (defined by regex / limits)?
             let 
-                inputsChecking = document.querySelectorAll('.auth-input'),
+                inputsChecking = document.querySelectorAll('.form-input'),
                 checkingList = [];
 
             let checkingListPush = new Promise(async (res, rej) => {
@@ -63,7 +63,7 @@ class LogIn extends React.Component {
             // Catch all errors and apply color to inputs (which have errors)
             let checkFalse = new Promise(async (res, rej) => {
                 let
-                    authLabel = document.querySelectorAll('.auth-label');
+                    authLabel = document.querySelectorAll('.form-label');
 
                 for(let i = 0, j = response.length; i < j; i++) {
                     if(response[i] == 'false') {
@@ -151,7 +151,7 @@ class LogIn extends React.Component {
     }
 	
 	componentDidMount() {
-        let inputSubmit = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('form-submit');
 
         inputSubmit.addEventListener('click', (e) => {
             this.handleSubmit(e);
@@ -159,22 +159,22 @@ class LogIn extends React.Component {
     }
 
     componentWillUnmount() {
-        let inputSubmit = document.getElementById('auth-submit');
+        let inputSubmit = document.getElementById('form-submit');
 
         inputSubmit.removeEventListener('click', this.handleSubmit, false);
     }
 
 	render() {
 		return (
-			<div className="auth-wrapper">
-				<header className="auth-header inline-vh">
-					<div className="auth-header_banner"></div>
-					<h1 className="auth-header_title">
+			<div className="form-wrapper">
+				<header className="form-header inline-vh">
+					<div className="form-header_banner"></div>
+					<h1 className="form-header_title">
 						LOGIN <br />
 						Welcome back!
 					</h1>
 				</header>
-				<fieldset className="auth-inner">
+				<fieldset className="form-inner">
 					<Input 
                         title="Username" 
                         name="username"
@@ -203,14 +203,15 @@ class LogIn extends React.Component {
                         apiErrorTarget={this.state.errorTarget}
                         pwViewer={true}
                     />
-                    <div className="auth-group">
-                        <input type="checkbox" name="remember_me" />
+                    <div className="form-group">
+                        <label htmlFor="remember_me">Remember Me</label>
+                        <input type="checkbox" name="remember_me" id="remember_me" />
                     </div>
-					<div className="auth-group inline-vh">
+					<div className="form-group">
                         <button 
                             type="submit" 
-                            id="auth-submit" 
-                            className="auth-submit" 
+                            id="form-submit" 
+                            className="form-submit" 
                             data-state={this.state.submitState}
                         >
                             {this.handleLoading()}

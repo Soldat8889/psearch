@@ -92,6 +92,14 @@
         }
     }
     &.overlay--neutral {
-        background-color: $full-dark-second_col;
+        background-color: $full-dark-third_col;
+    }
+}
+
+.background {
+    &--cover-all {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }

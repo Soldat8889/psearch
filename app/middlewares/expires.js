@@ -1,7 +1,7 @@
 let nodeEnv = process.env.NODE_ENV;
 
 module.exports = (req, res, next) => {
-	req.expires = (gzip, type, expires) => {
+	req.expires = (gzip, type, expires, allowCache) => {
 		if(gzip === true) {
 			if(nodeEnv === 'production') {
 				req.url = req.url + '.gz';
@@ -12,9 +12,11 @@ module.exports = (req, res, next) => {
 			}
 		}
 
-		res.set({
-			'Expires': `${expires}`
-		});
+		if(allowCache) {
+			res.set({
+				'Cache-Control': `public, max-age=${expires}`
+			});
+		}
 	}
 
 	next();

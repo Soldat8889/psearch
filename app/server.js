@@ -1,10 +1,11 @@
 import express       from 'express';
+import favicon       from 'serve-favicon';
 import session       from 'express-session';
-import bodyParser    from 'body-parser';
-import cookieParser  from 'cookie-parser';
 import cors          from 'cors';
 import errorHandler  from 'errorhandler';
 import morgan        from 'morgan';
+import bodyParser    from 'body-parser';
+import cookieParser  from 'cookie-parser';
 import ejs           from 'ejs';
 import http          from 'http';
 import socketIo      from 'socket.io';
@@ -48,6 +49,9 @@ app.use(cors());
 if(nodeEnv == 'development') { app.use(morgan('dev')); }
 // CATCH ERROR => Console
 if(nodeEnv == 'development') { app.use(errorHandler()); }
+
+// Serve favicon
+app.use(favicon(`${__dirname}/../public/images/favicon.png`));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
