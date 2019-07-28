@@ -1,19 +1,10 @@
 import React     from 'react';
-import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
 
+// Contexts
+import { ManifestContext } from './../../contexts/ManifestContext';
+
 class Init extends React.Component {
-    static defaultProps = {
-        manifest: '/assets/dist/manifest.json'
-    }
-
-    static propTypes = {
-        manifest: PropTypes.oneOfType([
-            PropTypes.object,
-            PropTypes.string
-        ]).isRequired
-    }
-
     constructor(props) {
 		super(props);
 
@@ -22,29 +13,32 @@ class Init extends React.Component {
 		}
 	}
 
+	// Use context
+	static manifest = ManifestContext;
+
 	componentWillMount() {
         // Set loading top bar
         NProgress.start();
 
+		// Set client file TODO: Remove this file, regrouping files
 		new Promise((res, rej) => {
 			if(window.CONF.env === 'development') {
 				res('/assets/dist/app.js');
 			} else {
 				this.setState({
-					appJS: JSON.parse(this.props.manifest)['app.js']
+					appJS: this.manifest['app.js']
 				});
 
-				res(JSON.parse(this.props.manifest)['app.js']);
+				res(this.manifest['app.js']);
 			}
 		})
-		.then((val) => {
+		.then((v) => {
 			let
-				app = document.createElement('script'),
-				socket = document.createElement('script');
+				app = document.createElement('script');
 				
 			// AppJS create Element
 			app.setAttribute('type', 'application/javascript');
-			app.setAttribute('src', val);
+			app.setAttribute('src', v);
 
 			document.body.appendChild(app);
 		});
@@ -61,7 +55,8 @@ class Init extends React.Component {
     }
     
     render() {
-        return true;
+		// Render nothing
+        return null;
     }
 }
 

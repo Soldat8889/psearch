@@ -4,7 +4,7 @@
 
 $dashboard-sidebar-w: 350px;
 $dashboard-max-w: 1550px !important;
-$dashboard-menu--width: 75px;
+$dashboard-menu--width: 62px;
 
 .dashboard {
     &-sidebar {
@@ -15,18 +15,27 @@ $dashboard-menu--width: 75px;
         height: 100%;
 
         background-color: $main-second_col;
-        border-right: solid 1px $light_gray_col;
 
         z-index: $sidebar_index;
 
-        &--heading {
+        &__menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: $dashboard-menu--width;
+            height: 100%;
+    
+            background-color: $main-third_col;
+        }
+
+        &__heading {
             width: 100%;
             height: 5px;
 
             background-color: $main-third--special_col;
         }
 
-        &--container {
+        &__container {
             @include flexbox((
                 display: flex,
                 flex-direction: column,
@@ -36,24 +45,14 @@ $dashboard-menu--width: 75px;
             margin-left: $dashboard-menu--width;
             padding: 30px;
         }
-    }
 
-    &--avatar {
-        width: 175px;
-        height: 175px;
-
-        @include border-radius(50%);
-        background-color: $main-third_col;
-    }
-
-    &-menu {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: $dashboard-menu--width;
-        height: 100%;
-
-        background-color: $main-third_col;
+        &__avatar {
+            width: 175px;
+            height: 175px;
+    
+            @include border-radius(50%);
+            background-color: $main-third_col;
+        }
     }
 
     &-main {
@@ -67,12 +66,12 @@ $dashboard-menu--width: 75px;
             max-width: $dashboard-max-w;
         }
 
-        &_review {
-            &--container {
+        &__review {
+            &-container {
                 width: 100%;
             }
 
-            &--content {
+            &-content {
                 width: 100%;
             }
         }
@@ -82,11 +81,11 @@ $dashboard-menu--width: 75px;
         max-width: $dashboard-max-w;
         padding: 0;
 
-        &--line {
+        &__line {
             width: 100%;
         }
 
-        &_box {
+        &__box {
             &--wrapper {
                 margin: -7.5px;
                 height: 390px;
@@ -97,6 +96,8 @@ $dashboard-menu--width: 75px;
             &--vertical {
                 height: 203px;
                 margin-bottom: -16px;
+
+                padding: 20px;
             }
 
             width: 100%;

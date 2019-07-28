@@ -1,5 +1,5 @@
 /*  ==================
-    Theme
+    Tooltip
     ================== */
 
 @include keyframes(tooltipSpawn) {
@@ -13,11 +13,21 @@
 	}
 }
 
+%tooltip--permanent {
+	position: absolute;
+	bottom: 0;
+
+	font-weight: 600;
+	color: $light_gray_col;
+}
+
 .tooltip {
 	position: absolute;
 	min-height: 25px;
 
 	@include box-shadow(1px 2px 2px 1px rgba(0, 0, 0, 0.6));
+
+	color: #fff;
 
 	@include transform(translateX(-55%));
 	@include animation(tooltipSpawn 0.1s ease-in);
@@ -27,5 +37,13 @@
 		margin: auto;
 
 		text-align: center;
+	}
+
+	&--permanent {
+		&--key-helper {
+			@extend %tooltip--permanent;
+
+			@include transform(translateY(25px));
+		}
 	}
 }

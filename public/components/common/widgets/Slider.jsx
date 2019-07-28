@@ -1,6 +1,9 @@
-import React            from 'react';
+import React from 'react';
 
-class Slider extends React.Component {
+// Context
+import { ConfigContext } from './../contexts/ConfigContext';
+
+class Child extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -19,11 +22,10 @@ class Slider extends React.Component {
 
 	componentDidMount(props) {
 		/**
-		 * Layout of Presentation
-		 * <Slider
-		 *     id={Slider ID}
-		 *     items={Nbr. Slider Pages}
-		 *	   content={}
+	    * Layout of Presentation
+		* <Slider
+		*     id={Slider ID}
+		*     items={Nbr. Slider Pages}
 		*     options={
 		*          ||
 		*         \||/
@@ -273,7 +275,6 @@ class Slider extends React.Component {
 			for (let i = -this.props.options.itemsPerSlide, j = 0; i < j; i++) {
 				sliderPages.push(
 					<SliderPage 
-						config={this.props.config} 
 						class=" slider_page--duplicated"
 						index={i} 
 						page={this.props.items + i + 1}
@@ -287,7 +288,6 @@ class Slider extends React.Component {
 		for (let i = 0, j = this.props.items - 1; i <= j; i++) {
 			sliderPages.push(
 				<SliderPage 
-					config={this.props.config} 
 					index={i} 
 					page={i + 1}
 					content={this.props.content[`item${i + 1}`]}
@@ -300,7 +300,6 @@ class Slider extends React.Component {
 			for (let i = this.props.items, j = this.props.items + this.props.options.itemsPerSlide; i < j; i++) {
 				sliderPages.push(
 					<SliderPage 
-						config={this.props.config} 
 						class=" slider_page--duplicated"
 						index={i} 
 						page={-(this.props.items - i - 1)}
@@ -434,6 +433,35 @@ class SliderPageBody extends React.Component {
 			);
 		} else {
 			return null;
+		}
+	}
+}
+
+class Slider extends React.Component {
+	componentDidMount() {
+
+	}
+	
+	componentWillUpdate(nextProps, nextState) {
+        if(nextProps.config !== this.props.config && typeof nextProps.config === 'object') {
+            // Calling just after the mutation
+            this.setState({ status: "__OPENED", config: nextProps.config }, () => {
+                this.handleLoading();
+            });
+        }
+	}
+		
+	render() {
+		if(typeof this.props.content === 'object') {
+			return (
+				<ConfigContext.Consumer>
+					{config => (
+						<Child {...props} content={config['widgets'][props.id]} />
+					)}
+				</ConfigContext.Consumer>	
+			);
+		} else {
+			return false;
 		}
 	}
 }

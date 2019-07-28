@@ -2,7 +2,6 @@ import webp        from './modules/webp';
 import lazyLoading from './modules/lazy-loading';
 import onLine      from './modules/onLine';
 import flash       from './modules/flash';
-import form        from './modules/form';
 import tooltip     from './modules/tooltip';
 
 /*  ==================
@@ -58,7 +57,6 @@ onScroll();
 // Apply
 webp();
 onLine();
-form();
 flash();
 tooltip();
 lazyLoading();

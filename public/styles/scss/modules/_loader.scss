@@ -105,7 +105,7 @@
     &_content {
         @include display-grid;
         @include grid-template(column, repeat(3, 30px));
-        @include grid-template(row, repeat(3, 35px));
+        @include grid-template(row, repeat(2, 35px));
     }
 
     &_bubble {

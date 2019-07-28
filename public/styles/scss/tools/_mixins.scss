@@ -2,7 +2,7 @@
     Mixins
     ================== */
 
-@mixin fonts($font_size, $font_weight: inherit, $font_family: inherit, $color: #fff) {
+@mixin fonts($font_size, $font_weight: inherit, $font_family: inherit, $color: inherit) {
     font:{
         @if ($font_size == inherit) {
             size: inherit;

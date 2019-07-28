@@ -14,11 +14,11 @@ class Homepage extends React.Component {
 		return (
 			<section className="page-content">
 				<div id="packed" className="packed"></div>
-				<Header config={this.props.config} isAuthed={this.props.isAuthed} />
-				<Body config={this.props.config} isAuthed={this.props.isAuthed} />
-				<FeedbackLayout config={this.props.config} isAuthed={this.props.isAuthed} />
+				<Header />
+				<Body />
+				<FeedbackLayout />
 				<footer id="Homepage-Footer">
-					<FooterLayout config={JSON.parse(this.props.config)} isAuthed={this.props.isAuthed} />
+					<FooterLayout />
 				</footer>
 			</section>
 		);
@@ -39,18 +39,15 @@ class Header extends React.Component {
 			<header id="Homepage-Heading" className="page-part-wrapper">
 				<div className="background-overlay webp-test overlay--lol"></div>
 				<TopBar 
-					config={this.props.config} 
 					params={{
 						isSticky: true
 					}}
-					isAuthed={this.props.isAuthed}
 				/>
-				<div className="page-part-content">
-					<Slider 
+				<div className="page-part-content" style={{height: '100vh'}}>
+					{/* <Slider 
 						id="slider1"
 						class="slider"
 						items={3}
-						content={JSON.parse(this.props.config).widgets.slider1}
 						options={
 							{
 								allowControl: true,
@@ -63,7 +60,7 @@ class Header extends React.Component {
 								transitionTime: 300
 							}
 						}
-					/>
+					/> */}
 				</div>
 				<Border type="basic" style={{ bottom: "-1px", fill: "#292929" }} />
 			</header>

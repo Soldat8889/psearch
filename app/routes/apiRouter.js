@@ -33,7 +33,7 @@ apiRouter.get('/*', (req, res, next) => {
             Template.appJS   = JSON.parse(data)['app.js'];
         } else {
             Template.mainCSS = '/assets/styles/main-css.css';
-            Template.mainJS  = '/assets/dist/main-js.js';
+            Template.mainJS  = 'http://127.0.0.1:8080/assets/dist/main-js.js';
             Template.appJS   = '/assets/dist/app.js';
         }
     });
@@ -60,7 +60,7 @@ apiRouter.get('/login', (req, res) => {
 apiRouter.post('/login', login.authenticate);
 
 // DashBoard
-apiRouter.get('/dashboard', (req, res) => {
+apiRouter.get('/dashboard/:componentInterface?/:tab?', (req, res) => {
     dashboard.get(req, res, Template);
 });
 

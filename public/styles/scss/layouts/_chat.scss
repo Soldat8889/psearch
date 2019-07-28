@@ -5,9 +5,86 @@
 $chat-box--padding: 15px;
 
 .chat {
+    position: relative;
+    @include flexbox((display: flex));
+    max-width: 1440px;
+    max-height: 660px;
+    margin: auto;
+
     background-color: $main-third_col !important;
 
-    &-box {
+    &--fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 55px;
+
+        background-color: rgba(40,40,40,.4);
+
+        z-index: $all-width_index;
+    }
+
+    &__leave-button {
+        &--wrapper {
+            position: relative;
+        }
+
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 65px;
+        height: 65px;
+        @include flexbox((
+            display: flex,
+            flex-direction: column,
+            justify-content: center
+        ));
+        align-items: center;
+
+        background-color: $main-second_col;
+        @include border-radius(100%);
+        @include box-shadow(rgba(0,0,0,.3) 0 0 5px);
+
+        font-size: 4rem;
+
+        @include transform(translateX(30px) translateY(-30px));
+    }
+
+    &__support {
+        &--wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+    
+            &[data-status="false"] {
+                background-color: rgba(0,0,0,.3);
+                opacity: 1;
+            }
+    
+            &[data-status="true"] {
+                background-color: rgba(0,0,0,0);
+    
+                opacity: 0;
+                @include transition($sm_tr background-color, $me_tr opacity);
+                pointer-events: none;
+            }
+        }
+
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        &-title {
+            margin-top: 12px;
+        }
+    }
+
+    &__box {
         width: 100%;
         height: 45px;
         margin-bottom: 10px;
@@ -24,69 +101,137 @@ $chat-box--padding: 15px;
         color: $light_gray_col;
         font-weight: 400;
 
-        &--active {
+        &:hover {
+            background-color: $main-first_col;
+
+            color: #fff;
+
+            @include transition(all .2s cubic-bezier(0.68, -0.55, 0.27, 1.55));
+        }
+
+        &-active {
             background-color: $main-first_col;
 
             color: #fff;
         }
 
-        &--icon {
+        &-icon {
             width: 25px;
             
             font-size: 2rem;
             color: $full-dark-first_col;
         }
 
-        &--title {
+        &-title {
             margin: 12px;
 
             font-size: inherit;
         }
     }
 
-    &-sidebar {
+    &__sidebar {
         height: 100%;
-        padding: 0;
         
-        background-color: $full-dark-first_col;
+        background-color: $main-third_col;
         @include border-radius(10px);
 
-        &--channels {
+        overflow-y: auto;
+
+        &-side {
             height: 100%;
             padding: $chat-box--padding;
 
-            overflow-y: auto;
+           background-color: $full-dark-first_col;
+            @include border-radius(10px 0 0 10px);
         }
 
-        &--recently {
+        &-main {
             height: 100%;
             padding: $chat-box--padding;
+        }
 
-            background-color: $main-third_col;
+        &-footer {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            padding: 0 15px;
 
-            overflow-y: auto;
+            text-align: center;
+
+            & > * {
+                font-weight: 400;
+                color: $light_gray_col;
+            }
+
+            &:hover > * {
+                color: $main-third--special_col;
+                @include transition(all $sm_tr cubic-bezier(0.68, -0.55, 0.27, 1.55))
+            }
+
+            & > .fas {
+                margin-right: 5px;
+            }
+
+            &-text {
+                text-decoration: underline;
+            }
         }
     }
 
-    &-area {
+    &__area {
         &--wrapper {
             height: 100%;
 
             padding: $chat-box--padding 10px;
         }
 
+        position: relative;
         height: 100%;
         width: 100%;
 
         background-color: $full-dark-first_col;
         @include border-radius(10px);
 
-        &--heading {
+        &-heading {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 40px;
 
             background-color: $full-dark-second_col;
             @include border-radius(10px 10px 0 0);
+        }
+
+        &-body {
+            width: 100%;
+            height: 100%;
+            padding: 40px $chat-box--padding $chat-box--padding $chat-box--padding;
+        }
+
+        &-textarea {
+            &--wrapper {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: $chat-box--padding;
+            }
+
+            width: 100%;
+            height: 40px;
+            max-height: 120px;
+
+            padding: 10px;
+
+            background-color: $main-third_col;
+            @include border-radius(8px);
+            
+            font-size: 1.45rem;
+            color: $cloud_col;
+
+            resize: none;
         }
     }
 }

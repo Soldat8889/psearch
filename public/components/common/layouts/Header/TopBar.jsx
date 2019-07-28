@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import PropTypes from 'prop-types';
 
+// Contexts
+import { ConfigContext } from './../../contexts/ConfigContext';
+import { UserContext } from './../../contexts/UserContext';
+
 // Utils
 import Text from '../../../utils/Text';
 
@@ -18,9 +22,9 @@ class TopBar extends React.Component {
 	}
 
 	/**
-		@param { Object } this.props.params Define Params of Class
-			@param { Boolean } this.props.params.isSticky Define bar will be stickyable
-	**/
+	 * @param { Object } this.props.params Define Params of Class
+	 * @param { Boolean } this.props.params.isSticky Define bar will be stickyable
+	 */
 
 	static propTypes = {
 		params: PropTypes.shape({
@@ -32,18 +36,13 @@ class TopBar extends React.Component {
 		return (
 			<header className="topbar page-part-wrapper">
 				<div className="page-part-content">
-					<NavigationBarHeader 
-						config={this.props.config} 
-						isAuthed={this.props.isAuthed}
-					/>
+					<NavigationBarHeader />
 					<NavigationBarInner 
-						config={this.props.config}
 						params={
 							{
 								isSticky: this.props.params.isSticky
 							}
-						} 
-						isAuthed={this.props.isAuthed}
+						}
 					/>
 					<div id="topbar_menu-wrapper--clone" className="has-no-display" style={{height: '98px'}}></div>
 				</div>
@@ -59,43 +58,53 @@ class NavigationBarHeader extends React.Component {
 
 	render() {
 		return(
-			<div className="topbar_header container">
-				<Link 
-					to={
-						JSON.parse(this.props.config)['heading']['navigation']['links']['homepage']
-					} 
-					className="topbar_header-icon"
-				>
-				<div>
-					<img src="/assets/images/favicon.png" alt="pSearch's Logo" />
-					<h1>pSearch: </h1>
-					<h4>
-						<Text config={this.props.config} path={['heading', 'navigation', 'linksTitles', 'homepageSub']} />
-					</h4>
-				</div>
-				</Link>
-				<div id="topbar_options-menu_header" className="topbar_options">
-					{this.props.isAuthed ? 
+			<ConfigContext.Consumer>
+				{config => (
+					<div className="topbar_header container">
 						<Link 
 							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
+								config.heading.navigation.links.homepage
 							} 
-							className="topbar_button button me-text"
+							className="topbar_header-icon"
 						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
+						<div>
+							<img src="/assets/images/favicon.png" alt="pSearch's Logo" />
+							<h1>pSearch: </h1>
+							<h4>
+								<Text path={['heading', 'navigation', 'linksTitles', 'homepageSub']} />
+							</h4>
+						</div>
 						</Link>
-						: 
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-							} 
-							className="topbar_button button me-text"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-						</Link>
-					}
-				</div>
-			</div>
+						<UserContext.Consumer>
+							{user => (
+								<div id="topbar_options-menu_header" className="topbar_options">
+									{user ? 
+										<Link 
+											to={
+												config.heading.navigation.links.dashboard
+											} 
+											className="topbar_button button me-text"
+										>
+											<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+										</Link>
+
+										: 
+
+										<Link 
+											to={
+												config.heading.navigation.links.login
+											} 
+											className="topbar_button button me-text"
+										>
+											<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+										</Link>
+									}
+								</div>
+							)}
+						</UserContext.Consumer>
+					</div>
+				)}
+			</ConfigContext.Consumer>
 		);
 	}
 }
@@ -164,88 +173,100 @@ class NavigationBarInner extends React.Component {
 
 	render() {
 		return (
-			<div className="topbar_menu-wrapper" id="topbar_menu-wrapper">
-				<nav className="topbar_menu container" data-is-sticky={this.state.isSticky}>
-					<div className="topbar_menu-heading has-no-display"></div>
-					<span className="topbar_menu-links">
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['homepage']
-							}
-							className="has-no-display"
-						>
-							<img className="topbar_menu-icon" alt="pSearch's Logo" src="/assets/images/favicon.png" />
-						</Link>
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['forum']
-							} 
-							className="text topbar--underlined topbar_menu-links--forum stickytable"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'forum']} config={this.props.config} />
-						</Link>
-						<Link 
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['patchNotes']
-							} 
-							className="text topbar--underlined stickytable"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'patchNotes']} config={this.props.config} />
-						</Link>
-						<HashLink 
-							smooth
-							to={
-								JSON.parse(this.props.config)['heading']['navigation']['links']['feedback']
-							} 
-							className="text topbar--underlined stickytable"
-						>
-							<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} config={this.props.config} />
-						</HashLink>
-					</span>
-					<div id="topbar_options-menu" className="topbar_options">
-						{this.props.isAuthed ? 
-							<Link 
-								to={
-									JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
-								} 
-								className="topbar_button button me-text"
-							>
-								<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
-							</Link>
-							: 
-							<Link 
-								to={
-									JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-								} 
-								className="topbar_button button me-text"
-							>
-								<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-							</Link>
-						}
+			<ConfigContext.Consumer>
+				{config => (
+					<div className="topbar_menu-wrapper" id="topbar_menu-wrapper">
+						<nav className="topbar_menu container" data-is-sticky={this.state.isSticky}>
+							<div className="topbar_menu-heading has-no-display"></div>
+							<span className="topbar_menu-links">
+								<Link 
+									to={
+										config.heading.navigation.links.homepage
+									}
+									className="has-no-display"
+								>
+									<img className="topbar_menu-icon" alt="pSearch's Logo" src="/assets/images/favicon.png" />
+								</Link>
+								<Link 
+									to={
+										config.heading.navigation.links.forum
+									} 
+									className="text topbar--underlined topbar_menu-links--forum stickytable"
+								>
+									<Text path={['heading', 'navigation', 'linksTitles', 'forum']} />
+								</Link>
+								<Link 
+									to={
+										config.heading.navigation.links.patchNotes
+									} 
+									className="text topbar--underlined stickytable"
+								>
+									<Text path={['heading', 'navigation', 'linksTitles', 'patchNotes']} />
+								</Link>
+								<HashLink 
+									smooth
+									to={
+										config.heading.navigation.links.feedback
+									} 
+									className="text topbar--underlined stickytable"
+								>
+									<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} />
+								</HashLink>
+							</span>
+							<UserContext.Consumer>
+								{user => (
+									<div id="topbar_options-menu" className="topbar_options">
+										{user ? 
+											<Link 
+												to={
+													config.heading.navigation.links.dashboard
+												} 
+												className="topbar_button button me-text"
+											>
+												<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+											</Link>
+											: 
+											<Link 
+												to={
+													config.heading.navigation.links.login
+												} 
+												className="topbar_button button me-text"
+											>
+												<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+											</Link>
+										}
+									</div>
+								)}
+							</UserContext.Consumer>
+							<UserContext.Consumer>
+								{user => (
+									<div id="topbar_options-menu_sticky" className="topbar_options has-no-display">
+										{user ? 
+											<Link 
+												to={
+													config.heading.navigation.links.dashboard
+												} 
+												className="topbar_button button me-text"
+											>
+												<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+											</Link>
+											: 
+											<Link 
+												to={
+													config.heading.navigation.links.login
+												} 
+												className="topbar_button button me-text"
+											>
+												<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+											</Link>
+										}
+									</div>
+								)}
+							</UserContext.Consumer>
+						</nav>
 					</div>
-					<div id="topbar_options-menu_sticky" className="topbar_options has-no-display">
-						{this.props.isAuthed ? 
-							<Link 
-								to={
-									JSON.parse(this.props.config)['heading']['navigation']['links']['dashboard']
-								} 
-								className="topbar_button button me-text"
-							>
-								<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} config={this.props.config} />
-							</Link>
-							: 
-							<Link 
-								to={
-									JSON.parse(this.props.config)['heading']['navigation']['links']['login']
-								} 
-								className="topbar_button button me-text"
-							>
-								<Text path={['heading', 'navigation', 'linksTitles', 'login']} config={this.props.config} />
-							</Link>
-						}
-					</div>
-				</nav>
-			</div>
+				)}
+			</ConfigContext.Consumer>
 		);
 	}
 }

@@ -1,6 +1,7 @@
-import React                                                  from 'react';
-import { Route, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
-import PropTypes                                              from 'prop-types';
+import React                                   from 'react';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import PropTypes                               from 'prop-types';
+import axios                                   from 'axios';
 
 // Routes
 import Homepage       from "./Homepage";
@@ -9,36 +10,16 @@ import Authentication from "./Authentication";
 import Dashboard      from './Dashboard';
 import Error          from "./Error";
 
-// Type of Routes
-import ProtectedRoute from "./../utils/ProtectedRoute";
-
 // Common
 import Helmet from "./../common/layouts/Header/Helmet";
-import Init   from "./../common/layouts/Footer/Init";
+import Init   from "../common/layouts/Footer/Init";
 
 class Routing extends React.Component {
-    static defaultProps = {
-        manifest: '/assets/dist/manifest.json',
-        config  : '/assets/config/config-en.json',
-        isAuthed: false
-    }
-
-    static propTypes = {
-        manifest: PropTypes.string.isRequired,
-        config  : PropTypes.string.isRequired,
-        isAuthed: PropTypes.oneOfType([
-            PropTypes.bool,
-            PropTypes.object
-        ]).isRequired
-    }
-
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { manifest, config, isAuthed } = this.props;
-
         return (
             <Switch>
                 <Route 
@@ -47,91 +28,56 @@ class Routing extends React.Component {
                     component={
                         props => ( 
                         <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
+                            <Init {...props} />
                             <Helmet {...props}
-                                manifest={manifest}
-                                title={JSON.parse(config)['title']['index']}
-                                description={JSON.parse(config)['description']['index']}
+                                name="index"
                             />
-                            <Homepage {...props} 
-                                config={config} 
-                                manifest={manifest}
-                                isAuthed={isAuthed}
-                            />
+                            <Homepage {...props} />
                         </div> )
                     } 
                 />
                 <ProtectedRoute 
                     path="/login" 
                     redirect="/dashboard"
-                    isAuthed={isAuthed}
-                    rule={true}
+                    needAuth={false}
                     Component={
                         props => ( 
                         <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
+                            <Init {...props} />
                             <Helmet {...props}
-                                manifest={manifest}
-                                title={JSON.parse(config)['title']['login']}
-                                description={JSON.parse(config)['description']['login']}
+                                name="login"
                             />
-                            <Authentication {...props} 
-                                config={config} 
-                                manifest={manifest}
-                                type="login"
-                            />
-                        </div> )
-                    } 
-                />
-                <ProtectedRoute 
-                    path="/dashboard" 
-                    redirect="/login"
-                    isAuthed={isAuthed}
-                    rule={false}
-                    Component={
-                        props => ( 
-                        <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
-                            <Helmet {...props}
-                                manifest={manifest}
-                                title={JSON.parse(config)['title']['dashboard']}
-                                description={JSON.parse(config)['description']['dashboard']}
-                            />
-                            <Dashboard {...props} 
-                                config={config} 
-                                manifest={manifest}
-                                type="login"
-                            />
+                            <Authentication {...props} type="login" />
                         </div> )
                     } 
                 />
                 <ProtectedRoute 
                     path="/signup" 
                     redirect="/dashboard"
-                    isAuthed={isAuthed}
-                    rule={true}
+                    needAuth={false}
                     Component={
                         props => ( 
                         <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
+                            <Init {...props} />
                             <Helmet {...props}
-                                manifest={manifest}
-                                title={JSON.parse(config)['title']['signup']}
-                                description={JSON.parse(config)['description']['signup']}
+                                name="signup"
                             />
-                            <Authentication {...props} 
-                                config={config} 
-                                manifest={manifest}
-                                type="signup"
-                            /> 
+                            <Authentication {...props} type="signup" /> 
+                        </div> )
+                    } 
+                />
+                <ProtectedRoute 
+                    path="/dashboard/:componentInterface?/:tab?" 
+                    redirect="/login"
+                    needAuth={true}
+                    Component={
+                        props => ( 
+                        <div className="rooting">
+                            <Init {...props} />
+                            <Helmet {...props}
+                                name="dashboard"
+                            />
+                            <Dashboard {...props} />
                         </div> )
                     } 
                 />
@@ -140,19 +86,12 @@ class Routing extends React.Component {
                     component={
                         props => ( 
                         <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
+                            <Init {...props} />
                             <Helmet {...props}
-                                manifest={manifest}
                                 title="pSearch: Select your language"
                                 description="Select the default language beetween the french and the english."
                             />
-                            <LangSelect {...props} 
-                                config={config} 
-                                manifest={manifest}
-                                isAuthed={isAuthed}
-                            />
+                            <LangSelect {...props} />
                         </div> )
                     } 
                 />
@@ -160,24 +99,110 @@ class Routing extends React.Component {
                     component={
                         props => ( 
                         <div className="rooting">
-                            <Init {...props} 
-                                manifest={manifest}
-                            />
+                            <Init {...props} />
                             <Helmet {...props}
-                                manifest={manifest}
-                                title={JSON.parse(config)['title']['errors']['404']}
-                                description={JSON.parse(config)['description']['errors']['404']}
+                                name={['errors']['404']}
                             />
                             <Error {...props} 
                                 type={404} 
-                                config={config} 
-                                isAuthed={isAuthed}
                             />
                         </div> )
                     } 
                 />
             </Switch>
         );
+    }
+}
+
+class ProtectedRoute extends React.Component {
+    _isMounted = false;
+    abortController = new AbortController();
+
+    static propTypes = {
+        path     : PropTypes.string.isRequired,
+        Component: PropTypes.func.isRequired,
+        redirect : PropTypes.string.isRequired,
+        needAuth : PropTypes.bool.isRequired
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isReady : false,
+            isAuthed: undefined,
+            user    : undefined
+        }
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+
+        // Call API User
+        axios
+            .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, { 
+                signal: this.abortController.signal, 
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }, 
+            })
+            .then((r) => {
+                // Mounted?
+                if(this._isMounted) {
+                    // r.data isn't null/underfined?
+                    if(r.data) {
+                        this.setState({
+                            isAuthed: true,
+                            user    : r.data,
+                            isReady : true
+                        });
+                    } else {
+                        this.setState({
+                            isAuthed: false,
+                            user    : false,
+                            isReady : true
+                        });
+                    }
+                }
+            })
+            .catch((e) => {
+                window.CONF.env == "development" ? console.warn(`DEVELOPMENT MODE => ${e}`) : null;
+            });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+        this.abortController.abort();
+    }
+
+    render() {
+        let { path, Component, redirect, propsToChild, needAuth } = this.props;
+        let { isReady, isAuthed }             = this.state;
+
+        if(isReady) {
+            return (
+                <Route 
+                    path={path}
+                    component={
+                        props =>
+                            isAuthed !== needAuth ? (
+                                <Switch>
+                                    <Redirect
+                                        to={redirect}
+                                    />
+                                </Switch>
+                            ) : (
+                                <Component 
+                                    {...props} 
+                                    parentProps={propsToChild}
+                                />
+                            )
+                        }
+                />
+            );
+        } else {
+            return null;
+        }
     }
 }
 

@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import PropTypes            from 'prop-types';
 
 class Input extends Component {
-    static defaultProps = {
-        form: '',
-        title: 'Default title',
-        name: 'default-title',
-        minLength: 6,
-        maxLength: 52,
-        errorTarget: undefined,
-        pwViewer: false
-    }
-
     /**
      * @param { String } this.props.form        Define reference form
      * @param { String } this.props.title       Define title label
@@ -56,14 +46,17 @@ class Input extends Component {
             ruleType      : "",
             ruleContent   : null,
             isAvailable   : false,
-            errorTarget   : false,
-            errorTarget: undefined
+            errorTarget   : false
         }
 
+        // Binding methods
+        this.labelStateHandle   = this.labelStateHandle.bind(this);
         this.checkInput         = this.checkInput.bind(this);
+        this.handleFocus        = this.handleFocus.bind(this);
+        this.handleKeyUp        = this.handleKeyUp.bind(this);
         this.handleBlur         = this.handleBlur.bind(this);
         this.displayMessage     = this.displayMessage.bind(this);
-        this.inputRemoveMessage = this.inputRemoveMessage.bind(this);
+        this.removeMessage      = this.removeMessage.bind(this);
         this.handleView         = this.handleView.bind(this);
     }
 
@@ -107,13 +100,43 @@ class Input extends Component {
         });
     }
 
+    /**
+     * State of label
+     * 
+     * @param { String } state Can be active or none
+     */
+
+    labelStateHandle(state) {
+        const currentLabel = this.state.currentLabel;
+
+        currentLabel.setAttribute('data-state', state);
+
+        switch(state) {
+            case 'active':
+                currentLabel.classList.add("form-label__state--active");
+                break;
+
+            case 'none':
+                currentLabel.classList.remove("form-label__state--active");
+            break;
+        }
+    }
+
+    /**
+     * Checking Input
+     * 
+     * Setting Negative color
+     * Setting Error
+     * Apply rules (minlength, ...)
+     */
+
     checkInput() {
         // Set Negative Color
-        let
-            negativeColor = "#B22222";
+        let negativeColor = "#B22222";
 
         if(this.state.currentInput.value == '') {
-            this.inputRemoveMessage();
+            // Remove error
+            this.removeMessage();
             return;
         }
 
@@ -139,7 +162,7 @@ class Input extends Component {
                         });
                         this.state.currentLabel.style.color = "";
 
-                        this.inputRemoveMessage();
+                        this.removeMessage();
                     } else if(this.state.ruleContent.test(this.state.currentInput.value) === false) {
                         this.setState({
                             handleError: true,
@@ -158,7 +181,7 @@ class Input extends Component {
                         });
                         this.state.currentLabel.style.color = "";
                         
-                        this.inputRemoveMessage();
+                        this.removeMessage();
                     } else {
                         this.setState({
                             handleError: true,
@@ -176,8 +199,16 @@ class Input extends Component {
         }
     }
 
+    handleFocus() {
+        this.labelStateHandle("active");
+    }
+
+    handleKeyUp() {
+        this.checkInput();
+        this.labelStateHandle("active");
+    }
+
     handleBlur() {
-        // Call this
         this.checkInput();
         
         // Remove all errors displays
@@ -186,7 +217,14 @@ class Input extends Component {
                 handleError: false,
                 isAvailable: false
             });
+
             this.state.currentLabel.style.color = "";
+            this.labelStateHandle('none');
+        }
+
+        // Keep active the label
+        if(this.state.currentInput.value !== "") {
+            this.labelStateHandle('active');
         }
     }
 
@@ -245,9 +283,8 @@ class Input extends Component {
         });
     }
 
-    inputRemoveMessage() {
-        const
-            msgBox = this.state.currentMsgBox;
+    removeMessage() {
+        const msgBox = this.state.currentMsgBox;
 
         // Reinitialize its title
         msgBox.innerHTML = '';
@@ -279,7 +316,7 @@ class Input extends Component {
     }
 
     handleView() {
-        try {
+        if(this.props.pwViewer) {
             const
                 pwViewer = document.getElementById('view-password'),
                 pwInput  = document.getElementsByName('password')[0];
@@ -304,7 +341,7 @@ class Input extends Component {
                 pwInput.setAttribute('type', 'password');
                 pwRInput !== undefined ? pwRInput.setAttribute('type', 'password') : false;
             }
-        } catch (e) {}
+        }
     }
 
     render() {
@@ -330,7 +367,8 @@ class Input extends Component {
                     defaultValue={value} 
                     autoComplete="on"
                     data-available={isAvailable}
-                    onKeyUp={this.checkInput} 
+                    onFocus={this.handleFocus}
+                    onKeyUp={this.handleKeyUp} 
                     onBlur={this.handleBlur}
                 />
                 <div className="form-input_box">

@@ -56,7 +56,7 @@
         @include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
         pointer-events: none;
 
-        &_active {
+        &__state--active {
             font-weight: 600;
             font-size: 1.6rem;
             color: $main-third--special_col;

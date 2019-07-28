@@ -15,7 +15,13 @@ const
 
 let config = {
 	devServer: {
-		hot: true,
+		host: '127.0.0.1',
+		port: 8080,
+		disableHostCheck: development ? true : false,
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		},
+		// hot: true,
 		inline: true
 	},
 	entry: {
@@ -28,9 +34,9 @@ let config = {
 		publicPath: '/assets/dist/',
 		filename: development ? '[name].js' : '[name].[chunkhash].js',
 		hotUpdateChunkFilename: 'hot/hot-update.js',
-    hotUpdateMainFilename: 'hot/hot-update.json'
+    	hotUpdateMainFilename: 'hot/hot-update.json'
 	},
-	devtool: development ? "cheap-module-eval-source-map" : "",
+	devtool: development ? "cheap-module-eval-source-map" : "source-map",
 	resolve: {
 		extensions: ['.js', '.jsx', 'css', 'scss', 'sass'],
 		alias: {
@@ -43,7 +49,7 @@ let config = {
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: [
-					'babel-loader', 'react-hot-loader/webpack'
+					'react-hot-loader/webpack', 'babel-loader'
 				]
 			}
 		]
@@ -59,9 +65,7 @@ let config = {
 };
 
 if(production) {
-	config.plugins.push(
-		new ManifestPlugin()
-	);
+	config.plugins.push(new ManifestPlugin());
 	config.entry['main-css'] = './public/styles/main-css.css';
 	config.plugins.push(
 		new OptimizeCSSAssetsPlugin({}),
@@ -74,7 +78,7 @@ if(production) {
         {
             test: /\.(sa|sc|c)ss$/,
             use: [
-        			MiniCssExtractPlugin.loader,
+        		MiniCssExtractPlugin.loader,
             	'css-loader',
             	'sass-loader'
             ]
@@ -101,7 +105,7 @@ if(production) {
 		sourceMap: false
 	}));
 	config.plugins.push(new CompressionPlugin({
-		test: /\.(js|css|jpe?g|png|gif|svg|ico)$/,
+		test: /\.(js|css|jpe?g|png|gif|svg|ico|webp)$/,
 		exclude: /node_modules|bower_components/,
 		deleteOriginalAssets: false,
 		algorithm: 'gzip',
@@ -112,14 +116,14 @@ if(production) {
 			level: 8
 		}
     }));
-} else if(development) {
-	console.log('Development')
-	config.plugins.push(
-		new webpack.NamedModulesPlugin()
-	);
-	config.plugins.push(
-		new webpack.HotModuleReplacementPlugin()
-	);
+}
+
+if(development) {
+	console.log('Development');
+
+	config.plugins.push(new webpack.NamedModulesPlugin());
+	config.plugins.push(new webpack.HotModuleReplacementPlugin());
+	
 	config.entry['main-js'].splice(1, 0, 'react-hot-loader/patch');
 }
 

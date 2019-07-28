@@ -11,17 +11,10 @@ class Error extends React.Component {
 
 	/**
 	 * @param { Number } this.props.type It means the type of error (e.g. Is it an error 404? Undefined page)
-	 * @param { Object || String } this.props.config It means the config of the languages
-	 * @param { Boolean } this.props.isAuthed If the user is connected?
 	 */
 
 	static propTypes = {
-		type  : PropTypes.number.isRequired,
-		config: PropTypes.oneOfType([
-            PropTypes.object,
-            PropTypes.string
-		]).isRequired,
-		isAuthed: PropTypes.bool.isRequired
+		type  : PropTypes.number.isRequired
 	}
 
 	constructor(props) {

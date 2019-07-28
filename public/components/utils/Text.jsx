@@ -1,33 +1,31 @@
-import React, { Component } from 'react';
-    import PropTypes            from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Text extends Component {
-    static defaultProps = {
-        path: [],
-        config: undefined
-    }
+// Contexts
+import { ConfigContext } from './../common/contexts/ConfigContext';
+
+class Text extends React.Component {
+    _isMounted = false;
 
     static propTypes = {
-        path: PropTypes.array.isRequired,
-        config: PropTypes.string.isRequired
+        path: PropTypes.array.isRequired
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            isReady: false,
-            text   : '...'
+            status: "__WAITING",
+            text  : null
         }
 
+        // Binding methods
         this.handleLoading = this.handleLoading.bind(this);
     }
 
     handleLoading() {
-        let
-            path       = this.props.path,
-            config     = JSON.parse(this.props.config),
-            pathToText = config[path[0]];
+        const path      = this.props.path;
+        let  pathToText = this.context[path[0]];
 
         new Promise(async (res, rej) => {
             let pathSearching = new Promise(async (res, rej) => {
@@ -36,17 +34,14 @@ class Text extends Component {
                 }
 
                 res(pathToText);
-            })
-            .catch((e) => {
-                window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
             });
 
             res(await pathSearching);
         })
-        .then((res) => {
+        .then((r) => {
             this.setState({
-                isReady: true,
-                text   : res
+                status: "__DONE",
+                text  : r
             });
         })
         .catch((e) => {
@@ -55,16 +50,26 @@ class Text extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+
         this.handleLoading();
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     render() {
-        if(this.state.isReady) {
-            return this.state.text;
+        const { status, text } = this.state;
+
+        if(status === "__DONE") {
+            return text;
         } else {
-            return '...';
+            return false;
         }
     }
 }
+
+Text.contextType = ConfigContext;
 
 export default Text;

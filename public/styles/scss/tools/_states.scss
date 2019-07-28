@@ -18,3 +18,21 @@
 .has-no-display {
     display: none !important;
 }
+
+.__state {
+    &--collapse {
+        height: 0;
+        
+        opacity: 0;
+        
+        @include transition($me_tr height, 0.4s opacity);
+    }
+
+    &--expand {
+        opacity: 1;
+        
+        @include transition($me_tr height, 0.4s opacity);
+    }
+
+    /** **/
+}

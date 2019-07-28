@@ -163,7 +163,7 @@ class LogIn extends React.Component {
 
         inputSubmit.removeEventListener('click', this.handleSubmit, false);
     }
-
+    
 	render() {
 		return (
 			<div className="form-wrapper">
@@ -175,7 +175,8 @@ class LogIn extends React.Component {
 					</h1>
 				</header>
 				<fieldset className="form-inner">
-					<Input 
+                    <Input 
+                        form="login"
                         title="Username" 
                         name="username"
                         type="text"
@@ -190,6 +191,7 @@ class LogIn extends React.Component {
                         apiErrorTarget={this.state.errorTarget}
                     />
                     <Input 
+                        form="login"
                         title="Password" 
                         name="password"
                         type="password"

@@ -22,7 +22,6 @@
 @import "tools/_settings";
 @import "tools/_mixins";
 @import "tools/_functions";
-@import "tools/_states";
 
 /* Base */
 @import "base/_reset-css";
@@ -53,8 +52,10 @@
 @import "modules/_tooltip";
 
 /* Layout */
-@import "layouts/_chat";
+/* Dashboard */
 @import "layouts/_dashboard";
+@import "layouts/_chat";
+
 @import "layouts/_footer";
 @import "layouts/_form";
 @import "layouts/_header";
@@ -71,3 +72,6 @@
 @import "medias/_media-sidebar--right";
 @import "medias/_media-slider";
 @import "medias/_media-topbar";
+
+/* Tools */
+@import "tools/_states";
