@@ -74,12 +74,12 @@
     "webpack-manifest-plugin": "^2.0.4"
   },
   "scripts": {
-    "build": "concurrently --kill-others \"npm run wp-watch\" \"npm run wp-server\" \"npm run compass\"",
-    "prod": "concurrently --kill-others \"npm run wp-prod\"",
+    "start": "concurrently --kill-others \"npm run wp-watch\" \"npm run wp-server\" \"npm run compass\"",
+    "build": "concurrently --kill-others \"npm run wp-build\"",
     "wp-watch": "cross-env NODE_ENV=development webpack --w",
     "wp-server": "cross-env NODE_ENV=development webpack-dev-server",
-    "wp-prod": "cross-env NODE_ENV=production webpack",
-    "server": "cross-env NODE_ENV=development node app/start.js",
+    "wp-build": "cross-env NODE_ENV=production webpack",
+    "server": "cross-env NODE_ENV=development nodemon app/start.js",
     "compass": "compass watch"
   },
   "author": "Soldat8889",

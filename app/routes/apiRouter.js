@@ -7,7 +7,10 @@ import signup     from './signupRouter';
 import login      from './loginRouter';
 import dashboard  from './dashboardRouter';
 import langSelect from './langSelectingRouter';
-import testAPI    from './testAPI';
+import testAPI    from './api/testAPI';
+
+// Import Actions
+import Auth from './../actions/auth';
 
 // Router
 let 
@@ -32,7 +35,7 @@ apiRouter.get('/*', (req, res, next) => {
             Template.mainJS  = JSON.parse(data)['main-js.js'];
             Template.appJS   = JSON.parse(data)['app.js'];
         } else {
-            Template.mainCSS = '/assets/styles/main-css.css';
+            Template.mainCSS = '/assets/dist/main-css.css';
             Template.mainJS  = 'http://127.0.0.1:8080/assets/dist/main-js.js';
             Template.appJS   = '/assets/dist/app.js';
         }
@@ -59,16 +62,14 @@ apiRouter.get('/login', (req, res) => {
 });
 apiRouter.post('/login', login.authenticate);
 
-// DashBoard
+// Dashboard
 apiRouter.get('/dashboard/:componentInterface?/:tab?', (req, res) => {
     dashboard.get(req, res, Template);
 });
 
-// LogOut
+// Logout
 apiRouter.get('/logout', (req, res) => {
-    req.session.destroy((e) => {
-        res.redirect('/');
-    });
+    Auth.logout(req, res);
 });
 
 // BRAVE REWARDS
@@ -90,7 +91,7 @@ apiRouter.get('/api/testAPI', testAPI.get);
 
 // /|!|\ CATCH ERROR ROUTING
 apiRouter.all('*', (req, res) => {
-    fs.readFile(`public/config/config-${req.cookies.lang}.json`, 'utf-8', (e, data) => {
+    fs.readFile(`./public/config/config-${req.cookies.lang}.json`, 'utf-8', (e, data) => {
         if(e) {
             // REDIRECT
             res.redirect('/lang-select');

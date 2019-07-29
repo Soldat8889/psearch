@@ -25,8 +25,8 @@ let config = {
 		inline: true
 	},
 	entry: {
-		"main-js": ['@babel/polyfill/noConflict', './public/components/main.jsx'],
-		"app": ['@babel/polyfill/noConflict', './public/client/app.js']
+		"main-js": ['@babel/polyfill/noConflict', './src/index.jsx'],
+		"app": ['@babel/polyfill/noConflict', '/assets/client/app.js']
 	},
 	mode: process.env.NODE_ENV.trim(),
 	output: {
@@ -66,7 +66,7 @@ let config = {
 
 if(production) {
 	config.plugins.push(new ManifestPlugin());
-	config.entry['main-css'] = './public/styles/main-css.css';
+	config.entry['main-css'] = '/assets/styles/main-css.css';
 	config.plugins.push(
 		new OptimizeCSSAssetsPlugin({}),
 		new MiniCssExtractPlugin({

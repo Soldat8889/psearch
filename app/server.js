@@ -7,7 +7,6 @@ import morgan        from 'morgan';
 import bodyParser    from 'body-parser';
 import cookieParser  from 'cookie-parser';
 import ejs           from 'ejs';
-import http          from 'http';
 import socketIo      from 'socket.io';
 
 // AUTH

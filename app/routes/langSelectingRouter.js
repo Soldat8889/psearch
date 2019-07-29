@@ -1,4 +1,4 @@
-import langSelect from './actions/lang_select';
+import langSelect from './../actions/lang_select';
 
 // Init variables
 let nodeEnv = process.env.NODE_ENV;
