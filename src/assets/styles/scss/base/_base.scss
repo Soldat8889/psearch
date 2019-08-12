@@ -3,149 +3,152 @@
     ================== */
 
 body {
-    min-width: 280px;
-    min-height: 100%;
+	min-width: 280px;
+	min-height: 100%;
 
-    background-color: $main-first_col;
+	background-color: $main-first_col;
 
-    font-size: 62.5%;
-    line-height: 1.4;
-    color: #fff;
+	font-size: 62.5%;
+	line-height: 1.4;
+	color: #fff;
 
-    @include hyphens(manual);
+	@include hyphens(manual);
 }
 
-*, *:before, *:after {
-    @include box-sizing(border-box);
+*,
+*::before,
+*::after {
+	@include box-sizing(border-box);
 }
 
 @each $prefix in (moz), (webkit) {
-    *::-#{$prefix}-selection {
-        background-color: rgba(225, 100, 40, .4);
+	*::-#{$prefix}-selection {
+		background-color: rgba(225, 100, 40, .4);
 
-        color: #fff;
-    }
+		color: #fff;
+	}
 }
 
 *::-moz-focus-inner {
-    border: none;
+	border: none;
 }
 
 a {
-    display: inline-block;
+	display: inline-block;
 
-    font: {
-        family: inherit;
-        size: inherit;
-        weight: inherit;
-    }
-    text-decoration: none;
+	font: {
+		family: inherit;
+		size: inherit;
+		weight: inherit;
+	}
+	text-decoration: none;
 }
 
 button {
-    display: inline-block;
+	display: inline-block;
 
-    background: none;
+	background: none;
 
-    cursor: pointer;
+	cursor: pointer;
 }
 
 hr {
-    display: block;
-    height: 50px;
-    margin: 0 0 65px 0;
-    padding: 0;
+	display: block;
+	height: 50px;
+	margin: 0 0 65px 0;
+	padding: 0;
 
-    border: none;
+	border: none;
 
-    font: {
-        family: "News Cycle", $text_font;
-        size: 2rem;
-        weight: 200;
-    }
-    text-align: center;
+	font: {
+		family: "News Cycle", $text_font;
+		size: 2rem;
+		weight: 200;
+	}
+	text-align: center;
 
-    clear: both;
+	clear: both;
 
-    &::after {
-        content: "________";
-        height: 0;          
-        letter-spacing: -3px;
-        color: #fff;
-    }
+	&::after {
+		content: "________";
+		height: 0;
+		letter-spacing: -3px;
+		color: #fff;
+	}
 }
 
-ul, ol {
-    list-style-type: none;
+ul,
+ol {
+	list-style-type: none;
 }
 
 svg {
-    @include inline-block(baseline);
+	@include inline-block(baseline);
 
-    fill: #fff;
+	fill: #fff;
 }
 
 path {
-    fill: #fff;
+	fill: #fff;
 }
 
 .content-wrapper {
-    padding: 10px;
+	padding: 10px;
 }
 
 /* TAGS RULES */
 
 .bar {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 10px;
-    margin: 0 5px;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 10px;
+	margin: 0 5px;
 }
 
 .custom {
-    display: none;
+	display: none;
 }
 
 li.stacked {
-    margin-bottom: 30px;
+	margin-bottom: 30px;
 
-    overflow: hidden;
+	overflow: hidden;
 }
 
 .interface {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 svg.icon {
-    margin: 5px;
+	margin: 5px;
 }
 
 .scroll-to-top {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    @include flexbox((display: flex));
-    width: 50px;
-    height: 50px;
-    margin: 8px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	@include flexbox((display: flex));
+	width: 50px;
+	height: 50px;
+	margin: 8px;
 
-    background-color: rgba(0,0,0,.5);
-    @include border-radius(10%);
+	background-color: rgba(0, 0, 0, .5);
+	@include border-radius(10%);
 
-    @include transition(all $sm_tr);
-    opacity: 0;
-    z-index: $help_index;
-    visibility: hidden;
-    cursor: pointer;
+	@include transition(all $sm_tr);
+	opacity: 0;
+	z-index: $help_index;
+	visibility: hidden;
+	cursor: pointer;
 
-    &_icon {
-        margin: auto;
-    }
+	&_icon {
+		margin: auto;
+	}
 
-    &.is-visible {
-        transition: all $sm_tr;
-        opacity: 1;
-        visibility: visible;
-    }
+	&.is-visible {
+		transition: all $sm_tr;
+		opacity: 1;
+		visibility: visible;
+	}
 }

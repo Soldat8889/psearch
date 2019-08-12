@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes            from 'prop-types';
+/* eslint-disable no-async-promise-executor */
+import React, { Component } from "react";
+import PropTypes            from "prop-types";
 
 class Input extends Component {
     /**
@@ -13,7 +14,7 @@ class Input extends Component {
      *  @param { String || RegExp || Object } this.props.rule.content Define rule content
      *  @param { String } this.props.rule.error                       Define error callback
      * @param { String } this.props.errorTarget Define error target (reference label)
-     * @param { Boolean } this.props.pwViewer   Define if it's a mirror password input
+     * @param { Boolean } this.props.pwViewer   Define if it"s a mirror password input
      */
     
     static propTypes = {
@@ -47,7 +48,7 @@ class Input extends Component {
             ruleContent   : null,
             isAvailable   : false,
             errorTarget   : false
-        }
+        };
 
         // Binding methods
         this.labelStateHandle   = this.labelStateHandle.bind(this);
@@ -87,9 +88,8 @@ class Input extends Component {
     }
 
     componentWillUnmount() {
-        const
-            inputs   = document.querySelectorAll('.form-input'),
-            pwViewer = document.getElementById('view-password');
+        const inputs   = document.querySelectorAll(".form-input");
+        const pwViewer = document.getElementById("view-password");
 
         pwViewer.removeEventListener("click", this.handleView, false);
 
@@ -109,14 +109,14 @@ class Input extends Component {
     labelStateHandle(state) {
         const currentLabel = this.state.currentLabel;
 
-        currentLabel.setAttribute('data-state', state);
+        currentLabel.setAttribute("data-state", state);
 
         switch(state) {
-            case 'active':
+            case "active":
                 currentLabel.classList.add("form-label__state--active");
                 break;
 
-            case 'none':
+            case "none":
                 currentLabel.classList.remove("form-label__state--active");
             break;
         }
@@ -132,9 +132,10 @@ class Input extends Component {
 
     checkInput() {
         // Set Negative Color
-        let negativeColor = "#B22222";
+        const negativeColor = "#B22222";
+        const currentLabel = this.state.currentLabel;
 
-        if(this.state.currentInput.value == '') {
+        if(this.state.currentInput.value == "") {
             // Remove error
             this.removeMessage();
             return;
@@ -148,19 +149,19 @@ class Input extends Component {
             });
             
             // Negative color
-            this.state.currentLabel.style.color = negativeColor;
+            currentLabel.style.color = negativeColor;
 
-            this.displayMessage(this.props.name, 'error', `Must contain between ${this.props.minLength} to ${this.props.maxLength} characters.`);
+            this.displayMessage(this.props.name, "error", `Must contain between ${this.props.minLength} to ${this.props.maxLength} characters.`);
         } else {
             // RuleType between Regex & Match
             switch(this.state.ruleType) {
-                case 'Regex':
+                case "Regex":
                     if(this.state.ruleContent.test(this.state.currentInput.value) === true) {
                         this.setState({
                             handleError: false,
                             isAvailable: true
                         });
-                        this.state.currentLabel.style.color = "";
+                        currentLabel.style.color = "";
 
                         this.removeMessage();
                     } else if(this.state.ruleContent.test(this.state.currentInput.value) === false) {
@@ -168,18 +169,18 @@ class Input extends Component {
                             handleError: true,
                             isAvailable: false
                         });
-                        this.state.currentLabel.style.color = negativeColor;
+                        currentLabel.style.color = negativeColor;
                         
-                        this.displayMessage(this.props.name, 'error', this.props.rule.error ? this.props.rule.error : null);
+                        this.displayMessage(this.props.name, "error", this.props.rule.error ? this.props.rule.error : null);
                     }
                     break;
-                case 'Match':
+                case "Match":
                     if(document.getElementsByName(this.state.ruleContent)[0].value == this.state.currentInput.value) {
                         this.setState({
                             handleError: false,
                             isAvailable: true
                         });
-                        this.state.currentLabel.style.color = "";
+                        currentLabel.style.color = "";
                         
                         this.removeMessage();
                     } else {
@@ -187,13 +188,13 @@ class Input extends Component {
                             handleError: true,
                             isAvailable: false
                         });
-                        this.state.currentLabel.style.color = negativeColor;
+                        currentLabel.style.color = negativeColor;
 
-                        this.displayMessage(this.props.name, 'error', this.props.rule.error ? this.props.rule.error : null);
+                        this.displayMessage(this.props.name, "error", this.props.rule.error ? this.props.rule.error : null);
                     }
                     break;
                 default:
-                    window.CONF.env == 'development' ? console.warn('Any rule ?') : false;
+                    window.CONF.env == "development" ? console.warn("Any rule ?") : false;
                     break;
             }
         }
@@ -210,6 +211,8 @@ class Input extends Component {
 
     handleBlur() {
         this.checkInput();
+
+        const currentLabel = this.state.currentLabel;
         
         // Remove all errors displays
         if(this.state.currentInput.value == "") {
@@ -218,57 +221,57 @@ class Input extends Component {
                 isAvailable: false
             });
 
-            this.state.currentLabel.style.color = "";
-            this.labelStateHandle('none');
+            currentLabel.style.color = "";
+            this.labelStateHandle("none");
         }
 
         // Keep active the label
         if(this.state.currentInput.value !== "") {
-            this.labelStateHandle('active');
+            this.labelStateHandle("active");
         }
     }
 
     async displayMessage(target, type, message) {
         const
-            label  = document.querySelector(`label[data-reference="${target}"`),
-            msgBox = document.querySelector(`span#form-message_text[data-reference="${target}"`),
-            box    = label.parentNode.querySelector('.form-input_box');
+            label  = document.querySelector(`label[data-reference="${target}"`);
+            const msgBox = document.querySelector(`span#form-message_text[data-reference="${target}"`);
+            const box    = label.parentNode.querySelector(".form-input_box");
 
         const 
-            msgWrapper = document.createElement('div'),
-            msgCross   = document.createElement('span');
+            msgWrapper = document.createElement("div");
+            const msgCross   = document.createElement("span");
 
-        new Promise(async (res, rej) => {
+        new Promise(async (res) => {
             // Get all children of box
             Array.prototype.forEach.call([].slice.call(box.children), child => {
                 const
                     childClasses = [].slice.call(child.classList);
 
                 // Not the cross
-                if(childClasses.indexOf('form-message_wrapper') === -1) {
+                if(childClasses.indexOf("form-message_wrapper") === -1) {
                     // Display: none for all except the cross
-                    child.setAttribute('data-display', 'none');
-                    child.style.display = 'none';
+                    child.setAttribute("data-display", "none");
+                    child.style.display = "none";
                 } else {
                     box.removeChild(child);
                 }
             });
 
             // Message Wrapper
-            msgWrapper.setAttribute('class', `form-message_wrapper`);
-            msgWrapper.setAttribute('data-reference', target);
+            msgWrapper.setAttribute("class", `form-message_wrapper`);
+            msgWrapper.setAttribute("data-reference", target);
 
             // Message Cross
-            msgCross.setAttribute('class', `fas sm-text form-message_icon form-message--${type}`);
-            msgCross.textContent = '';
+            msgCross.setAttribute("class", `fas sm-text form-message_icon form-message--${type}`);
+            msgCross.textContent = "";
 
             // Message Text
             msgBox.innerHTML = ` - <span class="form-message_text">${message}</span>`;
 
             // Set color
             switch(type) {
-                case 'error':
-                    label.style.color = '#B22222';
+                case "error":
+                    label.style.color = "#B22222";
                     break;
                 default:
                     break;
@@ -287,12 +290,12 @@ class Input extends Component {
         const msgBox = this.state.currentMsgBox;
 
         // Reinitialize its title
-        msgBox.innerHTML = '';
+        msgBox.innerHTML = "";
 
         // Not undefined so...
         const
-            label  = document.querySelector(`label[data-reference="${this.props.name}"`),
-            box    = label.parentNode.querySelector('.form-input_box');
+            label  = document.querySelector(`label[data-reference="${this.props.name}"`);
+            const box    = label.parentNode.querySelector(".form-input_box");
 
         // Each children so...
         Array.prototype.forEach.call([].slice.call(box.children), child => {
@@ -300,10 +303,10 @@ class Input extends Component {
                 childClasses = [].slice.call(child.classList);
 
             // Not the cross
-            if(childClasses.indexOf('form-message_wrapper') === -1) {
+            if(childClasses.indexOf("form-message_wrapper") === -1) {
                 // Hidden all except the cross
-                child.setAttribute('data-display', 'block');
-                child.style.display = 'block';
+                child.setAttribute("data-display", "block");
+                child.style.display = "block";
             } else {
                 box.removeChild(child);
             }
@@ -318,28 +321,28 @@ class Input extends Component {
     handleView() {
         if(this.props.pwViewer) {
             const
-                pwViewer = document.getElementById('view-password'),
-                pwInput  = document.getElementsByName('password')[0];
+                pwViewer = document.getElementById("view-password");
+                const pwInput  = document.getElementsByName("password")[0];
 
             const 
-                pwRInput = document.getElementsByName('r-password')[0];
+                pwRInput = document.getElementsByName("r-password")[0];
 
-            if(pwViewer.getAttribute('data-state') == 'hidden') {
+            if(pwViewer.getAttribute("data-state") == "hidden") {
                 // Eye is closed
                 pwViewer.innerHTML = "";
-                pwViewer.setAttribute('data-state', 'visible');
+                pwViewer.setAttribute("data-state", "visible");
 
                 // View inputs
-                pwInput.setAttribute('type', 'text');
-                pwRInput !== undefined ? pwRInput.setAttribute('type', 'text') : false;
+                pwInput.setAttribute("type", "text");
+                pwRInput !== undefined ? pwRInput.setAttribute("type", "text") : false;
             } else {
                 // Eye is open
                 pwViewer.innerHTML = "";
-                pwViewer.setAttribute('data-state', 'hidden');
+                pwViewer.setAttribute("data-state", "hidden");
                 
                 // Hide inputs
-                pwInput.setAttribute('type', 'password');
-                pwRInput !== undefined ? pwRInput.setAttribute('type', 'password') : false;
+                pwInput.setAttribute("type", "password");
+                pwRInput !== undefined ? pwRInput.setAttribute("type", "password") : false;
             }
         }
     }
@@ -355,7 +358,7 @@ class Input extends Component {
                     data-reference={name}
                     data-state="none"
                     data-error={handleError}
-                    style={errorTarget ? {'color': '#B22222'} : {'color': ''}}
+                    style={errorTarget ? {"color": "#B22222"} : {"color": ""}}
                 >
                     {title}
                     <span id="form-message_text" className="form-message_text" data-reference={name}></span>
@@ -372,7 +375,7 @@ class Input extends Component {
                     onBlur={this.handleBlur}
                 />
                 <div className="form-input_box">
-                    {type === 'password' && pwViewer ? 
+                    {type === "password" && pwViewer ? 
                         <div 
                             id="view-password" 
                             className="far fa-2x interface" 

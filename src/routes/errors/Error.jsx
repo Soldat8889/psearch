@@ -1,8 +1,8 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
+import React     from "react";
+import PropTypes from "prop-types";
 
 // Components
-	import Error404 from './Error-404';
+	import Error404 from "./Error-404";
 
 class Error extends React.Component {
 	static defaultProps = {
@@ -39,7 +39,6 @@ class Error extends React.Component {
 						isAuthed={this.props.isAuthed}	
 					/>
 				);
-			break;
 			default:
 				return ( 
 					<Error404 
@@ -47,7 +46,6 @@ class Error extends React.Component {
 						isAuthed={this.props.isAuthed}	
 					/>
 				);
-				break;
 		}
 	}
 

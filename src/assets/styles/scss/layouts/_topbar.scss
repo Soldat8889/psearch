@@ -22,7 +22,7 @@
 
 		&::after {
 			display: block;
-			content: '';
+			content: "";
 			width: 0;
 			height: 2px;
 
@@ -52,7 +52,7 @@
 	&_button {
 		@include inline-block(middle);
 
-		&[data-sidebar="left"]{
+		&[data-sidebar="left"] {
 			display: none;
 		}
 	}
@@ -103,7 +103,7 @@
 			z-index: $bar_index;
 
 			&.is-sticky {
-				background-color: rgba(0,0,0,.8);
+				background-color: rgba(0, 0, 0, 0.8);
 			}
 		}
 

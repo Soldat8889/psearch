@@ -1,4 +1,4 @@
-import Auth from './../../actions/auth';
+import Auth from "./../../actions/auth";
 
 // Authentication
 module.exports = (passport, user) => {
@@ -13,4 +13,4 @@ module.exports = (passport, user) => {
      */
 
     Auth.login(passport, user);
-}
+};

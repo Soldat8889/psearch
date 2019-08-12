@@ -3,36 +3,34 @@
     ================== */
 
 .is-hidden {
-    visibility: hidden;
+	visibility: hidden;
 }
 
 .is-sticky {
-    position: fixed;
-    top: 0;
+	position: fixed;
+	top: 0;
 }
 
 .has-no-scroll {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 .has-no-display {
-    display: none !important;
+	display: none !important;
 }
 
 .__state {
-    &--collapse {
-        height: 0;
+	&--collapse {
+		height: 0;
         
-        opacity: 0;
+		opacity: 0;
         
-        @include transition($me_tr height, 0.4s opacity);
-    }
+		@include transition($me_tr height, 0.4s opacity);
+	}
 
-    &--expand {
-        opacity: 1;
+	&--expand {
+		opacity: 1;
         
-        @include transition($me_tr height, 0.4s opacity);
-    }
-
-    /** **/
+		@include transition($me_tr height, 0.4s opacity);
+	}
 }

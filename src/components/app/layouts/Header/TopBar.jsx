@@ -1,14 +1,14 @@
-﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-import PropTypes from 'prop-types';
+﻿import React from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import PropTypes from "prop-types";
 
 // Contexts
-import { ConfigContext } from '../../../../context/ConfigContext';
-import { UserContext } from '../../../../context/UserContext';
+import { ConfigContext } from "../../../../context/ConfigContext";
+import { UserContext } from "../../../../context/UserContext";
 
 // Utils
-import Text from '../../utils/Text';
+import Text from "../../utils/Text";
 
 class TopBar extends React.Component {
 	constructor(props) {
@@ -44,7 +44,7 @@ class TopBar extends React.Component {
 							}
 						}
 					/>
-					<div id="topbar_menu-wrapper--clone" className="has-no-display" style={{height: '98px'}}></div>
+					<div id="topbar_menu-wrapper--clone" className="has-no-display" style={{height: "98px"}}></div>
 				</div>
 			</header>
 		);
@@ -71,7 +71,7 @@ class NavigationBarHeader extends React.Component {
 							<img src="/assets/images/favicon.png" alt="pSearch's Logo" />
 							<h1>pSearch: </h1>
 							<h4>
-								<Text path={['heading', 'navigation', 'linksTitles', 'homepageSub']} />
+								<Text path={["heading", "navigation", "linksTitles", "homepageSub"]} />
 							</h4>
 						</div>
 						</Link>
@@ -85,7 +85,7 @@ class NavigationBarHeader extends React.Component {
 											} 
 											className="topbar_button button me-text"
 										>
-											<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+											<Text path={["heading", "navigation", "linksTitles", "dashboard"]} />
 										</Link>
 
 										: 
@@ -96,7 +96,7 @@ class NavigationBarHeader extends React.Component {
 											} 
 											className="topbar_button button me-text"
 										>
-											<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+											<Text path={["heading", "navigation", "linksTitles", "login"]} />
 										</Link>
 									}
 								</div>
@@ -115,7 +115,7 @@ class NavigationBarInner extends React.Component {
 
 		this.state = {
 			isSticky: false
-		}
+		};
 
 		this.isSticky = this.isSticky.bind(this);
 	}
@@ -130,39 +130,39 @@ class NavigationBarInner extends React.Component {
 
 	isSticky() {
 		let 
-			topbarHeader            = document.querySelector('.topbar_header'),
-			topbarMenu              = document.querySelector('.topbar_menu'),
-			topbarMenuHeading       = document.querySelector('.topbar_menu-heading'),
-			topbarMenuWrapper       = document.getElementById('topbar_menu-wrapper'),
-			topbarMenuWrapperCloned = document.getElementById('topbar_menu-wrapper--clone'),
-			topbarMenuLinksSticky   = document.querySelectorAll('.topbar--underlined.stickytable'),
-			topbarMenuOptionsSticky = document.getElementById('topbar_options-menu_sticky'),
-			topbarMenuOptionsMenu   = document.getElementById('topbar_options-menu'),
-			topbarMenuIcon          = topbarMenu.querySelector('.topbar_menu-icon');
+			topbarHeader            = document.querySelector(".topbar_header"),
+			topbarMenu              = document.querySelector(".topbar_menu"),
+			topbarMenuHeading       = document.querySelector(".topbar_menu-heading"),
+			topbarMenuWrapper       = document.getElementById("topbar_menu-wrapper"),
+			topbarMenuWrapperCloned = document.getElementById("topbar_menu-wrapper--clone"),
+			topbarMenuLinksSticky   = document.querySelectorAll(".topbar--underlined.stickytable"),
+			topbarMenuOptionsSticky = document.getElementById("topbar_options-menu_sticky"),
+			topbarMenuOptionsMenu   = document.getElementById("topbar_options-menu"),
+			topbarMenuIcon          = topbarMenu.querySelector(".topbar_menu-icon");
 
 		for(let i = 0, j = topbarMenuLinksSticky.length; i < j; i++) {
 			if((topbarHeader.offsetTop + topbarHeader.offsetHeight) <= window.pageYOffset) {
-				topbarMenuHeading.classList.remove('has-no-display');
-				topbarMenuWrapper.classList.add('is-sticky');
-				topbarMenuLinksSticky[i].classList.add('is-in-sticky');
-				topbarMenuOptionsSticky.classList.remove('has-no-display');
-				topbarMenuOptionsMenu.classList.add('has-no-display');
-				topbarMenuIcon.parentNode.classList.remove('has-no-display');
+				topbarMenuHeading.classList.remove("has-no-display");
+				topbarMenuWrapper.classList.add("is-sticky");
+				topbarMenuLinksSticky[i].classList.add("is-in-sticky");
+				topbarMenuOptionsSticky.classList.remove("has-no-display");
+				topbarMenuOptionsMenu.classList.add("has-no-display");
+				topbarMenuIcon.parentNode.classList.remove("has-no-display");
 
-				topbarMenuWrapperCloned.classList.remove('has-no-display');
+				topbarMenuWrapperCloned.classList.remove("has-no-display");
 
 				this.setState({
 					isSticky: true
 				});
 			} else {
-				topbarMenuHeading.classList.add('has-no-display');
-				topbarMenuWrapper.classList.remove('is-sticky');
-				topbarMenuLinksSticky[i].classList.remove('is-in-sticky');
-				topbarMenuOptionsSticky.classList.add('has-no-display');
-				topbarMenuOptionsMenu.classList.remove('has-no-display');
-				topbarMenuIcon.parentNode.classList.add('has-no-display');
+				topbarMenuHeading.classList.add("has-no-display");
+				topbarMenuWrapper.classList.remove("is-sticky");
+				topbarMenuLinksSticky[i].classList.remove("is-in-sticky");
+				topbarMenuOptionsSticky.classList.add("has-no-display");
+				topbarMenuOptionsMenu.classList.remove("has-no-display");
+				topbarMenuIcon.parentNode.classList.add("has-no-display");
 
-				topbarMenuWrapperCloned.classList.add('has-no-display');
+				topbarMenuWrapperCloned.classList.add("has-no-display");
 
 				this.setState({
 					isSticky: false
@@ -193,7 +193,7 @@ class NavigationBarInner extends React.Component {
 									} 
 									className="text topbar--underlined topbar_menu-links--forum stickytable"
 								>
-									<Text path={['heading', 'navigation', 'linksTitles', 'forum']} />
+									<Text path={["heading", "navigation", "linksTitles", "forum"]} />
 								</Link>
 								<Link 
 									to={
@@ -201,7 +201,7 @@ class NavigationBarInner extends React.Component {
 									} 
 									className="text topbar--underlined stickytable"
 								>
-									<Text path={['heading', 'navigation', 'linksTitles', 'patchNotes']} />
+									<Text path={["heading", "navigation", "linksTitles", "patchNotes"]} />
 								</Link>
 								<HashLink 
 									smooth
@@ -210,7 +210,7 @@ class NavigationBarInner extends React.Component {
 									} 
 									className="text topbar--underlined stickytable"
 								>
-									<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} />
+									<Text path={["heading", "navigation", "linksTitles", "feedback"]} />
 								</HashLink>
 							</span>
 							<UserContext.Consumer>
@@ -223,7 +223,7 @@ class NavigationBarInner extends React.Component {
 												} 
 												className="topbar_button button me-text"
 											>
-												<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+												<Text path={["heading", "navigation", "linksTitles", "dashboard"]} />
 											</Link>
 											: 
 											<Link 
@@ -232,7 +232,7 @@ class NavigationBarInner extends React.Component {
 												} 
 												className="topbar_button button me-text"
 											>
-												<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+												<Text path={["heading", "navigation", "linksTitles", "login"]} />
 											</Link>
 										}
 									</div>
@@ -248,7 +248,7 @@ class NavigationBarInner extends React.Component {
 												} 
 												className="topbar_button button me-text"
 											>
-												<Text path={['heading', 'navigation', 'linksTitles', 'dashboard']} />
+												<Text path={["heading", "navigation", "linksTitles", "dashboard"]} />
 											</Link>
 											: 
 											<Link 
@@ -257,7 +257,7 @@ class NavigationBarInner extends React.Component {
 												} 
 												className="topbar_button button me-text"
 											>
-												<Text path={['heading', 'navigation', 'linksTitles', 'login']} />
+												<Text path={["heading", "navigation", "linksTitles", "login"]} />
 											</Link>
 										}
 									</div>

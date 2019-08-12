@@ -1,7 +1,7 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 
-export const PATH_MANIFEST = '/assets/dist/manifest.json';
+export const PATH_MANIFEST = "/assets/dist/manifest.json";
 
 export const ManifestContext = React.createContext();
 
@@ -15,7 +15,7 @@ export default class ManifestProvider extends React.Component {
 
         this.state = {
             manifest: false
-        }
+        };
     }
 
     componentDidMount() {
@@ -41,6 +41,6 @@ export default class ManifestProvider extends React.Component {
             <ManifestContext.Provider value={manifest}>
                 {this.props.children}
             </ManifestContext.Provider>
-        )
+        );
     }
 }

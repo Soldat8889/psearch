@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import GetCookie from "./../assets/client/utils/getCookie";
 
-export const CONFIG_PATH = '/assets/config/config-';
+export const CONFIG_PATH = "/assets/config/config-";
 
 export const ConfigContext = React.createContext();
 
@@ -18,20 +18,20 @@ export default class ConfigProvider extends React.Component {
         this.state = {
             config: "__WAITING",
             status: "__WAITING"
-        }
+        };
     }
 
     componentDidMount() {
         this._isMounted = true;
 
         // Config content JSON
-        new Promise((res, rej) => {
-            if(GetCookie('lang') !== null) {
-                document.documentElement.classList.add(GetCookie('lang'));
-                res(`${CONFIG_PATH}${GetCookie('lang')}.json`);
+        new Promise((res) => {
+            if(GetCookie("lang") !== null) {
+                document.documentElement.classList.add(GetCookie("lang"));
+                res(`${CONFIG_PATH}${GetCookie("lang")}.json`);
             } else {
                 // Default value
-                document.documentElement.classList.add('en');
+                document.documentElement.classList.add("en");
                 res(`${CONFIG_PATH}-en.json`);
             }
         })

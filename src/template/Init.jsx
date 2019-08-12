@@ -1,16 +1,16 @@
-import React     from 'react';
-import NProgress from 'nprogress';
+import React     from "react";
+import NProgress from "nprogress";
 
 // Contexts
-import { ManifestContext } from './../context/ManifestContext';
+import { ManifestContext } from "./../context/ManifestContext";
 
 class Init extends React.Component {
     constructor(props) {
 		super(props);
 
 		this.state = {
-			appJS: '/assets/dist/app.js'
-		}
+			appJS: "/assets/dist/app.js"
+		};
 	}
 
 	// Use context
@@ -21,24 +21,24 @@ class Init extends React.Component {
         NProgress.start();
 
 		// Set client file TODO: Remove this file, regrouping files
-		new Promise((res, rej) => {
-			if(window.CONF.env === 'development') {
-				res('/assets/dist/app.js');
+		new Promise((res) => {
+			if(window.CONF.env === "development") {
+				res("/assets/dist/app.js");
 			} else {
 				this.setState({
-					appJS: this.manifest['app.js']
+					appJS: this.manifest["app.js"]
 				});
 
-				res(this.manifest['app.js']);
+				res(this.manifest["app.js"]);
 			}
 		})
 		.then((v) => {
 			let
-				app = document.createElement('script');
+				app = document.createElement("script");
 				
 			// AppJS create Element
-			app.setAttribute('type', 'application/javascript');
-			app.setAttribute('src', v);
+			app.setAttribute("type", "application/javascript");
+			app.setAttribute("src", v);
 
 			document.body.appendChild(app);
 		});

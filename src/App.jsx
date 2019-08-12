@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import ReactGA from 'react-ga';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import React from "react";
+import ReactGA from "react-ga";
+import { BrowserRouter as Router, withRouter } from "react-router-dom";
 
 // Packages
-import MobileDetect from 'mobile-detect';
+import MobileDetect from "mobile-detect";
 
 // Router
-import Routing from './routes/Routing';
+import Routing from "./routes/Routing";
 
 // Common
 import PubDisplay from "./components/app/layouts/Footer/PubDisplay";
@@ -16,17 +16,17 @@ import GetCookie from "./assets/client/utils/getCookie";
 import GetOffsetPosition from "./assets/client/utils/getOffsetPosition";
 
 // GOOGLE ANALYTICS
-if(window.CONF.env === 'production') {
-    ReactGA.initialize('UA-106638919-2');
+if(window.CONF.env === "production") {
+    ReactGA.initialize("UA-106638919-2");
     ReactGA.pageview(window.location.pathname + window.location.search);
 }
 
 // Context API
-import ConfigProvider from './context/ConfigContext';
-import ManifestProvider from './context/ManifestContext';
-import UserProvider from './context/UserContext';
+import ConfigProvider from "./context/ConfigContext";
+import ManifestProvider from "./context/ManifestContext";
+import UserProvider from "./context/UserContext";
 
-class App extends Component {
+class App extends React.Component {
     _isMounted = false;
 
     constructor(props) {
@@ -34,7 +34,7 @@ class App extends Component {
 
         this.state = {
             isReady : false
-        }
+        };
 
         // Binding methods
         this.controlPub   = this.controlPub.bind(this);
@@ -51,11 +51,11 @@ class App extends Component {
         } else {
             try {
                 // If no => Verify if he has already decline pub
-                if(GetCookie('advDisabling') == "true") {
+                if(GetCookie("advDisabling") == "true") {
                     // Yes, he did => no pub
                     return true;
                 } else {
-                    // No, he didn't => pub
+                    // No, he didn"t => pub
                     return false;
                 }
             } catch (e) {
@@ -68,15 +68,15 @@ class App extends Component {
     handleAnchor() {
         setTimeout(() => {
             try {
-                const hash = window.location.hash,
-                      el   = document.querySelector(hash);
+                const hash = window.location.hash;
+                      const el   = document.querySelector(hash);
     
                 // ScrollTo hash id
                 if(hash) {
                     window.scroll({
                         top: GetOffsetPosition(el).top, 
                         left: window.scrollX, 
-                        behavior: 'smooth'
+                        behavior: "smooth"
                     });
                 }
             } catch (e) {}

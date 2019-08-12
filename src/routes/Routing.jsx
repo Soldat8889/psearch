@@ -1,13 +1,13 @@
-import React, { Fragment }                     from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import PropTypes                               from 'prop-types';
-import axios                                   from 'axios';
+import React, { Fragment }                     from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import PropTypes                               from "prop-types";
+import axios                                   from "axios";
 
 // Routes
 import Homepage       from "./Homepage";
 import LangSelect     from "./LangSelect";
 import Authentication from "./Authentication";
-import Dashboard      from './Dashboard';
+import Dashboard      from "./Dashboard";
 import Error          from "./errors/Error";
 
 // Common
@@ -101,7 +101,7 @@ class Routing extends React.Component {
                         <Fragment>
                             <Init {...props} />
                             <Helmet {...props}
-                                name={['errors']['404']}
+                                name={["errors"]["404"]}
                             />
                             <Error {...props} 
                                 type={404} 
@@ -132,7 +132,7 @@ class ProtectedRoute extends React.Component {
             isReady : false,
             isAuthed: undefined,
             user    : undefined
-        }
+        };
     }
 
     componentDidMount() {
@@ -143,13 +143,13 @@ class ProtectedRoute extends React.Component {
             .get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, { 
                 signal: this.abortController.signal, 
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Origin": "*",
                 }, 
             })
             .then((r) => {
                 // Mounted?
                 if(this._isMounted) {
-                    // r.data isn't null/underfined?
+                    // r.data isn"t null/underfined?
                     if(r.data) {
                         this.setState({
                             isAuthed: true,
@@ -176,8 +176,8 @@ class ProtectedRoute extends React.Component {
     }
 
     render() {
-        let { path, Component, redirect, propsToChild, needAuth } = this.props;
-        let { isReady, isAuthed }             = this.state;
+        let { path, Component, redirect, propsToChild, needAuth } = this.props,
+            { isReady, isAuthed }                                 = this.state;
 
         if(isReady) {
             return (

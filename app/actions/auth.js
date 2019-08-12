@@ -1,7 +1,7 @@
-import { Strategy as LocalStrategy } from 'passport-local';
-import config                        from './../config/config.json';
-import mysql                         from 'mysql';
-import bcrypt                        from 'bcryptjs';
+import { Strategy as LocalStrategy } from "passport-local";
+import config                        from "./../config/config.json";
+import mysql                         from "mysql";
+import bcrypt                        from "bcryptjs";
 
 const nodeEnv = process.env.NODE_ENV;
 
@@ -24,7 +24,7 @@ module.exports = {
     testDB: () => {
         CNX.connect((e) => {
             if(e) throw e;
-            console.log('\nYou are now connected on your database\n');
+            console.log("\nYou are now connected on your database\n");
         });
     },
 
@@ -35,10 +35,10 @@ module.exports = {
     signup: (passport, user) => {
         const User = user;
 
-        passport.use('local-signup', new LocalStrategy(
+        passport.use("local-signup", new LocalStrategy(
             {
-                usernameField: 'username',
-                passwordField: 'password',
+                usernameField: "username",
+                passwordField: "password",
                 passReqToCallback: true
             },
             (req, username, password, done) => {
@@ -53,17 +53,17 @@ module.exports = {
                     user = user || false;
     
                     if(user.Username_User === username) {
-                        req.session.errorTarget = 'username';
+                        req.session.errorTarget = "username";
                         
                         return done(null, false, {
-                            message: 'Username is already used'
+                            message: "Username is already used"
                         });
                     } else {
                         if(username.length < 6 || username.length > 45) {
-                            req.session.errorTarget = 'username';
+                            req.session.errorTarget = "username";
                         
                             return done(null, false, {
-                                message: 'Username is too short or too long'
+                                message: "Username is too short or too long"
                             });
                         } else {
                             User.findOne({
@@ -74,28 +74,28 @@ module.exports = {
                                 user = user || false;
                                 
                                 if(user.Email_User == req.body.email) {
-                                    req.session.errorTarget = 'email';
+                                    req.session.errorTarget = "email";
     
                                     return done(null, false, {
-                                        message: 'Email is already used'
+                                        message: "Email is already used"
                                     });
                                 } else {
-                                    if(!/(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i.test(req.body.email)) {
-                                        req.session.errorTarget = 'email';
+                                    if(!/(?!.*\.{2})^([a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i.test(req.body.email)) {
+                                        req.session.errorTarget = "email";
     
                                         return done(null, false, {
-                                            message: 'Email is not valid: is it an email?'
+                                            message: "Email is not valid: is it an email?"
                                         });
                                     } else {
-                                        let genHash = (pw) => {
+                                        const genHash = (pw) => {
                                             return bcrypt.hashSync(pw, bcrypt.genSaltSync(8), null);
-                                        }
+                                        };
     
                                         if(/([A-Z]{1})\w/.test(req.body.email)) {
-                                            req.session.errorTarget = 'email';
+                                            req.session.errorTarget = "email";
     
                                             return done(null, false, {
-                                                message: 'Email is not valid: there is at least one uppercase letter'
+                                                message: "Email is not valid: there is at least one uppercase letter"
                                             });
                                         } else {
                                             const 
@@ -109,6 +109,7 @@ module.exports = {
                                                 };
     
                                             User.create(data)
+                                            // eslint-disable-next-line no-unused-vars
                                             .then((newUser, created) => {
                                                 if(!newUser) {
                                                     return done(null, false);
@@ -119,8 +120,8 @@ module.exports = {
                                                 }
                                             })
                                             .catch((e) => {
-                                                console.log(e, data)
-                                            })
+                                                console.log(e, data);
+                                            });
                                         }
                                     }
                                 }
@@ -139,19 +140,18 @@ module.exports = {
     login: (passport, user) => {
         const User = user;
 
-        passport.use('local-signin', new LocalStrategy(
+        passport.use("local-signin", new LocalStrategy(
             {
-                usernameField: 'username',
-                passwordField: 'password',
+                usernameField: "username",
+                passwordField: "password",
                 passReqToCallback: true
             },
             (req, username, password, done) => {
                 req.session.username = username;
         
-                const
-                    isValidPassword = (password, pwGiven) => {
-                        return bcrypt.compareSync(password, pwGiven);
-                    }
+                const isValidPassword = (password, pwGiven) => {
+                    return bcrypt.compareSync(password, pwGiven);
+                };
         
                 User.findOne({
                     where: {
@@ -159,18 +159,18 @@ module.exports = {
                     }
                 }).then((user) => {
                     if(!user || user.Username_User !== username) {
-                        req.session.errorTarget = 'username';
+                        req.session.errorTarget = "username";
         
                         return done(null, false, {
-                            message: 'This user is not used. Create your account or verify this field.'
+                            message: "This user is not used. Create your account or verify this field."
                         });
                     }
         
                     if(!isValidPassword(password, user.Password_User)) {
-                        req.session.errorTarget = 'password';
+                        req.session.errorTarget = "password";
         
                         return done(null, false, {
-                            message: 'Incorrect password.'
+                            message: "Incorrect password."
                         });
                     }
         
@@ -180,9 +180,9 @@ module.exports = {
                     console.error(e);
         
                     return done(null, false, {
-                        message: 'Something went wrong with your login...'
+                        message: "Something went wrong with your login..."
                     });
-                })
+                });
             }));
     },
 
@@ -191,8 +191,8 @@ module.exports = {
      */
 
     logout: (req, res) => {
-        req.session.destroy((e) => {
-            res.redirect('/');
+        req.session.destroy(() => {
+            res.redirect("/");
         });
     },
 
@@ -203,7 +203,7 @@ module.exports = {
     getUser: (req, res) => {
         if(req.user !== undefined) {
             // Search in the database
-            CNX.query('SELECT * FROM users WHERE Id_User = ?', [req.user.Id_User], (e, r) => {
+            CNX.query("SELECT * FROM users WHERE Id_User = ?", [req.user.Id_User], (e, r) => {
                 if(e) throw e;
                 return res.send(r[0]);
             });
@@ -221,76 +221,76 @@ module.exports = {
         // Hashing is it the same password?
         const isValidPassword = (password, pwGiven) => {
             return bcrypt.compareSync(password, pwGiven);
-        }
+        };
         const body = req.body;
 
         // Get type of callType from parameters API Calling
-        if(body.callType === 'login') {
+        if(body.callType === "login") {
             // Get if this account is in the database
-            CNX.query('SELECT * FROM users WHERE Username_User = ?', [body.username], (e, r) => {
+            CNX.query("SELECT * FROM users WHERE Username_User = ?", [body.username], (e, r) => {
                 if(e) throw e;
 
                 // NO account is detected, so...
                 if(r.length === 0) {
                     res.send({
-                        errorTarget: 'username',
-                        error: 'Inexistent username'
+                        errorTarget: "username",
+                        error: "Inexistent username"
                     });
                 } else {
                     // Are DB Password and Password given matching?
                     if(!isValidPassword(body.password, r[0].Password_User)) {
                         return res.send({
-                            errorTarget: 'password',
-                            error: 'Incorrect password'
+                            errorTarget: "password",
+                            error: "Incorrect password"
                         });
                     } else {
-                        return res.send('OK');
+                        return res.send("OK");
                     }
                 }
             });
-        } else if(body.callType === 'signup') {
-            CNX.query('SELECT * FROM users WHERE Username_User = ?', [body.username], (e, r) => {
+        } else if(body.callType === "signup") {
+            CNX.query("SELECT * FROM users WHERE Username_User = ?", [body.username], (e, r) => {
                 if(e) throw e;
 
                 // Username is detected, so...
                 if(r.length === 1) {
                     res.send({
-                        errorTarget: 'username',
-                        error: 'Username is already used'
+                        errorTarget: "username",
+                        error: "Username is already used"
                     });
                 } else {
                     // Username conditions: min & max length
                     if(body.username.length < 6 || body.username.length > 45) {
                         res.send({
-                            errorTarget: 'username',
-                            error: 'Username is too short or too long'
+                            errorTarget: "username",
+                            error: "Username is too short or too long"
                         });
                     } else {
-                        CNX.query('SELECT * FROM users WHERE Email_User = ?', [body.email], (e, r) => {
+                        CNX.query("SELECT * FROM users WHERE Email_User = ?", [body.email], (e, r) => {
                             if(e) throw e;
 
                             // Email is detected, so...
                             if(r.length === 1) {
                                 res.send({
-                                    errorTarget: 'email',
-                                    error: 'Email is already used'
+                                    errorTarget: "email",
+                                    error: "Email is already used"
                                 });
                             } else {
                                 // Email conditions: valid email
-                                if(!/(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i.test(body.email)) {
+                                if(!/(?!.*\.{2})^([a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i.test(body.email)) {
                                     res.send({
-                                        errorTarget: 'email',
-                                        error: 'Email is not valid: is it an email?'
+                                        errorTarget: "email",
+                                        error: "Email is not valid: is it an email?"
                                     });
                                 } else {
                                     // Email conditions: valid lowercases
                                     if(/([A-Z]{1})\w/.test(body.email)) {
                                         res.send({
-                                            errorTarget: 'email',
-                                            error: 'Email is not valid: there is at least one uppercase letter'
+                                            errorTarget: "email",
+                                            error: "Email is not valid: there is at least one uppercase letter"
                                         });
                                     } else {
-                                        res.send('OK');
+                                        res.send("OK");
                                     }
                                 }
                             }
@@ -300,4 +300,4 @@ module.exports = {
             });
         }
     }
-}
+};

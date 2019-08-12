@@ -1,12 +1,12 @@
-var fs = require("fs");
-var path = require("path");
-var Sequelize = require("sequelize");
-var env = process.env.NODE_ENV;
-var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
-var sequelize = new Sequelize(config.database, config.username, config.password, config);
-var db = {};
- 
- 
+import fs from "fs";
+import path from "path";
+import Sequelize from "sequelize";
+
+const config = require(path.join(__dirname, "..", "config", "config.json"))[env];
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const db = {};
+const env = process.env.NODE_ENV;
+
 fs
     .readdirSync(__dirname)
     .filter(function(file) {

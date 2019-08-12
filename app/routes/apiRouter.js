@@ -1,43 +1,42 @@
-import express from 'express';
-import fs      from 'fs';
+import express from "express";
+import fs      from "fs";
 
 // Import routes
-import index      from './indexRouter';
-import signup     from './signupRouter';
-import login      from './loginRouter';
-import dashboard  from './dashboardRouter';
-import langSelect from './langSelectingRouter';
-import testAPI    from './api/testAPI';
+import index      from "./indexRouter";
+import signup     from "./signupRouter";
+import login      from "./loginRouter";
+import dashboard  from "./dashboardRouter";
+import langSelect from "./langSelectingRouter";
+import testAPI    from "./api/testAPI";
 
 // Import Actions
-import Auth from './../actions/auth';
+import Auth from "./../actions/auth";
 
 // Router
-let 
-    apiRouter = express.Router(),
-    Template = {
-        mainCSS: '',
-        mainJS : '',
-        appJS  : ''
-    }
+let Template = {
+    mainCSS: "",
+    mainJS : "",
+    appJS  : ""
+};
 
-let nodeEnv = process.env.NODE_ENV;
+const apiRouter = express.Router();
+const nodeEnv = process.env.NODE_ENV;
 
-apiRouter.get('/*', (req, res, next) => {
+apiRouter.get("/*", (req, res, next) => {
     // Get Path of files
-    fs.readFile('public/dist/manifest.json', 'utf-8', (e, data) => {
+    fs.readFile("public/dist/manifest.json", "utf-8", (e, data) => {
         if(e) {
-            process.env.NODE_ENV == 'development' ? console.warn('DEVELOPMENT =>' + e) : false;
+            process.env.NODE_ENV == "development" ? console.warn("DEVELOPMENT =>" + e) : false;
         }
 
-        if(e || process.env.NODE_ENV !== 'development') {
-            Template.mainCSS = JSON.parse(data)['main-css.css'];
-            Template.mainJS  = JSON.parse(data)['main-js.js'];
-            Template.appJS   = JSON.parse(data)['app.js'];
+        if(e || process.env.NODE_ENV !== "development") {
+            Template.mainCSS = JSON.parse(data)["main-css.css"];
+            Template.mainJS  = JSON.parse(data)["main-js.js"];
+            Template.appJS   = JSON.parse(data)["app.js"];
         } else {
-            Template.mainCSS = '/assets/dist/main-css.css';
-            Template.mainJS  = 'http://127.0.0.1:8080/assets/dist/main-js.js';
-            Template.appJS   = '/assets/dist/app.js';
+            Template.mainCSS = "/assets/dist/main-css.css";
+            Template.mainJS  = "http://127.0.0.1:8080/assets/dist/main-js.js";
+            Template.appJS   = "/assets/dist/app.js";
         }
     });
     
@@ -45,64 +44,64 @@ apiRouter.get('/*', (req, res, next) => {
 });
 
 // Homepage
-apiRouter.get('/', (req, res) => {
+apiRouter.get("/", (req, res) => {
     index.get(req, res, Template);
 });
-apiRouter.post('/', index.post);
+apiRouter.post("/", index.post);
 
 // SignUp
-apiRouter.get('/signup', (req, res) => {
+apiRouter.get("/signup", (req, res) => {
     signup.get(req, res, Template);
 });
-apiRouter.post('/signup', signup.authenticate);
+apiRouter.post("/signup", signup.authenticate);
 
 // LogIn
-apiRouter.get('/login', (req, res) => {
+apiRouter.get("/login", (req, res) => {
     login.get(req, res, Template);
 });
-apiRouter.post('/login', login.authenticate);
+apiRouter.post("/login", login.authenticate);
 
 // Dashboard
-apiRouter.get('/dashboard/:componentInterface?/:tab?', (req, res) => {
+apiRouter.get("/dashboard/:componentInterface?/:tab?", (req, res) => {
     dashboard.get(req, res, Template);
 });
 
 // Logout
-apiRouter.get('/logout', (req, res) => {
+apiRouter.get("/logout", (req, res) => {
     Auth.logout(req, res);
 });
 
 // BRAVE REWARDS
-apiRouter.get('/.well-known/brave-rewards-verification.txt', (req, res) => {
-    fs.readFile(`public/.well-known/brave-rewards-verification.txt`, 'utf-8', (e, data) => {
+apiRouter.get("/.well-known/brave-rewards-verification.txt", (req, res) => {
+    fs.readFile(`public/.well-known/brave-rewards-verification.txt`, "utf-8", (e, data) => {
         if(e) throw e;
         res.send(data);
     });
 });
 
 // LangSelecting
-apiRouter.get('/lang-select', (req, res) => {
+apiRouter.get("/lang-select", (req, res) => {
     langSelect.get(req, res, Template);
 });
-apiRouter.post('/lang-select', langSelect.post);
+apiRouter.post("/lang-select", langSelect.post);
 
 /* DEVELOPMENT /|/ TESTING */
-apiRouter.get('/api/testAPI', testAPI.get);
+apiRouter.get("/api/testAPI", testAPI.get);
 
 // /|!|\ CATCH ERROR ROUTING
-apiRouter.all('*', (req, res) => {
-    fs.readFile(`./public/config/config-${req.cookies.lang}.json`, 'utf-8', (e, data) => {
+apiRouter.all("*", (req, res) => {
+    fs.readFile(`./public/config/config-${req.cookies.lang}.json`, "utf-8", (e, data) => {
         if(e) {
             // REDIRECT
-            res.redirect('/lang-select');
+            res.redirect("/lang-select");
             return;
         }
 
-        res.render('main', {
-            title: JSON.parse(data)['title']['errors']['404'],
-            description: JSON.parse(data)['description']['errors']['404'],
+        res.render("main", {
+            title: JSON.parse(data)["title"]["errors"]["404"],
+            description: JSON.parse(data)["description"]["errors"]["404"],
             lang: req.cookies.lang,
-            url: `${req.protocol}://${req.get('host')}${req.originalUrl}`,
+            url: `${req.protocol}://${req.get("host")}${req.originalUrl}`,
             env: nodeEnv,
             mainCSS: Template.mainCSS,
             mainJS: Template.mainJS,

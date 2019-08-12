@@ -2,12 +2,12 @@
     Navigator isOnline
     ================== */
 
-let onLine = () => {
+const onLine = () => {
     setInterval(() => {
         if(!navigator.onLine) {
-            console.log('Navigator is not online.');
+            console.log("Navigator is not online.");
         }
     }, 10000);
-}
+};
 
 export default onLine;

@@ -1,19 +1,20 @@
-import React          from 'react';
-import { withRouter } from 'react-router-dom';
-import axios          from 'axios';
+/* eslint-disable no-async-promise-executor */
+import React          from "react";
+import { withRouter } from "react-router-dom";
+import axios          from "axios";
 
 // Components
-import Loader from './../../utils/Loader';
-import Input  from './../../utils/Input';
+import Loader from "./../../utils/Loader";
+import Input  from "./../../utils/Input";
 
 class LogIn extends React.Component {
 	constructor(props) {
         super(props);
 
         this.state = {
-            submitState: 'none',
+            submitState: "none",
             errorTarget: undefined
-        }
+        };
 
         this.child = React.createRef();
         
@@ -23,31 +24,27 @@ class LogIn extends React.Component {
 
     handleSubmit(e) {
         // Inputs
-        let 
-            usernameInput = document.getElementsByName('username')[0],
-            passwordInput = document.getElementsByName('password')[0];
+        const usernameInput = document.getElementsByName("username")[0];
+        const passwordInput = document.getElementsByName("password")[0];
 
-        let
-            target = e.target;
+        const target = e.target;
         
         e.preventDefault();
-        target.setAttribute('disabled', true);
+        target.setAttribute("disabled", true);
         target.style.transition = "none";
 
         this.setState({
-            submitState: 'loading'
+            submitState: "loading"
         });
 
-        new Promise(async (res, rej) => {
+        new Promise(async (res) => {
             // Verify all inputs, are they no errors (defined by regex / limits)?
-            let 
-                inputsChecking = document.querySelectorAll('.form-input'),
-                checkingList = [];
+            const inputsChecking = document.querySelectorAll(".form-input");
+            const checkingList = [];
 
-            let checkingListPush = new Promise(async (res, rej) => {
+            const checkingListPush = new Promise(async (res) => {
                 Array.prototype.forEach.call(inputsChecking, inputChecking => {
-                    let
-                        inputCheckingAttribute = inputChecking.getAttribute('data-available');
+                    const inputCheckingAttribute = inputChecking.getAttribute("data-available");
     
                     checkingList.push(inputCheckingAttribute);
                 });
@@ -55,46 +52,45 @@ class LogIn extends React.Component {
                 res(checkingList);
             })
             .catch((e) => {
-                window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+                window.CONF.env == "development" ? console.error("DEVELOPMENT => " + e) : false;
             });
         
             res(await checkingListPush);
         })
         .then(async (response) => {
             // Catch all errors and apply color to inputs (which have errors)
-            let checkFalse = new Promise(async (res, rej) => {
-                let
-                    authLabel = document.querySelectorAll('.form-label');
+            let checkFalse = new Promise(async (res) => {
+                const authLabel = document.querySelectorAll(".form-label");
 
                 for(let i = 0, j = response.length; i < j; i++) {
-                    if(response[i] == 'false') {
-                        authLabel[i].style.color = '#B22222';
+                    if(response[i] == "false") {
+                        authLabel[i].style.color = "#B22222";
                         res(false);
                     }
                 }
                 res(true);
             });
 
-            new Promise(async (res, rej) => {
+            new Promise(async (res) => {
                 res(await checkFalse);
             })
             .then(async (res) => {
                 // UX Timeout (just visual)
                 setTimeout(() => {
-                    // If there's at least one error
+                    // If there"s at least one error
                     if(res == false) {
                         this.setState({
-                            submitState: 'none'
+                            submitState: "none"
                         });
-                        target.removeAttribute('disabled');
+                        target.removeAttribute("disabled");
                         target.style.transition = "";
                     } else {
-                        console.log('FRONT END VERIFY => OK');
+                        console.log("FRONT END VERIFY => OK");
 
                         // Calling API
                         axios
                             .post(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, {
-                                callType: 'login',
+                                callType: "login",
                                 username: usernameInput.value,
                                 password: passwordInput.value
                             })
@@ -102,28 +98,28 @@ class LogIn extends React.Component {
                                 let
                                     data = res.data;
                                 
-                                if(data === 'OK') {
+                                if(data === "OK") {
                                     // We can submit if username & pw are okay and verified
                                     this.setState({
-                                        submitState: 'submit'
+                                        submitState: "submit"
                                     });
-                                    target.removeAttribute('disabled');
+                                    target.removeAttribute("disabled");
                                     target.style.transition = "";
-                                    console.log('CALL API VERIFY => OK');
-                                    console.log('SUBMIT');
+                                    console.log("CALL API VERIFY => OK");
+                                    console.log("SUBMIT");
 
-                                    document.forms['login'].submit();
+                                    document.forms["login"].submit();
                                 } else {
                                     // Display errors
-                                    await this.child.current.displayMessage(data.errorTarget, 'error', data.error);
+                                    await this.child.current.displayMessage(data.errorTarget, "error", data.error);
 
                                     this.setState({
-                                        submitState: 'none',
+                                        submitState: "none",
                                         errorTarget: data.errorTarget
                                     });
-                                    target.removeAttribute('disabled');
+                                    target.removeAttribute("disabled");
                                     target.style.transition = "";
-                                    console.log('CALL API VERIFY => OK');
+                                    console.log("CALL API VERIFY => OK");
                                     console.log(data.error);
                                 }
                             })
@@ -135,14 +131,14 @@ class LogIn extends React.Component {
             });
         })
         .catch((e) => {
-            window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+            window.CONF.env == "development" ? console.error("DEVELOPMENT => " + e) : false;
         });
     }
 
     handleLoading() {
         if(this.state.submitState == "loading") {
             return (
-                <Loader style={{position: 'absolute'}} styleContent={{transform: 'scale(0.6) translateY(8px)'}} />
+                <Loader style={{position: "absolute"}} styleContent={{transform: "scale(0.6) translateY(8px)"}} />
             );
         } else {
             return (
@@ -152,17 +148,17 @@ class LogIn extends React.Component {
     }
 	
 	componentDidMount() {
-        let inputSubmit = document.getElementById('form-submit');
+        let inputSubmit = document.getElementById("form-submit");
 
-        inputSubmit.addEventListener('click', (e) => {
+        inputSubmit.addEventListener("click", (e) => {
             this.handleSubmit(e);
         }, false);
     }
 
     componentWillUnmount() {
-        let inputSubmit = document.getElementById('form-submit');
+        let inputSubmit = document.getElementById("form-submit");
 
-        inputSubmit.removeEventListener('click', this.handleSubmit, false);
+        inputSubmit.removeEventListener("click", this.handleSubmit, false);
     }
     
 	render() {

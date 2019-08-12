@@ -1,10 +1,10 @@
-import React from 'react';
-import { HashLink } from 'react-router-hash-link';
+import React from "react";
+import { HashLink } from "react-router-hash-link";
 
 // Utils
-import Text from './../../utils/Text';
+import Text from "./../../utils/Text";
 
-const FooterLayout = (props) => {
+const FooterLayout = () => {
 	return (
 		<div className="page-part-wrapper">
 			<div className="background-overlay overlay--neutral"></div>
@@ -22,13 +22,13 @@ const FooterLayout = (props) => {
 								<div className="content-wrapper">
 									<h3 className="l-footer_item-title--special" data-website-title>
 										<img src="/assets/images/favicon.png" alt="pSearch's Logo" data-logo />
-										<Text path={['footer', 'basics', 'col1', 'heading']} />
+										<Text path={["footer", "basics", "col1", "heading"]} />
 									</h3>
 									<span className="l-footer_item-title--special" data-website-sub>
-										<Text path={['footer', 'basics', 'col1', 'subs', '1']} />
+										<Text path={["footer", "basics", "col1", "subs", "1"]} />
 									</span>
 									<span className="l-footer_item-title--special" data-website-sub>
-										<Text path={['footer', 'basics', 'col1', 'subs', '2']} />
+										<Text path={["footer", "basics", "col1", "subs", "2"]} />
 									</span>
 								</div>
 							</div>
@@ -36,30 +36,30 @@ const FooterLayout = (props) => {
 								<div className="l-footer_item" data-has-border>
 									<div className="content-wrapper l-footer_item-summary">
 										<h3 className="l-footer_item-heading">
-											<Text path={['footer', 'basics', 'col2', 'heading']} />
+											<Text path={["footer", "basics", "col2", "heading"]} />
 										</h3>
 										{/* <FooterLink 
-											title={<Text path={['heading', 'navigation', 'linksTitles', 'forum']} />} 
-											link={<Text path={['heading', 'navigation', 'links', 'forum']} />} />
+											title={<Text path={["heading", "navigation", "linksTitles", "forum"]} />} 
+											link={<Text path={["heading", "navigation", "links", "forum"]} />} />
 										<FooterLink 
-											title={<Text path={['heading', 'navigation', 'linksTitles', 'patchNotes']} />}
-											link={<Text path={['heading', 'navigation', 'links', 'patchNotes']} />} />
+											title={<Text path={["heading", "navigation", "linksTitles", "patchNotes"]} />}
+											link={<Text path={["heading", "navigation", "links", "patchNotes"]} />} />
 										<FooterLink 
-											title={<Text path={['heading', 'navigation', 'linksTitles', 'feedback']} />} 
-											link={<Text path={['heading', 'navigation', 'links', 'feedback']} />} />
+											title={<Text path={["heading", "navigation", "linksTitles", "feedback"]} />} 
+											link={<Text path={["heading", "navigation", "links", "feedback"]} />} />
 										<hr />
 										<FooterLink 
-											title={<Text path={['heading', 'navigation', 'linksTitles', 'signup']} />} 
-											link={<Text path={['heading', 'navigation', 'links', 'signup']} />} />
+											title={<Text path={["heading", "navigation", "linksTitles", "signup"]} />} 
+											link={<Text path={["heading", "navigation", "links", "signup"]} />} />
 										<FooterLink 
-											title={<Text path={['heading', 'navigation', 'linksTitles', 'login']} />} 
-											link={<Text path={['heading', 'navigation', 'links', 'login']} />} /> */}
+											title={<Text path={["heading", "navigation", "linksTitles", "login"]} />} 
+											link={<Text path={["heading", "navigation", "links", "login"]} />} /> */}
 									</div>
 								</div>
 								<div className="l-footer_item">
 									<div className="content-wrapper">
 										<FooterLink 
-											title={<Text path={['footer', 'basics', 'col3', 'list', '1']} />} 
+											title={<Text path={["footer", "basics", "col3", "list", "1"]} />} 
 											link="#" />
 									</div>
 								</div>
@@ -70,7 +70,7 @@ const FooterLayout = (props) => {
 			</div>
 		</div>
 	);
-}
+};
 
 const FooterLink = (props) => (
 	<HashLink 

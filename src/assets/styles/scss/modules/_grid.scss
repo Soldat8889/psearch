@@ -3,31 +3,31 @@
     ================== */
 
 %col-m {
-    @media screen and (min-width: $portrait_tablet_size) {
-        position: relative;
-        @include inline-block(top);
-        min-height: 1px;
-        padding: {
-            left: 15px;
-            right: 15px;
-        }
-    }
+	@media screen and (min-width: $portrait_tablet_size) {
+		position: relative;
+		@include inline-block(top);
+		min-height: 1px;
+		padding: {
+			left: 15px;
+			right: 15px;
+		}
+	}
 }
 
 %col-s {
-    position: relative;
-    @include inline-block(top);
-    min-height: 1px;
+	position: relative;
+	@include inline-block(top);
+	min-height: 1px;
 }
 
 @for $i from 1 through 12 {
-    .col-m-#{$i} {
-        @extend %col-m;
-        width: #{$i * (100% / 12)};
-    }
+	.col-m-#{$i} {
+		@extend %col-m;
+		width: #{$i * (100% / 12)};
+	}
 
-    .col-s-#{$i} {
-        @extend %col-s;
-        width: #{$i * (100% / 12)};
-    }
+	.col-s-#{$i} {
+		@extend %col-s;
+		width: #{$i * (100% / 12)};
+	}
 }

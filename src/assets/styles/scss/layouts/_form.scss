@@ -3,214 +3,214 @@
     ================== */
 
 .form {
-    &-wrapper {
-        margin-top: 20px;
-    }
+	&-wrapper {
+		margin-top: 20px;
+	}
     
-    &-header {
-        position: relative;
-        padding: 20px;
+	&-header {
+		position: relative;
+		padding: 20px;
 
-        &_banner {
-            position: absolute;
-            top: -20px;
-            width: 100%;
-            height: 20px;
+		&_banner {
+			position: absolute;
+			top: -20px;
+			width: 100%;
+			height: 20px;
 
-            background-color: $main-third--special_col;
-        }
+			background-color: $main-third--special_col;
+		}
 
-        &_title {
-            text-align: center;
-        }
-    }
+		&_title {
+			text-align: center;
+		}
+	}
 
-    &-inner {
-       margin: 25px 12px 10px 12px;
-    }
+	&-inner {
+		margin: 25px 12px 10px 12px;
+	}
     
-    &-context {
-        opacity: 1;
-        @include transition($me_tr transform, $lo_tr opacity);
-    }
+	&-context {
+		opacity: 1;
+		@include transition($me_tr transform, $lo_tr opacity);
+	}
 
-    &-group {
-        position: relative;
-        @include flexbox((
-            display: flex,
-            flex-direction: row,
-            justify-content: center
-        ));
-        align-items: center;
+	&-group {
+		position: relative;
+		@include flexbox((
+			display: flex,
+			flex-direction: row,
+			justify-content: center
+		));
+		align-items: center;
 
-        margin-bottom: 22px;
-    }
+		margin-bottom: 22px;
+	}
 
-    &-label {
-        position: absolute;
-        top: 12.5px;
-        left: 10px;
+	&-label {
+		position: absolute;
+		top: 12.5px;
+		left: 10px;
 
-        @include fonts(1.8, 400, $text_font, $light_gray_col);
+		@include fonts(1.8, 400, $text_font, $light_gray_col);
 
-        @include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
-        pointer-events: none;
+		@include transition(transform $sm_tr, font-size $sm_tr, color $sm_tr, font-weight $sm_tr);
+		pointer-events: none;
 
-        &__state--active {
-            font-weight: 600;
-            font-size: 1.6rem;
-            color: $main-third--special_col;
+		&__state--active {
+			font-weight: 600;
+			font-size: 1.6rem;
+			color: $main-third--special_col;
 
-            @include transform(translateY(-24px));
-        }
-    }
+			@include transform(translateY(-24px));
+		}
+	}
 
-    &-input {
-        padding: 2px 2px 0px 10px;
+	&-input {
+		padding: 2px 2px 0px 10px;
 
-        border-bottom: solid 1.5px $main-first_col;
+		border-bottom: solid 1.5px $main-first_col;
 
-        &:focus {
-            border-bottom: solid 1.5px $main-third--special_col;
+		&:focus {
+			border-bottom: solid 1.5px $main-third--special_col;
 
-            @include transition(border-bottom $vsm_tr);
-        }
+			@include transition(border-bottom $vsm_tr);
+		}
 
-        &_box {
-            position: absolute;
-            top: 50%;
-            right: 10px;
+		&_box {
+			position: absolute;
+			top: 50%;
+			right: 10px;
 
-            @include transform(translateY(-50%));
-        }
-    }
+			@include transform(translateY(-50%));
+		}
+	}
 
-    &-message {
-        &_wrapper {
-            @include flexbox((
-                display: flex,
-                justify-content: center
-            ));
-            align-items: center;
-        }
+	&-message {
+		&_wrapper {
+			@include flexbox((
+				display: flex,
+				justify-content: center
+			));
+			align-items: center;
+		}
 
-        &_text {
-            font: {
-                style: italic;
-                size: 1.5rem;
-            }
-        }
+		&_text {
+			font: {
+				style: italic;
+				size: 1.5rem;
+			}
+		}
 
-        &--error {
-            background-color: $negative_col;
-        }
+		&--error {
+			background-color: $negative_col;
+		}
 
-        &_icon {
-            @include flexbox((
-                display: flex,
-                justify-content: center
-            ));
-            align-items: center;
-            position: relative;
-            left: -.05rem;
-            width: 20px;
-            height: 20px;
+		&_icon {
+			@include flexbox((
+				display: flex,
+				justify-content: center
+			));
+			align-items: center;
+			position: relative;
+			left: -.05rem;
+			width: 20px;
+			height: 20px;
 
-            @include border-radius(100%);
-        }
-    }
+			@include border-radius(100%);
+		}
+	}
 
-    &-avatar {
-        width: 175px;
-        height: 175px;
+	&-avatar {
+		width: 175px;
+		height: 175px;
 
-        @include border-radius(50%);
-        background-color: $main-third_col;
-    }
+		@include border-radius(50%);
+		background-color: $main-third_col;
+	}
 
-    &-submit {
-        min-width: 300px;
-        width: 85%;
-    }
+	&-submit {
+		min-width: 300px;
+		width: 85%;
+	}
     
-    &-hr {
-        margin: 0 0 25px 0;
-    }
+	&-hr {
+		margin: 0 0 25px 0;
+	}
 
-    &-footer {
-        margin-bottom: 25px;
+	&-footer {
+		margin-bottom: 25px;
     
-        &_external-account {
-            width: 100%;
-            margin-bottom: 24px;
+		&_external-account {
+			width: 100%;
+			margin-bottom: 24px;
 
-            &_buttons {
-                min-width: 280px;
-                width: 75%; 
-                margin-bottom: 8px;
-            }
+			&_buttons {
+				min-width: 280px;
+				width: 75%;
+				margin-bottom: 8px;
+			}
 
-            &_icon {
-                width: 30px;
-                height: 30px;
-                @include inline-block(middle);
-                margin-right: 8px;
+			&_icon {
+				width: 30px;
+				height: 30px;
+				@include inline-block(middle);
+				margin-right: 8px;
 
-                background: {
-                    repeat: no-repeat;
-                    size: 25px;
-                    position: center;
-                }
-                border: none;
+				background: {
+					repeat: no-repeat;
+					size: 25px;
+					position: center;
+				}
+				border: none;
 
-                color: none;
+				color: none;
 
-                &.account--google {
-                    background-image: url("https://pbs.twimg.com/profile_images/927446347879292930/Fi0D7FGJ_400x400.jpg");
-                }
+				&.account--google {
+					background-image: url("https://pbs.twimg.com/profile_images/927446347879292930/Fi0D7FGJ_400x400.jpg");
+				}
 
-                &.account--discord {
-                    background-image: url("https://pmcvariety.files.wordpress.com/2018/05/discord-logo.jpg?w=1000&h=563&crop=1");
-                }
-            }
+				&.account--discord {
+					background-image: url("https://pmcvariety.files.wordpress.com/2018/05/discord-logo.jpg?w=1000&h=563&crop=1");
+				}
+			}
 
-            &_label {
-                @include inline-block(middle);
+			&_label {
+				@include inline-block(middle);
 
-                border: none;
-                background-color: none;
+				border: none;
+				background-color: none;
 
-                @include fonts(1.5, 500, $text_font);
-            }
-        }
+				@include fonts(1.5, 500, $text_font);
+			}
+		}
 
-        &_account {
-            @include fonts(1.5, 400, $text_font);
+		&_account {
+			@include fonts(1.5, 400, $text_font);
 
-            &-link {
-                color: $main-third--light-special_col;
-                font-weight: 500;
+			&-link {
+				color: $main-third--light-special_col;
+				font-weight: 500;
                 
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
 }
 
 .account {
-    &--google {
-        border: 2px solid #fff;
-        background-color: #fff;
+	&--google {
+		border: 2px solid #fff;
+		background-color: #fff;
         
-        color: #000;
-    }
+		color: #000;
+	}
 
-    &--discord {
-        border: 2px solid $discord_col;
-        background-color: $discord_col;
+	&--discord {
+		border: 2px solid $discord_col;
+		background-color: $discord_col;
         
-        color: #fff;
-    }
+		color: #fff;
+	}
 }

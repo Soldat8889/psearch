@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
-import AutoSize from 'autosize';
+import React from "react";
+import PropTypes from "prop-types";
+import { withRouter, Link } from "react-router-dom";
+import AutoSize from "autosize";
 
 // Utils
-    import Loader from './../../utils/Loader';
+    import Loader from "./../../utils/Loader";
 
 class Chat extends React.Component {
     _isMounted = false;
@@ -29,7 +29,7 @@ class Chat extends React.Component {
         this.state = {
             status: false,
             currentTab: "@channels"
-        }
+        };
 
         // Binding methods
         this.fullscreenHandler = this.fullscreenHandler.bind(this);
@@ -45,7 +45,7 @@ class Chat extends React.Component {
      */
 
     fullscreenHandler(e) {
-       if(e.target === document.querySelector('.chat--fullscreen')) { 
+       if(e.target === document.querySelector(".chat--fullscreen")) { 
             this.props.handler(e, "minify");
        }
     }
@@ -128,11 +128,11 @@ class ChatTab extends React.Component {
 
         const currentTab = e.currentTarget;
 
-        const tabs = document.querySelectorAll(`[data-reference="${currentTab.getAttribute('data-reference')}"][data-location-tab]`);
-        const selectionClass = 'chat__box-active';
+        const tabs = document.querySelectorAll(`[data-reference="${currentTab.getAttribute("data-reference")}"][data-location-tab]`);
+        const selectionClass = "chat__box-active";
 
         Array.prototype.forEach.call(tabs, tab => {
-            new Promise((res, rej) => {
+            new Promise((res) => {
                 // Removes last active tab
                 tab.classList.remove(selectionClass);
 
@@ -181,8 +181,8 @@ class HandleChatInterface extends React.Component {
 
         return (
             <div className="col-s-8 chat__area--wrapper">
-                {currentTab === '@messages' && <ChatInterfaceSending />}
-                {currentTab === '@channels' && <ChatInterfaceChannels />}
+                {currentTab === "@messages" && <ChatInterfaceSending />}
+                {currentTab === "@channels" && <ChatInterfaceChannels />}
             </div>
         );
     }
@@ -194,7 +194,7 @@ class ChatInterfaceSending extends React.Component {
     }
 
     componentDidMount() {
-        const textarea = document.querySelectorAll('.chat__area-textarea');
+        const textarea = document.querySelectorAll(".chat__area-textarea");
         AutoSize(textarea);
     }
 

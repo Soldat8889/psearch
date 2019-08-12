@@ -3,103 +3,103 @@
     ================== */
 
 %blur_effect {
-    position: fixed;
-    display: block;
-    content: '';
-    width: 100%;
-    height: 100%;
+	position: fixed;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 100%;
 
-    background-repeat: no-repeat;
-    @include background-size(cover);
+	background-repeat: no-repeat;
+	@include background-size(cover);
 
-    @include filter(blur(1.5px));
-    z-index: -1;
+	@include filter(blur(1.5px));
+	z-index: -1;
 }
 
 .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 
-    background-repeat: no-repeat;
-    @include background-size(cover);
+	background-repeat: no-repeat;
+	@include background-size(cover);
 
-    &.overlay--lol {
-        background: {
-            position: center 12%;
-            attachment: fixed;
-        }
+	&.overlay--lol {
+		background: {
+			position: center 12%;
+			attachment: fixed;
+		}
 
-        &.is-webp {
-            background-image: url("/assets/images/overlay--league-of-legends.webp");
-        }
+		&.is-webp {
+			background-image: url("/assets/images/overlay--league-of-legends.webp");
+		}
 
-        &.no-webp {
-            background-image: url("/assets/images/overlay--league-of-legends.jpg");
-        }
-    }
-    &.overlay--overwatch {
-        background-position: center 12%;
+		&.no-webp {
+			background-image: url("/assets/images/overlay--league-of-legends.jpg");
+		}
+	}
+	&.overlay--overwatch {
+		background-position: center 12%;
 
-        &.is-webp {
-            background-image: url("/assets/images/overlay--overwatch.webp");
-        }
+		&.is-webp {
+			background-image: url("/assets/images/overlay--overwatch.webp");
+		}
 
-        &.no-webp {
-            background-image: url("/assets/images/overlay--overwatch.jpg");
-        }
+		&.no-webp {
+			background-image: url("/assets/images/overlay--overwatch.jpg");
+		}
 
-        &::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.025);
-        }
-    }
-    &.overlay--portal {
-        &::before {
-            @extend %blur_effect;
+		&::after {
+			content: "";
+			display: block;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.025);
+		}
+	}
+	&.overlay--portal {
+		&::before {
+			@extend %blur_effect;
             
-            background: {
-                position: center 20%;
-            }
-        }
+			background: {
+				position: center 20%;
+			}
+		}
 
-        &.is-webp {
-            &::before {
-                background-image: url("/assets/images/overlay--portal.webp");
-            }
-        }
+		&.is-webp {
+			&::before {
+				background-image: url("/assets/images/overlay--portal.webp");
+			}
+		}
 
-        &.no-webp {
-            &::before {
-                background-image: url("/assets/images/overlay--portal.jpg");
-            }
-        }
-    }
-    &.overlay--horizon-zero-dawn {
-        background-position: center;
+		&.no-webp {
+			&::before {
+				background-image: url("/assets/images/overlay--portal.jpg");
+			}
+		}
+	}
+	&.overlay--horizon-zero-dawn {
+		background-position: center;
 
-        &.is-webp {
-            background-image: url("/assets/images/overlay--horizon-zero-dawn.webp");
-        }
+		&.is-webp {
+			background-image: url("/assets/images/overlay--horizon-zero-dawn.webp");
+		}
 
-        &.no-webp {
-            background-image: url("/assets/images/overlay--horizon-zero-dawn.jpg");
-        }
-    }
-    &.overlay--neutral {
-        background-color: $full-dark-third_col;
-    }
+		&.no-webp {
+			background-image: url("/assets/images/overlay--horizon-zero-dawn.jpg");
+		}
+	}
+	&.overlay--neutral {
+		background-color: $full-dark-third_col;
+	}
 }
 
 .background {
-    &--cover-all {
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+	&--cover-all {
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
 }

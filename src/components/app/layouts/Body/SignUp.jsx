@@ -1,10 +1,11 @@
-import React            from 'react';
-import { withRouter }   from 'react-router-dom';
-import axios            from 'axios'
+/* eslint-disable no-async-promise-executor */
+import React            from "react";
+import { withRouter }   from "react-router-dom";
+import axios            from "axios";
 
 // Components
-import Loader from './../../utils/Loader';
-import Input  from './../../utils/Input';
+import Loader from "./../../utils/Loader";
+import Input  from "./../../utils/Input";
 
 class SignUp extends React.Component {
     _isMounted = false;
@@ -13,11 +14,11 @@ class SignUp extends React.Component {
         super(props);
 
         this.state = {
-            submitState: 'none',
+            submitState: "none",
             errorTarget: undefined,
             stage: 1,
             ready: false
-        }
+        };
 
         // Link this to its child
         this.child = React.createRef();
@@ -29,33 +30,31 @@ class SignUp extends React.Component {
     handleSubmit(e) {
         // Inputs
         let
-            usernameInput  = document.getElementsByName('username')[0],
-            emailInput     = document.getElementsByName('email')[0],
-            passwordInput  = document.getElementsByName('password')[0];
+            usernameInput  = document.getElementsByName("username")[0],
+            emailInput     = document.getElementsByName("email")[0],
+            passwordInput  = document.getElementsByName("password")[0];
 
-        let
-            target = e.target;
+        const target = e.target;
         
         e.preventDefault();
-        target.setAttribute('disabled', true);
+        target.setAttribute("disabled", true);
         target.style.transition = "none";
 
         this.setState({
-            submitState: 'loading'
+            submitState: "loading"
         });
 
         switch(this.state.stage) {
             case 1:
-                new Promise(async (res, rej) => {
+                new Promise(async (res) => {
                     // Verify all inputs, are they no errors (defined by regex / limits)?
-                    let 
-                        inputsChecking = document.querySelectorAll('.form-input'),
-                        checkingList = [];
+                    const inputsChecking = document.querySelectorAll(".form-input");
+                    const checkingList = [];
         
-                    let checkingListPush = new Promise(async (res, rej) => {
+                    const checkingListPush = new Promise(async (res) => {
                         Array.prototype.forEach.call(inputsChecking, inputChecking => {
                             let
-                                inputCheckingAttribute = inputChecking.getAttribute('data-available');
+                                inputCheckingAttribute = inputChecking.getAttribute("data-available");
             
                             checkingList.push(inputCheckingAttribute);
                         });
@@ -63,46 +62,45 @@ class SignUp extends React.Component {
                         res(checkingList);
                     })
                     .catch((e) => {
-                        window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+                        window.CONF.env == "development" ? console.error("DEVELOPMENT => " + e) : false;
                     });
                 
                     res(await checkingListPush);
                 })
                 .then(async (response) => {
                     // Catch all errors and apply color to inputs (which have errors)
-                    let checkFalse = new Promise(async (res, rej) => {
-                        let
-                            authLabel = document.querySelectorAll('.form-label');
+                    const checkFalse = new Promise(async (res) => {
+                        const authLabel = document.querySelectorAll(".form-label");
         
                         for(let i = 0, j = response.length; i < j; i++) {
-                            if(response[i] == 'false') {
-                                authLabel[i].style.color = '#B22222';
+                            if(response[i] == "false") {
+                                authLabel[i].style.color = "#B22222";
                                 res(false);
                             }
                         }
                         res(true);
                     });
         
-                    new Promise(async (res, rej) => {
+                    new Promise(async (res) => {
                         res(await checkFalse);
                     })
                     .then(async (res) => {
                         // UX Timeout (just visual)
                         setTimeout(() => {
-                            // If there's at least one error
+                            // If there"s at least one error
                             if(res == false) {
                                 this.setState({
-                                    submitState: 'none'
+                                    submitState: "none"
                                 });
-                                target.removeAttribute('disabled');
+                                target.removeAttribute("disabled");
                                 target.style.transition = "";
                             } else {
-                                console.log('FRONT END VERIFY => OK');
+                                console.log("FRONT END VERIFY => OK");
         
                                 // Calling API
                                 axios
                                     .post(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`, {
-                                        callType: 'signup',
+                                        callType: "signup",
                                         username: usernameInput.value,
                                         email   : emailInput.value,
                                         password: passwordInput.value
@@ -111,15 +109,15 @@ class SignUp extends React.Component {
                                         let
                                             data = res.data;
                                         
-                                        if(data === 'OK') {
+                                        if(data === "OK") {
                                             // We can submit if username & pw are okay and verified
                                             this.setState({
-                                                submitState: 'submit'
+                                                submitState: "submit"
                                             });
-                                            target.removeAttribute('disabled');
+                                            target.removeAttribute("disabled");
                                             target.style.transition = "";
-                                            console.log('CALL API VERIFY => OK');
-                                            console.log('SUBMIT');
+                                            console.log("CALL API VERIFY => OK");
+                                            console.log("SUBMIT");
         
                                             // Change Stage to 2 => Params User View
                                             this.setState({
@@ -127,15 +125,15 @@ class SignUp extends React.Component {
                                             });
                                         } else {
                                             // Display errors
-                                            await this.child.current.child.current.child.current.displayMessage(data.errorTarget, 'error', data.error);
+                                            await this.child.current.child.current.child.current.displayMessage(data.errorTarget, "error", data.error);
         
                                             this.setState({
-                                                submitState: 'none',
+                                                submitState: "none",
                                                 errorTarget: data.errorTarget
                                             });
-                                            target.removeAttribute('disabled');
+                                            target.removeAttribute("disabled");
                                             target.style.transition = "";
-                                            console.log('CALL API VERIFY => OK');
+                                            console.log("CALL API VERIFY => OK");
                                             console.log(data.error);
                                         }
                                     })
@@ -147,11 +145,11 @@ class SignUp extends React.Component {
                     });
                 })
                 .catch((e) => {
-                    window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+                    window.CONF.env == "development" ? console.error("DEVELOPMENT => " + e) : false;
                 });
                 break;
             case 2:
-                document.forms['signup'].submit();
+                document.forms["signup"].submit();
                 break;
         }
     }
@@ -163,9 +161,9 @@ class SignUp extends React.Component {
             ready: true
         });
 
-        let inputSubmit = document.getElementById('form-submit');
+        let inputSubmit = document.getElementById("form-submit");
 
-        inputSubmit.addEventListener('click', (e) => {
+        inputSubmit.addEventListener("click", (e) => {
             this.handleSubmit(e);
         }, false);
     }
@@ -177,15 +175,15 @@ class SignUp extends React.Component {
             ready: false
         });
 
-        let inputSubmit = document.getElementById('form-submit');
+        let inputSubmit = document.getElementById("form-submit");
 
-        inputSubmit.removeEventListener('click', this.handleSubmit, false);
+        inputSubmit.removeEventListener("click", this.handleSubmit, false);
     }
 
     handleLoading() {
         if(this.state.submitState == "loading") {
             return (
-                <Loader style={{position: 'absolute'}} styleContent={{transform: 'scale(0.6) translateY(8px)'}} />
+                <Loader style={{position: "absolute"}} styleContent={{transform: "scale(0.6) translateY(8px)"}} />
             );
         } else {
             return (
@@ -233,7 +231,7 @@ class SignUp extends React.Component {
 }
 
 // Components
-import BreadCrumb from './../../utils/Breadcrumb';
+import BreadCrumb from "./../../utils/Breadcrumb";
 
 class StagesRouting extends React.Component {
     constructor(props) {
@@ -243,10 +241,10 @@ class StagesRouting extends React.Component {
     }
 
     componentDidMount() {
-        const tabs = [].slice.call(document.querySelectorAll('.form-context'));
+        const tabs = [].slice.call(document.querySelectorAll(".form-context"));
 
         const 
-            n = tabs.filter(tab => tab.getAttribute('data-stage') != this.props.stage);
+            n = tabs.filter(tab => tab.getAttribute("data-stage") != this.props.stage);
 
         Array.prototype.forEach.call(n, n => {
             n.style.display = "none";
@@ -255,11 +253,11 @@ class StagesRouting extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.stage !== this.props.stage) {
-            const tabs = [].slice.call(document.querySelectorAll('.form-context'));
+            const tabs = [].slice.call(document.querySelectorAll(".form-context"));
 
             const 
-                n = tabs.filter(tab => tab.getAttribute('data-stage') != this.props.stage),
-                y = tabs.filter(tab => tab.getAttribute('data-stage') == this.props.stage);
+                n = tabs.filter(tab => tab.getAttribute("data-stage") != this.props.stage);
+                const y = tabs.filter(tab => tab.getAttribute("data-stage") == this.props.stage);
 
             Array.prototype.forEach.call(y, y => {
                 y.style.opacity = "0";
@@ -282,13 +280,13 @@ class StagesRouting extends React.Component {
     }
 
     render() {
-        const { config, stage, errorTarget, ready } = this.props;
+        const { stage, errorTarget, ready } = this.props;
 
         return (
             <div>
                 <BreadCrumb 
                     name="Breadcrumb--SignUp"
-                    currentStage={this.props.stage}
+                    currentStage={stage}
                     params={
                         {
                             stages: {
@@ -300,13 +298,11 @@ class StagesRouting extends React.Component {
                     }
                 />
                 <StageOne 
-                    config={config}
                     errorTarget={errorTarget}
                     ready={ready}
                     ref={this.child}
                 />
                 <StageTwo
-                    config={config}
                     errorTarget={errorTarget}
                     ready={ready}
                 />
@@ -323,7 +319,7 @@ class StageOne extends React.Component {
     }
 
     render() {
-        const { config, errorTarget, ready } = this.props;
+        const { errorTarget } = this.props;
 
         return (
             <div className="form-context" data-form="signup" data-stage={1}>
@@ -351,7 +347,7 @@ class StageOne extends React.Component {
                     maxLength={254}
                     rule={{
                         type: "Regex",
-                        content: /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,
+                        content: /(?!.*\.{2})^([a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&"*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i,
                         error: "Must be an email."
                     }}
                     value={window.CONF.params.email !== undefined ? window.CONF.params.email : ""}
@@ -402,7 +398,7 @@ class StageTwo extends React.Component {
     }
 
     componentDidMount() {
-        document.getElementById('avatar-upload').addEventListener('change', (e) => {
+        document.getElementById("avatar-upload").addEventListener("change", (e) => {
             this.handlePreviewImage(e.target);
         }, false);
     }
@@ -410,12 +406,11 @@ class StageTwo extends React.Component {
     handlePreviewImage(el) {
         if(el.files && el.files[0]) {
             const 
-                reader    = new FileReader(),
-                previewer = document.getElementById('avatar-preview');
+                reader    = new FileReader();
+                const previewer = document.getElementById("avatar-preview");
 
-            reader.addEventListener('load', (e) => {
-                console.log(e.target.result)
-                previewer.setAttribute('src', e.target.result);
+            reader.addEventListener("load", (e) => {
+                previewer.setAttribute("src", e.target.result);
             }, false);
 
             reader.readAsDataURL(el.files[0]);

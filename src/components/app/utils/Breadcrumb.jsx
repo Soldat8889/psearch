@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 class BreadCrumb extends React.Component {
     static defaultProps = {
@@ -34,7 +34,7 @@ class BreadCrumb extends React.Component {
         // We use state instead of props, with them, we can attribute nextProps to them
         this.state = {
             currentStage: this.props.currentStage
-        }
+        };
 
         // Binding methods
         this.handleCreateStages = this.handleCreateStages.bind(this);
@@ -49,17 +49,9 @@ class BreadCrumb extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.currentStage != this.props.currentStage) {
-            new Promise((res, rej) => {
-                this.setState({
-                    currentStage: nextProps.currentStage
-                });
-
-                res(this.state);
-            })
-            .then((v) => {
-                // Calling methods
-                this.handleGetStage();
-            });
+            this.setState({
+                currentStage: nextProps.currentStage
+            }, this.handleGetStage());
         }
     }
 
@@ -91,17 +83,17 @@ class BreadCrumb extends React.Component {
 
         // For each elements with data-label-breadcrumb === name
         Array.prototype.forEach.call(cSElementsName, cSElementName => {
-            const cSElementStage = cSElementName.getAttribute('data-label-stage');
+            const cSElementStage = cSElementName.getAttribute("data-label-stage");
 
             // Search current stage, which element?
             if(cSElementStage == currentStage) {
-                cSElementName.setAttribute('data-current-stage', true);
+                cSElementName.setAttribute("data-current-stage", true);
                 cSElementName.style.backgroundColor = "red";
             } else {
-                cSElementName.setAttribute('data-current-stage', false);
+                cSElementName.setAttribute("data-current-stage", false);
                 cSElementName.style.backgroundColor = "";
             }
-        })
+        });
     }
 
     render() {

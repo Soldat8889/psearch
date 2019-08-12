@@ -1,11 +1,11 @@
-import React from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import React from "react";
+import { withRouter, Redirect } from "react-router-dom";
 
 // Chat
-import socketIoClient from 'socket.io-client';
+import socketIoClient from "socket.io-client";
 
 // Contexts
-import { UserContext } from './../context/UserContext';
+import { UserContext } from "./../context/UserContext";
 
 class Dashboard extends React.Component {
     _isMounted = false;
@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
             chatRealStatus: false,
 
             redirect: ""
-        }
+        };
 
         this.expandingChatStateHandler = this.expandingChatStateHandler.bind(this);
         this.keyHandler                = this.keyHandler.bind(this);
@@ -43,10 +43,10 @@ class Dashboard extends React.Component {
 
     expandingChatStateHandler(e, type) {
         try {
-            const t = e.currentTarget.getAttribute('data-action');
+            const t = e.currentTarget.getAttribute("data-action");
 
             if(t !== undefined) {
-                if(t === 'expand') {
+                if(t === "expand") {
                     this.setState({
                         chatIsExpand: true,
                         redirect: `/dashboard/chat/@channels#fullscreen`
@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
                     });
                 }
             } else {
-                if(type === 'expand') {
+                if(type === "expand") {
                     this.setState({
                         chatIsExpand: true,
                         redirect: `/dashboard/chat/@channels#fullscreen`
@@ -104,7 +104,9 @@ class Dashboard extends React.Component {
     }
 
     socketHandler() {
+        // eslint-disable-next-line no-unused-vars
         let { socket, chatRealStatus } = this.state;
+        
         const chatSupportTimer = setTimeout(() => {
             this.setState({
                 chatStatus: false
@@ -131,26 +133,26 @@ class Dashboard extends React.Component {
 
         this.socketHandler();
 
-        window.addEventListener('keyup', e => {
+        window.addEventListener("keyup", e => {
             this.keyHandler(e, e.keyCode);
         }, false);
 
-        window.addEventListener('hashchange', () => {
+        window.addEventListener("hashchange", () => {
             this.hashHandler();
         }, false);
 
-        this.hashHandler()
+        this.hashHandler();
     }
 
     componentWillUnmount() {
         this._isMounted = false;
         let { socket } = this.state;
 
-        window.removeEventListener('keyup', e => {
+        window.removeEventListener("keyup", e => {
             this.keyHandler(e, e.keyCode);
         }, false);
 
-        window.removeEventListener('hashchange', () => {
+        window.removeEventListener("hashchange", () => {
             this.hashHandler();
         }, false);
 
@@ -162,7 +164,7 @@ class Dashboard extends React.Component {
         const { chatIsExpand, chatStatus, redirect } = this.state;
 
         if(redirect !== "") {
-            return <Redirect to={redirect} />
+            return <Redirect to={redirect} />;
         }
 
         return (
@@ -185,7 +187,7 @@ class Dashboard extends React.Component {
                     />
                 </div>
             </section>
-        )
+        );
     }
 }
 
@@ -213,7 +215,7 @@ class Sidebar extends React.Component {
 }
 
 // Components
-import TopBar from './../components/app/layouts/Header/TopBar';
+import TopBar from "./../components/app/layouts/Header/TopBar";
 
 class Header extends React.Component {
     constructor(props) {
@@ -225,7 +227,7 @@ class Header extends React.Component {
             <UserContext.Consumer>
                 {user => (
                     <header id="Dashboard_Header" className="dashboard-header page-part-wrapper">
-                        <div className="background-overlay overlay--horizon-zero-dawn" style={{backgroundImage: 'url(https://cdna.artstation.com/p/assets/images/images/011/428/098/large/graham-tattersall-flat-background-mountains.jpg?1529525121)'}}></div>
+                        <div className="background-overlay overlay--horizon-zero-dawn" style={{backgroundImage: "url(https://cdna.artstation.com/p/assets/images/images/011/428/098/large/graham-tattersall-flat-background-mountains.jpg?1529525121)"}}></div>
                         <div className="page-part-content">
                             <TopBar 
                                 params={
@@ -250,7 +252,7 @@ class Header extends React.Component {
 }
 
 // Components
-import Chat from './../components/app/layouts/Body/Chat';
+import Chat from "./../components/app/layouts/Body/Chat";
 
 class Body extends React.Component {
     constructor(props) {

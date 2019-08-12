@@ -3,25 +3,25 @@
     ================== */
 
 @media screen and (max-width: $landscape_tablet_size) {
-    .l-footer {
-        @include grid-template(column, 1fr);
-    }
+	.l-footer {
+		@include grid-template(column, 1fr);
+	}
 }
 
 @media screen and (max-width: 520px) {
-    .l-footer {
-        &_item {
-            &[data-has-border] {
-                border-right: none;
-            }
+	.l-footer {
+		&_item {
+			&[data-has-border] {
+				border-right: none;
+			}
 
-            &[data-has-border]:first-child {
-                border-right: dashed 2px #fff;
-            }
+			&[data-has-border]:first-child {
+				border-right: dashed 2px #fff;
+			}
 
-            &-group {
-                @include grid-template(column, 0.75fr 1fr);
-            }
-        }
-    }
+			&-group {
+				@include grid-template(column, 0.75fr 1fr);
+			}
+		}
+	}
 }

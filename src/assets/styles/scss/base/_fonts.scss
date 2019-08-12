@@ -3,81 +3,89 @@
     ================== */
 
 *::selection {
-    background: $main-third--special_col;
-    color: #fff;
+	background: $main-third--special_col;
+	color: #fff;
 }
 
 *::-moz-selection {
-    background: $main-third--special_col;
-    color: #fff;
+	background: $main-third--special_col;
+	color: #fff;
 }
 
 h1 { @include fonts(2.8, 400, $title_font); }
 h2 { @include fonts(2.5, 400, $title_font); }
 h3 { @include fonts(2, 300, $title_font); }
-h4, .me-text { @include fonts(1.8, 300, $text_font); }
-p, .text { @include fonts(1.65, 300, $text_font); }
+h4,
+.me-text { @include fonts(1.8, 300, $text_font); }
+p,
+.text { @include fonts(1.65, 300, $text_font); }
 .sm-text { @include fonts(1.3, 300, $text_font); }
 
 @media screen and (max-width: $portrait_tablet_size) {
-    h1 { font-size: 2.6rem; }
-    h2 { font-size: 2.3rem; }
-    h3 { font-size: 1.8rem; }
-    h4, .me-text { font-size: 1.6rem; }
-    p, .text { font-size: 1.45rem; }
-    .sm-text { font-size: 1.1rem; }
+	h1 { font-size: 2.6rem; }
+	h2 { font-size: 2.3rem; }
+	h3 { font-size: 1.8rem; }
+	h4,
+	.me-text { font-size: 1.6rem; }
+	p,
+	.text { font-size: 1.45rem; }
+	.sm-text { font-size: 1.1rem; }
 }
 
-p, .paragraph { text-indent: 20px; }
+p,
+.paragraph { text-indent: 20px; }
 
 .highlight {
-    font: {
-        size: inherit;
-        weight: 400;
-    }
-    color: $main-third--special_col;
-    text-decoration: underline;
+	font: {
+		size: inherit;
+		weight: 400;
+	}
+	color: $main-third--special_col;
+	text-decoration: underline;
 }
 
 .text-heading {
-    @include inline-block(middle);
-    position: relative;
-    margin-bottom: 35px;
+	@include inline-block(middle);
+	position: relative;
+	margin-bottom: 35px;
 
-    z-index: 1;
+	z-index: 1;
 
-    h1, h2, h3, h4 {
-        @include inline-block(top);
-        position: relative;
-        bottom: -10px;
-        margin-left: 100px;
+	h1,
+	h2,
+	h3,
+	h4 {
+		@include inline-block(top);
+		position: relative;
+		bottom: -10px;
+		margin-left: 100px;
 
-        font-family: $title_font;
-    }
+		font-family: $title_font;
+	}
 }
 
 .triangular-bar {
-    position: absolute;
+	position: absolute;
     
-    overflow: visible;
-    fill: #000;
+	overflow: visible;
+	fill: #000;
 
-    @for $i from 1 through 5 {
-        > polygon:nth-child(#{$i}) {
-            opacity: $i * 0.15;
-        }
-    }
+	@for $i from 1 through 5 {
+		> polygon:nth-child(#{$i}) {
+			opacity: $i * 0.15;
+		}
+	}
 
-    polygon {
-        @include transition(opacity $me_tr);
-    }
+	polygon {
+		@include transition(opacity $me_tr);
+	}
 
-    &:hover {
-        @for $i from 1 through 5 {
-            > polygon:nth-child(#{$i}) {
-                opacity: $i * 0.175;
-                @include transition(opacity $me_tr);
-            }
-        }
-    }
+	&:hover {
+		@for $i from 1 through 5 {
+			> polygon:nth-child(#{$i}) {
+				opacity: $i * 0.175;
+				@include transition(opacity $me_tr);
+			}
+		}
+	}
 }

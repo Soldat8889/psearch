@@ -1,5 +1,5 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 
 export const URL_API_AUTH = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/auth/user`;
 
@@ -15,7 +15,7 @@ export default class UserProvider extends React.Component {
 
         this.state = {
             user: false
-        }
+        };
     }
 
     componentDidMount() {

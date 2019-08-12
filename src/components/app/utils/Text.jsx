@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable no-async-promise-executor */
+import React from "react";
+import PropTypes from "prop-types";
 
 // Contexts
-import { ConfigContext } from './../../../context/ConfigContext';
+import { ConfigContext } from "./../../../context/ConfigContext";
 
 class Text extends React.Component {
     _isMounted = false;
@@ -17,7 +18,7 @@ class Text extends React.Component {
         this.state = {
             status: "__WAITING",
             text  : null
-        }
+        };
 
         // Binding methods
         this.handleLoading = this.handleLoading.bind(this);
@@ -27,8 +28,8 @@ class Text extends React.Component {
         const path      = this.props.path;
         let  pathToText = this.context[path[0]];
 
-        new Promise(async (res, rej) => {
-            let pathSearching = new Promise(async (res, rej) => {
+        new Promise(async (res) => {
+            let pathSearching = new Promise(async (res) => {
                 for(let i = 1, j = path.length; i < j; i++) {
                     pathToText = pathToText[path[i]];
                 }
@@ -45,7 +46,7 @@ class Text extends React.Component {
             });
         })
         .catch((e) => {
-            window.CONF.env == 'development' ? console.error('DEVELOPMENT => ' + e) : false;
+            window.CONF.env == "development" ? console.error("DEVELOPMENT => " + e) : false;
         });
     }
 

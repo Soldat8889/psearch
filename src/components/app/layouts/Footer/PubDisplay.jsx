@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from "react";
 
 class PubDisplay extends React.Component {
 	constructor(props) {
@@ -8,27 +8,27 @@ class PubDisplay extends React.Component {
 	componentDidMount() {
 		try {
 			let 
-				pubDisplay        = document.getElementById('pub-display'),
-				pubDisplayPub     = document.getElementById('pub-display-pub'),
-				pubDisplayOverlay = document.getElementById('pub-display-overlay'),
-				pubDisplayBtn     = document.getElementById('pub-display-wrapper_remove-remove');
+				pubDisplay        = document.getElementById("pub-display"),
+				pubDisplayPub     = document.getElementById("pub-display-pub"),
+				pubDisplayOverlay = document.getElementById("pub-display-overlay"),
+				pubDisplayBtn     = document.getElementById("pub-display-wrapper_remove-remove");
 
-			pubDisplayPub.addEventListener('load', () => {
+			pubDisplayPub.addEventListener("load", () => {
 				pubDisplayOverlay.style.width = `${pubDisplayPub.offsetWidth}px`;
 				pubDisplayOverlay.style.height = `${pubDisplayPub.offsetHeight}px`;
 			}, false);
 
-			pubDisplayBtn.addEventListener('mouseover', () => {
-				pubDisplayBtn.classList.add('fa');
-				pubDisplayBtn.classList.remove('far');
+			pubDisplayBtn.addEventListener("mouseover", () => {
+				pubDisplayBtn.classList.add("fa");
+				pubDisplayBtn.classList.remove("far");
 			}, false);
 
-			pubDisplayBtn.addEventListener('mouseleave', () => {
-				pubDisplayBtn.classList.remove('fa');
-				pubDisplayBtn.classList.add('far');
+			pubDisplayBtn.addEventListener("mouseleave", () => {
+				pubDisplayBtn.classList.remove("fa");
+				pubDisplayBtn.classList.add("far");
 			}, false);
 
-			pubDisplayBtn.addEventListener('click', () => {
+			pubDisplayBtn.addEventListener("click", () => {
 				let date = new Date(),
 					monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 					expiresDate = `${date.getDate() + 1} ${monthNames[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} GMT`;
@@ -37,12 +37,12 @@ class PubDisplay extends React.Component {
 				pubDisplay.classList.add("has-no-display");
 			}, false);
 
-			pubDisplayPub.addEventListener('mouseover', () => {
-				pubDisplayOverlay.classList.remove('has-no-display');
+			pubDisplayPub.addEventListener("mouseover", () => {
+				pubDisplayOverlay.classList.remove("has-no-display");
 			}, false);
 
-			pubDisplayOverlay.addEventListener('mouseleave', () => {
-				pubDisplayOverlay.classList.add('has-no-display');
+			pubDisplayOverlay.addEventListener("mouseleave", () => {
+				pubDisplayOverlay.classList.add("has-no-display");
 			}, false);
 		} catch(e) {}
 	}

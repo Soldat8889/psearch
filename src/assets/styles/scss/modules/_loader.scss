@@ -3,130 +3,130 @@
     ================== */
 
 @include keyframes(loader_bubble-GROUP--1) {
-    0% {
-        transform: translateX(0) translateY(0);
-    }
-    17% {
-        transform: translateX(30px) translateY(-17px);
-    }
-    34% {
-        transform: translateX(60px) translateY(0);
-    }
-    51% {
-        transform: translateX(30px) translateY(-17px);
-    }
-    68% {
-        transform: translateX(30px) translateY(-35px);
-    }
-    85% {
-        transform: translateX(30px) translateY(-17px);
-    }
-    100% {
-        transform: translateX(0) translateY(0);
-    }
+	0% {
+		transform: translateX(0) translateY(0);
+	}
+	17% {
+		transform: translateX(30px) translateY(-17px);
+	}
+	34% {
+		transform: translateX(60px) translateY(0);
+	}
+	51% {
+		transform: translateX(30px) translateY(-17px);
+	}
+	68% {
+		transform: translateX(30px) translateY(-35px);
+	}
+	85% {
+		transform: translateX(30px) translateY(-17px);
+	}
+	100% {
+		transform: translateX(0) translateY(0);
+	}
 }
 
 @include keyframes(loader_bubble-GROUP--2) {
-    0% {
-        transform: translateX(0) translateY(0);
-    }
-    17% {
-        transform: translateX(0) translateY(17.5px);
-    }
-    34% {
-        transform: translateX(-30px) translateY(35px);
-    }
-    51% {
-        transform: translateX(0) translateY(17.5px);
-    }
-    68% {
-        transform: translateX(30px) translateY(35px);
-    }
-    85% {
-        transform: translateX(0) translateY(17.5px);
-    }
-    100% {
-        transform: translateX(0) translateY(0);
-    }
+	0% {
+		transform: translateX(0) translateY(0);
+	}
+	17% {
+		transform: translateX(0) translateY(17.5px);
+	}
+	34% {
+		transform: translateX(-30px) translateY(35px);
+	}
+	51% {
+		transform: translateX(0) translateY(17.5px);
+	}
+	68% {
+		transform: translateX(30px) translateY(35px);
+	}
+	85% {
+		transform: translateX(0) translateY(17.5px);
+	}
+	100% {
+		transform: translateX(0) translateY(0);
+	}
 }
 
 @include keyframes(loader_bubble-GROUP--3) {
-    0% {
-        transform: translateX(0) translateY(0);
-    }
-    17% {
-        transform: translateX(-30px) translateY(-17px);
-    }
-    34% {
-        transform: translateX(-30px) translateY(-35px);
-    }
-    51% {
-        transform: translateX(-30px) translateY(-17px);
-    }
-    68% {
-        transform: translateX(-60px) translateY(0);
-    }
-    85% {
-        transform: translateX(-30px) translateY(-17px);
-    }
-    100% {
-        transform: translateX(0) translateY(0);
-    }
+	0% {
+		transform: translateX(0) translateY(0);
+	}
+	17% {
+		transform: translateX(-30px) translateY(-17px);
+	}
+	34% {
+		transform: translateX(-30px) translateY(-35px);
+	}
+	51% {
+		transform: translateX(-30px) translateY(-17px);
+	}
+	68% {
+		transform: translateX(-60px) translateY(0);
+	}
+	85% {
+		transform: translateX(-30px) translateY(-17px);
+	}
+	100% {
+		transform: translateX(0) translateY(0);
+	}
 }
 
 .loader {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    @include flexbox((
-        display: flex,
-        flex-direction: column
-    ));
-    justify-content: center;
-    align-items: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	@include flexbox((
+		display: flex,
+		flex-direction: column
+	));
+	justify-content: center;
+	align-items: center;
 
-    z-index: $all-width_index;
+	z-index: $all-width_index;
     
-    &[data-state="onload"] {
-        @include flexbox((
-            display: flex
-        ));
+	&[data-state="onload"] {
+		@include flexbox((
+			display: flex
+		));
+		
+		z-index: $all-width_index;
+		cursor: wait;
+	}
 
-        z-index: $all-width_index;
-        cursor: wait;
-    }
-
-    &[data-state="loaded"] {
-        display: none;
-    }
+	&[data-state="loaded"] {
+		display: none;
+	}
     
-    &_content {
-        @include display-grid;
-        @include grid-template(column, repeat(3, 30px));
-        @include grid-template(row, repeat(2, 35px));
-    }
+	&_content {
+		@include display-grid;
+		@include grid-template(column, repeat(3, 30px));
+		@include grid-template(row, repeat(2, 35px));
+	}
 
-    &_bubble {
-        display: block;
-        width: 20px;
-        height: 20px;
-        margin: auto;
+	&_bubble {
+		display: block;
+		width: 20px;
+		height: 20px;
+		margin: auto;
 
-        border-radius: 100%;
+		border-radius: 100%;
 
-        @include transform(translateX(0) translateY(0));
-        @include animation(3s cubic-bezier(.41,-0.11,.36,1.16) infinite);
-    }
+		@include transform(translateX(0) translateY(0));
+		@include animation(3s cubic-bezier(.41,-0.11,.36,1.16) infinite);
+	}
 
-    @each $i, $color, $pos_row, $pos_col in (1, #F6B500, 2, 1), (2, #009F56, 1, 2), (3, #DE4331, 2, 3) {
-        &_bubble:nth-child(#{$i}) {
-            @include grid-child(#{$pos_col}, auto, #{$pos_row}, auto);
+	@each $i, $color, $pos_row, $pos_col in (1, #F6B500, 2, 1), (2, #009F56, 1, 2), (3, #DE4331, 2, 3) {
+		&_bubble:nth-child(#{$i}) {
+			@include grid-child(#{$pos_col}, auto, #{$pos_row}, auto);
 
-            background-color: #{$color};
+			background-color: #{$color};
 
-            animation-name: loader_bubble-GROUP--#{$i};
-        }
-    }
+			animation-name: loader_bubble-GROUP--#{$i};
+		}
+	}
 }

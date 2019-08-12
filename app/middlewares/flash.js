@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 		req.session.flash === undefined ? req.session.flash = {} : null;
 
 		req.session.flash[type] = content;
-	}
+	};
 
 	next();
-}
+};

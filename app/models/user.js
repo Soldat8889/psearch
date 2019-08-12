@@ -1,7 +1,8 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
+    // eslint-disable-next-line no-unused-vars
     const models = { sequelize };
 
-    let user = sequelize.define('user', {
+    let user = sequelize.define("user", {
         Id_User: {
             autoIncrement: true,
             primaryKey   : true,
@@ -34,17 +35,17 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 is: /.*\.(?:jpe?g|png|gif)/gi
             },
-            defaultValue: '/avatars/default--avatar.png'
+            defaultValue: "/avatars/default--avatar.png"
         },
         Grade_User: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [['Client', 'Premium', 'Moderator', 'Administrator']]
+                isIn: [["Client", "Premium", "Moderator", "Administrator"]]
             },
-            defaultValue: 'Client'
+            defaultValue: "Client"
         }
     });
 
     return user;
-}
+};

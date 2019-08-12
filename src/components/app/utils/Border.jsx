@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Border extends React.Component {
     constructor(props) {
@@ -9,12 +9,10 @@ class Border extends React.Component {
 
     renderingContent() {
         switch(this.props.borderType) {
-            case 'basic':
+            case "basic":
                 return <BasicalBorder typeBorder="basic" style={this.props.style ? this.props.style : false} />;
-                break;
             default:
                 return <BasicalBorder typeBorder="basic" style={this.props.style ? this.props.style : false} />;
-            break;
         }
     }
 

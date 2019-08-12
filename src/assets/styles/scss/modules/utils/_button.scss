@@ -37,7 +37,7 @@
 				weight: 900;
 			}
 		}
-
+		
 		> i {
 			margin: auto;
 
@@ -58,7 +58,7 @@
 
 	border: 1.5px solid $main-third--special_col;
 	@include border-radius(18px);
-	
+
 	font: {
 		family: $text_font;
 	}

@@ -7,14 +7,14 @@
 	bottom: 0;
 	left: 0;
 	@include flexbox((
-		display: flex	
+		display: flex
 	));
 	height: 50px;
 	margin: 10px;
 
-	background-color: #FEFEFE;
+	background-color: #fefefe;
 	@include border-radius(4px);
-	border: 1px solid #FDFDFE;
+	border: 1px solid #fdfdfe;
 	@include box-shadow(1px 1px 4px rgba(0, 0 , 0, 0.2));
 
 	font-family: $text_font;
@@ -44,7 +44,7 @@
 		top: 48%;
 		right: 5px;
 		display: block;
-		content: 'x';
+		content: "x";
 
 		font-size: 2rem;
 

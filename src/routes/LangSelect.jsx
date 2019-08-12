@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 // Components
 // Utils
-import CustomFieldSelect from './../components/app/utils/CustomFieldSelect';
+import CustomFieldSelect from "./../components/app/utils/CustomFieldSelect";
 
 class LangSelect extends React.Component {
 	constructor(props) {

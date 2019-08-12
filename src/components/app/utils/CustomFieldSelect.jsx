@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class CustomFieldSelect extends React.Component {
 	constructor(props) {
@@ -7,18 +7,16 @@ class CustomFieldSelect extends React.Component {
 		this.state = {
 			currentKey: Object.keys(this.props.options)[0],
 			currentOption: Object.values(this.props.options)[0]
-		}
+		};
 
 		this.onClick = this.onClick.bind(this);
 		this.createCustomOptions = this.createCustomOptions.bind(this);
 	}
 
 	componentDidMount() {
-		const itemSelected = document.querySelector(`.select-selected[data-select-id="${this.props.id}"]`),
-			itemsSelection = itemSelected.nextSibling,
-			selectOptions = [].slice.call(itemsSelection.children);
+		const itemSelected = document.querySelector(`.select-selected[data-select-id="${this.props.id}"]`);
 
-		itemSelected.addEventListener('click', (e) => {
+		itemSelected.addEventListener("click", (e) => {
 			e.preventDefault();
 			
 			this.onClick();
@@ -26,24 +24,24 @@ class CustomFieldSelect extends React.Component {
 	}
 
 	onClick() {
-		const itemSelected = document.querySelector(`.select-selected[data-select-id="${this.props.id}"]`),
-			itemsSelection = itemSelected.nextSibling,
-			selectOptions = [].slice.call(itemsSelection.children);
+		const itemSelected = document.querySelector(`.select-selected[data-select-id="${this.props.id}"]`);
+		const itemsSelection = itemSelected.nextSibling;
+		const selectOptions = [].slice.call(itemsSelection.children);
 
-		if(itemsSelection.getAttribute('data-state') === 'folded') {
-			itemSelected.classList.add('is-selected');
-			itemSelected.childNodes[0].childNodes[1].textContent = '';
-			itemsSelection.setAttribute('data-state', 'unfolded');
+		if(itemsSelection.getAttribute("data-state") === "folded") {
+			itemSelected.classList.add("is-selected");
+			itemSelected.childNodes[0].childNodes[1].textContent = "";
+			itemsSelection.setAttribute("data-state", "unfolded");
 		} else {
-			itemSelected.classList.remove('is-selected');
-			itemSelected.childNodes[0].childNodes[1].textContent = '';
-			itemsSelection.setAttribute('data-state', 'folded');
+			itemSelected.classList.remove("is-selected");
+			itemSelected.childNodes[0].childNodes[1].textContent = "";
+			itemsSelection.setAttribute("data-state", "folded");
 		}
 
 		itemSelected.blur();
 
 		for (let i = 0, j = selectOptions.length; i < j; i++) {
-			selectOptions[i].addEventListener('click', (e) => {
+			selectOptions[i].addEventListener("click", (e) => {
 				e.preventDefault();
 
 				this.setState({
@@ -52,21 +50,21 @@ class CustomFieldSelect extends React.Component {
 				});
 
 				for (let i = 0, j = selectOptions.length; i < j; i++) {
-					const realSelectOptions = document.querySelector(`select[data-select-id="${this.props.id}"]`),
-						realOptions = [].slice.call(realSelectOptions.children);
-					realOptions[i].removeAttribute('selected');
-					selectOptions[i].classList.remove('is-selected');
+					const realSelectOptions = document.querySelector(`select[data-select-id="${this.props.id}"]`);
+						const realOptions = [].slice.call(realSelectOptions.children);
+					realOptions[i].removeAttribute("selected");
+					selectOptions[i].classList.remove("is-selected");
 					
 					if(selectOptions[i].value === this.state.currentKey) {
-						realOptions[i].setAttribute('selected', '');
-						selectOptions[i].classList.add('is-selected');
+						realOptions[i].setAttribute("selected", "");
+						selectOptions[i].classList.add("is-selected");
 					}
 				}
 
 				if(this.props.autoClose) {
-					itemSelected.childNodes[0].childNodes[1].textContent = '';
-					itemSelected.classList.remove('is-selected');
-					itemsSelection.setAttribute('data-state', 'folded');
+					itemSelected.childNodes[0].childNodes[1].textContent = "";
+					itemSelected.classList.remove("is-selected");
+					itemsSelection.setAttribute("data-state", "folded");
 				}
 
 				setTimeout(() => {
@@ -142,7 +140,7 @@ class CustomFieldSelect extends React.Component {
 					{this.createOptions()}
 				</select>
 			</div>
-		)
+		);
 	}
 }
 

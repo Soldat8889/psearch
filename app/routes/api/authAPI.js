@@ -1,7 +1,7 @@
-import express from 'express';
+import express from "express";
 
 // Actions files
-import Auth from './../../actions/auth';
+import Auth from "./../../actions/auth";
 
 // Router
 let apiRouter = express.Router();
@@ -10,11 +10,11 @@ let apiRouter = express.Router();
  * Get User
  */
 
-apiRouter.get('/api/auth/user', (req, res) => {
+apiRouter.get("/api/auth/user", (req, res) => {
     Auth.getUser(req, res);
 });
 
-apiRouter.post('/api/auth/user', (req, res) => {
+apiRouter.post("/api/auth/user", (req, res) => {
     Auth.verifyUser(req, res);
 });
 
