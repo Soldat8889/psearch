@@ -48,7 +48,7 @@
     "mini-css-extract-plugin": "^0.4.5",
     "mixin-loader": "^2.0.3",
     "mobile-detect": "^1.4.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.18.11",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "path": "^0.12.7",
