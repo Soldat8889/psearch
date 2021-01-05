@@ -37,7 +37,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
     "@hot-loader/react-dom": "^16.8.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^0.1.19",
     "compass-mixins": "^0.12.10",
