@@ -31,7 +31,7 @@
     "react-ga": "^2.5.7",
     "react-hot-loader": "^4.8.4",
     "sequelize": "^5.15.1",
-    "tar": "^4.4.2"
+    "tar": "^4.4.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
